@@ -1,74 +1,58 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "rapida.ai documentations",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
-  "favicon": "/favicon.svg",
-  "colors": {
-    "primary": "#2463eb",
-    "light": "#2463eb",
-    "dark": "#2463eb"
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:mukesh@rapida.ai"
+    "$schema": "https://mintlify.com/schema.json",
+    "name": "rapida.ai documentations",
+    "logo": {
+        "dark": "/logo/dark.svg",
+        "light": "/logo/light.svg"
+    },
+    "favicon": "/favicon.svg",
+    "colors": {
+        "primary": "#2463eb",
+        "light": "#2463eb",
+        "dark": "#2463eb"
+    },
+    "topbarLinks": [
+        {
+            "name": "Support",
+            "url": "mailto:mukesh@rapida.ai"
+        }
+    ],
+    "topbarCtaButton": {
+        "name": "Dashboard",
+        "url": "https://rapida.ai/dashboard"
+    },
+    "tabs": [
+        {
+            "name": "API Reference",
+            "url": "api-reference"
+        }
+    ],
+    "navigation": [
+        {
+            "group": "Get Started",
+            "pages": [
+                "introduction",
+                "quickstart"
+            ]
+        },
+        {
+            "group": "API Documentation",
+            "pages": [
+                "api-reference/introduction"
+            ]
+        },
+        {
+            "group": "Endpoint Examples",
+            "pages": [
+                "api-reference/endpoint/get",
+                "api-reference/endpoint/create",
+                "api-reference/endpoint/delete"
+            ]
+        }
+    ],
+    "footerSocials": {
+        "twitter": "https://twitter.com/rapida",
+        "github": "https://github.com/rapida",
+        "linkedin": "https://www.linkedin.com/company/rapida"
     }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://rapida.ai/dashboard"
-  },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
-  "navigation": [
-    {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
-    }
-  ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
 }
