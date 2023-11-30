@@ -35,6 +35,27 @@
             ]
         },
         {
+            "group": "Governances",
+            "pages": [
+                "governances/overview",
+                "governances/organization",
+                "governances/project",
+                "governances/roles-and-permission"
+            ]
+        },
+        {
+            "group": "Vault (Credentials Manager)",
+            "pages": [
+                "vaults/introduction"
+            ]
+        },
+        {
+            "group": "Experiments",
+            "pages": [
+                "experiments/introduction"
+            ]
+        },
+        {
             "group": "API Documentation",
             "pages": [
                 "api-reference/introduction"
