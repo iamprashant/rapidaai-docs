@@ -1,0 +1,54 @@
+# Twilio Primary Handler URL Configuration
+
+When connecting your Rapida AI Assistant with Twilio, you need to configure Twilio to send incoming calls to your assistant. This is done by providing Twilio with a primary handler URL.
+
+## Understanding the Twilio Handler URL
+
+The Twilio handler URL is the endpoint that Twilio will call when a phone call is received. This URL follows this format:
+
+https://assistant-01.rapida.ai/v1/talk/twilio/call/__ASSISTANT_ID__?x-api-key=RAPIDA_API_KEY
+
+
+Where:
+- `{assistant_id}` is your Rapida assistant's unique identifier
+- `{your_rapida_api_key}` is your Rapida API key
+
+
+## How to Configure in Twilio
+
+1. Log in to your Twilio account at [https://www.twilio.com/login](https://www.twilio.com/login)
+2. Navigate to "Phone Numbers" → "Manage" → "Active numbers"
+3. Select the phone number you want to use with Rapida
+4. Under "Voice & Fax" configuration:
+   - Set "A CALL COMES IN" to "Webhook"
+   - Paste your Rapida handler URL in the webhook field
+   - Set the HTTP method to "HTTP POST"
+
+
+![Twilio Webhook Configuration](/images/twilio-webhook-config.png)
+
+5. Click "Save" to apply the changes
+
+## Finding Your Assistant ID
+
+To find your assistant ID:
+1. Log in to your Rapida dashboard
+2. Open the AI Assistants module
+3. Select your assistant
+4. The assistant ID can be found in the URL or in the assistant's settings
+
+## Security Considerations
+
+- Keep your Rapida API key confidential
+- Consider using Twilio's request validation to ensure that only Twilio can access your webhook
+- Monitor your Twilio logs for unauthorized access attempts
+
+## Testing Your Configuration
+
+After setting up your Twilio handler URL:
+1. Call your Twilio phone number
+2. You should be connected to your Rapida AI Assistant
+3. Check the Rapida logs if you encounter any issues
+
+For additional help with Twilio configuration, refer to the [Twilio Voice Documentation](https://www.twilio.com/docs/voice).
+

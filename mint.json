@@ -14,7 +14,7 @@
     "topbarLinks": [
         {
             "name": "Support",
-            "url": "mailto:mukesh@rapida.ai"
+            "url": "mailto:prashant@rapida.ai"
         }
     ],
     "topbarCtaButton": {
@@ -50,9 +50,9 @@
             ]
         },
         {
-            "group": "Experiments",
+            "group": "Twilio Integration",
             "pages": [
-                "experiments/introduction"
+                "assistants/introduction"
             ]
         },
         {
