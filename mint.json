@@ -35,24 +35,16 @@
             ]
         },
         {
-            "group": "Governances",
-            "pages": [
-                "governances/overview",
-                "governances/organization",
-                "governances/project",
-                "governances/roles-and-permission"
-            ]
-        },
-        {
             "group": "Vault (Credentials Manager)",
             "pages": [
                 "vaults/introduction"
             ]
         },
-        {
-            "group": "Twilio Integration",
+         {
+            "group": "Rapida Assistants",
             "pages": [
-                "assistants/introduction"
+                "assistants/create-assistant",
+                 "assistants/twilio-integration"
             ]
         },
         {
