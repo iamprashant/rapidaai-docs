@@ -44,7 +44,14 @@
             "group": "Rapida Assistants",
             "pages": [
                 "assistants/create-assistant",
+                "assistants/add-knowledge",
                  "assistants/twilio-integration"
+            ]
+        },
+                 {
+            "group": "Rapida Knowledge Base",
+            "pages": [
+                "knowledge/create-knowledge"
             ]
         },
         {
