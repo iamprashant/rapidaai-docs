@@ -45,6 +45,7 @@
             "pages": [
                 "assistants/create-assistant",
                 "assistants/add-knowledge",
+                "assistants/add-knowledge-tool",
                  "assistants/twilio-integration"
             ]
         },
