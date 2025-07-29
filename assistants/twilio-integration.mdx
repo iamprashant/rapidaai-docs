@@ -5,36 +5,33 @@ sidebarTitle: "Twilio Integration"
 icon: "phone"
 ---
 
-## Twilio Phone Number Deployment Manual on Rapida
-
-## Step 1: Navigate to Assistants
-
+<Steps>
+<Step title="Navigate to Assistants">
 Click open AI Assistants module on Rapida
 
 ![Configure Twilio Step 1](/images/configure_twilio_1.png)
+</Step>
 
-## Step 2: Open Assistant
-
+<Step title="Open Assistant">
 Open the AI Assistants which needs Twilio integration
 
 ![Configure Twilio Step 2](/images/configure_twilio_2.png)
+</Step>
 
-## Step 3: Manage Assistant
-
+<Step title="Manage Assistant">
 Click open Manage
 
 ![Configure Twilio Step 3](/images/configure_twilio_3.png)
+</Step>
 
-## Step 4: Configure Phone Call
-
+<Step title="Configure Phone Call">
 Click open Phone Call 
 
 ![Configure Twilio Step 4](/images/configure_twilio_4.png)
+</Step>
 
-
-## Step 5: Fill Agent details for Phone call 
-
-1. Go to Phone Call Settings: Open the “Phone Call” section under “Deployment”.
+<Step title="Fill Agent details for Phone call">
+1. Go to Phone Call Settings: Open the "Phone Call" section under "Deployment".
 2. Name of Agent: Enter the agent's name in the Name field.
 3. Role: Specify the agent's role in the Role field.
 4. Communication Tone: Select the tone in the Communication Tone dropdown.
@@ -44,22 +41,21 @@ Click open Phone Call
 8. Closing Message of the Conversation: Fill in the ending message in Ending Message.
 
 ![Configure Twilio Step 5](/images/configure_twilio_5.png)
+</Step>
 
-## Step 6: Provide Twilio Credentials
-
+<Step title="Provide Twilio Credentials">
 Enter your Twilio credentials:
 
 1. Twilio Account SID  
 2. Twilio Auth Token  
 3. Twilio Phone number used to make Inbound / Outbound calls
 
-For detailed instructions on how to obtain these Twilio credentials, please refer to the [Twilio Credentials Guide](For detailed instructions on how to obtain these Twilio credentials, please refer to the [Twilio Credentials Guide](/assistants/twilio-credentials).
-
+For detailed instructions on how to obtain these Twilio credentials, please refer to the [Twilio Credentials Guide](/assistants/twilio-credentials).
 
 ![Configure Twilio Step 6](/images/configure_twilio_6.png)
+</Step>
 
-## Step 7: Select Speech to Text Configuration
-
+<Step title="Select Speech to Text Configuration">
 Select the following parameters for your Speech to Text provider. 
 
 1. Choice: Deepgram.  
@@ -70,9 +66,9 @@ Select the following parameters for your Speech to Text provider.
 6. Transcript Confidence Threshold
 
 ![Configure Twilio Step 7](/images/configure_twilio_7.png)
+</Step>
 
-## Step 8: Configure phone call behavior
-
+<Step title="Configure phone call behavior">
 Select relevant configuration for your assistant
 
 1. Rapida to finalize the end of speech. Disable this if you do not want automatic end of speech detection.  
@@ -82,9 +78,9 @@ Select relevant configuration for your assistant
 5. Idle Message: Message that the assistant will speak when the user hasn't responded until the Idle Silence Timeout.
 
 ![Configure Twilio Step 8](/images/configure_twilio_8.png)
+</Step>
 
-## Step 9: Select Text to Speech Configuration
-
+<Step title="Select Text to Speech Configuration">
 Select the following parameters for your Text to Speech provider. 
 
 1. Provider Choice: Cartesia.  
@@ -94,15 +90,14 @@ Select the following parameters for your Text to Speech provider.
 5. Encoding: Select **PCM** **Mulaw** for Twilio  
 6. Required sample rate.
 
-
 ![Configure Twilio Step 9](/images/configure_twilio_9.png)
+</Step>
 
-## Step 10: Deploy Live
-
+<Step title="Deploy Live">
 ![Configure Twilio Step 10](/images/configure_twilio_10.png)
+</Step>
 
-## Step 11: Configuring Rapida Assistant on Twilio
-
+<Step title="Configuring Rapida Assistant on Twilio">
 After obtaining your Twilio credentials, you need to configure your Twilio phone number to connect with your Rapida assistant:
 
 1. Log in to your Twilio account at [https://www.twilio.com/login](https://www.twilio.com/login)
@@ -120,3 +115,5 @@ After obtaining your Twilio credentials, you need to configure your Twilio phone
 8. Click "Save" to apply the changes
 
 ![Configure Twilio Step 10](/images/twilio-webhook-config.png)
+</Step>
+</Steps>
