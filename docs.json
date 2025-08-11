@@ -32,7 +32,8 @@
               "assistants/add-knowledge",
               "assistants/add-knowledge-tool",
               "assistants/twilio-integration",
-              "assistants/introduction-to-tools"
+              "assistants/introduction-to-tools",
+              "assistants/generating-analysis"
             ]
           },
           {
