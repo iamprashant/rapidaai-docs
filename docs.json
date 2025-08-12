@@ -20,21 +20,16 @@
             ]
           },
           {
-            "group": "Vault (Credentials Manager)",
-            "pages": [
-              "vaults/introduction"
-            ]
-          },
-          {
             "group": "Rapida Assistants",
             "pages": [
               "assistants/create-assistant",
               "assistants/add-knowledge",
               "assistants/add-knowledge-tool",
-              "assistants/twilio-integration",
               "assistants/introduction-to-tools",
               "assistants/generating-analysis",
-              "assistants/webhooks"
+              "assistants/create-endpoint",
+              "assistants/webhooks",
+              "assistants/twilio-integration"            
             ]
           },
           {
@@ -83,6 +78,12 @@
               "integrations/salesforce",
               "integrations/pipedrive",
               "integrations/lead-squared"
+            ]
+          },
+          {
+            "group": "Vault (Credentials Manager)",
+            "pages": [
+              "vaults/introduction"
             ]
           }
         ]
