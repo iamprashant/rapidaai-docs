@@ -47,6 +47,7 @@
                             "assistants/introduction-to-tools",
                             {
                                 "group": "Analysis",
+                                "icon": "chart-area",
                                 "pages": [
                                     "assistants/analysis/overview",
                                     "assistants/analysis/create-analysis"
@@ -54,6 +55,7 @@
                             },
                             {
                                 "group": "Webhooks",
+                                "icon": "webhook",
                                 "pages": [
                                     "assistants/webhook/overview",
                                     "assistants/webhook/create-webhook"
@@ -109,6 +111,17 @@
                         "icon": "key",
                         "pages": [
                             "integrations/rapida-credentials"
+                        ]
+                    },
+                    {
+                        "group": "Workspace",
+                        "icon": "briefcase",
+                        "pages": [
+                            "workspace/overview",
+                            "workspace/project-management",
+                            "workspace/create-new-project",
+                            "workspace/user-management",
+                            "workspace/invite-a-user"
                         ]
                     }
                 ]
