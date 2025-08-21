@@ -1,157 +1,158 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "rapida.ai documentations",
-  "colors": {
-    "primary": "#2463eb",
-    "light": "#2463eb",
-    "dark": "#2463eb"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "introduction"
-            ]
-          },
-          {
-            "group": "Rapida Assistants",
-            "pages": [
-              "assistants/create-assistant",
-              "assistants/add-knowledge",
-              "assistants/add-knowledge-tool",
-              "assistants/introduction-to-tools",
-              "assistants/generating-analysis",
-              "assistants/create-endpoint",
-              "assistants/webhooks",
-              "assistants/twilio-integration"            
-            ]
-          },
-          {
-            "group": "Rapida Knowledge Base",
-            "pages": [
-              "knowledge/create-knowledge"
-            ]
-          },
-          {
-            "group": "Models",
-            "pages": [
-              "models/openai",
-              "models/azure-openai",
-              "models/anthropic",
-              "models/google",
-              "models/cohere",
-              "models/mistral",
-              "models/aws-bedrock",
-              "models/huggingface",
-              "models/ai21",
-              "models/deepinfra",
-              "models/deepgram",
-              "models/perplexityai",
-              "models/replicate",
-              "models/stabilityai",
-              "models/togetherai",
-              "models/voyageai"
-            ]
-          },
-          {
-            "group": "Integrations",
-            "pages": [
-              "integrations/confluence",
-              "integrations/notion",
-              "integrations/sharepoint",
-              "integrations/google-drive",
-              "integrations/github",
-              "integrations/one-drive",
-              "integrations/slack",
-              "integrations/hubspot",
-              "integrations/vonage",
-              "integrations/freshdesk",
-              "integrations/zendesk",
-              "integrations/microsoft-dynamics-365",
-              "integrations/zoho",
-              "integrations/salesforce",
-              "integrations/pipedrive",
-              "integrations/lead-squared"
-            ]
-          },
-          {
-            "group": "Vault (Credentials Manager)",
-            "pages": [
-              "vaults/introduction"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:prashant@rapida.ai"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://rapida.ai/dashboard"
-    }
-  },
-  "footer": {
-    "socials": {
-      "twitter": "https://twitter.com/rapida",
-      "github": "https://github.com/rapida",
-      "linkedin": "https://www.linkedin.com/company/rapida"
-    }
-  },
-  "api": {
-    "playground": {
-      "display": "interactive"
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "mint",
+    "name": "rapida.ai documentations",
+    "colors": {
+        "primary": "#2463eb",
+        "light": "#2463eb",
+        "dark": "#2463eb"
     },
-    "examples": {
-      "languages": ["javascript", "curl", "python"]
+    "favicon": "/favicon.svg",
+    "navigation": {
+        "tabs": [
+            {
+                "tab": "Documentation",
+                "groups": [
+                    {
+                        "group": "Get Started",
+                        "pages": [
+                            "introduction"
+                        ]
+                    },
+                    {
+                        "group": "Rapida Assistants",
+                        "pages": [
+                            "assistants/create-assistant",
+                            "assistants/add-knowledge",
+                            "assistants/add-knowledge-tool",
+                            "assistants/introduction-to-tools",
+                            "assistants/generating-analysis",
+                            "assistants/create-endpoint",
+                            "assistants/webhooks",
+                            "assistants/twilio-integration"
+                        ]
+                    },
+                    {
+                        "group": "Rapida Knowledge Base",
+                        "pages": [
+                            "knowledge/create-knowledge"
+                        ]
+                    },
+                    {
+                        "group": "Models",
+                        "pages": [
+                            "models/openai",
+                            "models/azure-openai",
+                            "models/anthropic",
+                            "models/google",
+                            "models/cohere",
+                            "models/mistral",
+                            "models/aws-bedrock",
+                            "models/huggingface",
+                            "models/ai21",
+                            "models/deepinfra",
+                            "models/deepgram",
+                            "models/perplexityai",
+                            "models/replicate",
+                            "models/stabilityai",
+                            "models/togetherai",
+                            "models/voyageai"
+                        ]
+                    },
+                    {
+                        "group": "Integrations",
+                        "pages": [
+                            "integrations/confluence",
+                            "integrations/notion",
+                            "integrations/sharepoint",
+                            "integrations/google-drive",
+                            "integrations/github",
+                            "integrations/one-drive",
+                            "integrations/slack",
+                            "integrations/hubspot",
+                            "integrations/vonage",
+                            "integrations/freshdesk",
+                            "integrations/zendesk",
+                            "integrations/microsoft-dynamics-365",
+                            "integrations/zoho",
+                            "integrations/salesforce",
+                            "integrations/pipedrive",
+                            "integrations/lead-squared"
+                        ]
+                    },
+                    {
+                        "group": "Vault (Credentials Manager)",
+                        "pages": [
+                            "vaults/introduction"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tab": "API Reference",
+                "groups": [
+                    {
+                        "group": "API Documentation",
+                        "pages": [
+                            "api-reference/introduction"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "logo": {
+        "light": "/logo/r.svg",
+        "dark": "/logo/r.svg"
+    },
+    "navbar": {
+        "links": [
+            {
+                "label": "Support",
+                "href": "mailto:prashant@rapida.ai"
+            }
+        ],
+        "primary": {
+            "type": "button",
+            "label": "Dashboard",
+            "href": "https://rapida.ai/dashboard"
+        }
+    },
+    "footer": {
+        "socials": {
+            "twitter": "https://twitter.com/rapida",
+            "github": "https://github.com/rapida",
+            "linkedin": "https://www.linkedin.com/company/rapida"
+        }
+    },
+    "api": {
+        "playground": {
+            "display": "interactive"
+        },
+        "examples": {
+            "languages": [
+                "javascript",
+                "curl",
+                "python"
+            ]
+        }
+    },
+    "contextual": {
+        "options": [
+            "copy",
+            "view",
+            "chatgpt",
+            "claude"
+        ]
+    },
+    "integrations": {
+        "telemetry": {
+            "enabled": true
+        }
+    },
+    "errors": {
+        "404": {
+            "redirect": true
+        }
     }
-  },
-  
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude"
-    ]
-  },
-  
-  "integrations": {
-    "telemetry": {
-      "enabled": true
-    }
-  },
-  
-  "errors": {
-    "404": {
-      "redirect": true
-    }
-  }
 }

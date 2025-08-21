@@ -1,0 +1,93 @@
+---
+title: "AWS Bedrock"
+description: "AWS Bedrock provides a fully managed service that offers a choice of high-performing foundation models from leading AI companies through a single API."
+---
+
+## Getting Started
+
+To integrate AWS Bedrock with your Rapida application, follow these steps:
+
+## Supported Models
+
+AWS Bedrock offers several advanced language models that can be used with this integration. Here's a table of some supported models:
+
+| Model Name                    | Provider  | Description                                       |
+| ----------------------------- | --------- | ------------------------------------------------- |
+| ai21.jamba-instruct-v1:0      | AI21 Labs | Instruct model for various NLP tasks              |
+| anthropic.claude-v2:1         | Anthropic | Latest Claude v2 model with advanced capabilities |
+| anthropic.claude-v2           | Anthropic | Claude v2 model for general language tasks        |
+| anthropic.claude-instant-v1   | Anthropic | Faster, more efficient Claude model               |
+| anthropic.claude-instant-v1:2 | Anthropic | Updated version of Claude Instant                 |
+| anthropic.claude-v2:0         | Anthropic | Initial release of Claude v2                      |
+
+Note: AWS Bedrock may add or update models over time. Check the AWS Bedrock documentation for the most up-to-date list of available models.
+
+## Prerequisites
+
+- Have an AWS account with access to AWS Bedrock.
+- Set up your AWS credentials and permissions to use Bedrock.
+- Ensure you have the necessary IAM permissions to access Bedrock and its models.
+
+# Setting Up Provider Credentials
+
+<Steps>
+<Step title="Access the Integrations Page">
+![Integrations Page](/images/integration/providers/providers-and-models.png)
+
+Navigate to the "Integration > Models" page. Here you'll see a grid of various AI model providers including AWS Bedrock, Azure OpenAI, Anthropic, Cohere, OpenAI, and more.
+
+</Step>
+
+<Step title="Select AWS Bedrock">
+On the Integrations page, find the AWS Bedrock provider card.
+
+Click the "Setup Credential" button for AWS Bedrock.
+
+</Step>
+
+<Step title="Create Provider Credential">
+![Create Provider Credential](/images/integration/providers/create-provider-credential.png)
+
+A modal window will appear titled "Create provider credential". Follow these steps:
+
+1. Select "AWS Bedrock" from the dropdown (if not already selected)
+2. Enter a Key Name: Assign a unique name to this provider key for easy identification
+3. Enter the AWS Access Key ID: Input your AWS access key ID
+4. Enter the AWS Secret Access Key: Input your AWS secret access key
+5. Select the AWS Region: Choose the region where you want to use Bedrock
+6. Click "Configure" to save the credential
+
+</Step>
+
+<Step title="Verify Credential Setup">
+![View Provider Credential](/images/integration/providers/view-provider-credential.png)
+
+After setting up the credential, you can verify it's been added:
+
+1. The AWS Bedrock provider card should now show "Connected"
+2. If you click on the provider, you'll see a "View provider credential" modal
+3. This modal displays the credential name, when it was last updated, and options to delete or close
+
+</Step>
+</Steps>
+
+Your AWS Bedrock provider credential is now set up and ready to use with the integration system.
+
+## Advanced features for enterprise needs
+
+<CardGroup cols={2}>
+  <Card title="Create Assistant" icon="robot" href="/assistants/aws-bedrock">
+    <p className="text-sm mt-2 leading-none">
+      Build AI assistants using AWS Bedrock's advanced language models.
+    </p>
+  </Card>
+  <Card
+    title="Create Analyzer"
+    icon="magnifying-glass-chart"
+    href="/analyzers/aws-bedrock"
+  >
+    <p className="text-sm mt-2 leading-none">
+      Develop analyzers with AWS Bedrock to extract insights from your data.
+    </p>
+  </Card>
+</CardGroup>

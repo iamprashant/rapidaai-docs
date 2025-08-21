@@ -1,0 +1,89 @@
+---
+title: "Hugging Face"
+description: "Hugging Face provides a wide range of open-source models and AI capabilities through their Inference API."
+---
+
+## Getting Started
+
+To integrate Hugging Face with your Rapida application, follow these steps:
+
+## Supported Models and Capabilities
+
+Hugging Face offers a vast array of open-source models that can be used with this integration. Here's a table of some supported capabilities:
+
+| Provider       | Supported |
+| -------------- | --------- |
+| Cerebras       | ✅        |
+| Cohere         | ✅        |
+| Fal AI         | ✅        |
+| Featherless AI | ✅        |
+| Fireworks      | ✅        |
+| Groq           | ✅        |
+| HF Inference   | ✅        |
+| Hyperbolic     | ✅        |
+| Nebius         | ✅        |
+| Novita         | ✅        |
+| Nscale         | ✅        |
+| Replicate      | ✅        |
+| SambaNova      | ✅        |
+| Together       | ✅        |
+
+Note: Hugging Face's model ecosystem is constantly growing. Check the Hugging Face Hub for the most up-to-date list of available models and their capabilities.
+
+## Prerequisites
+
+- Have a Hugging Face account.
+- Generate an API token from your Hugging Face account settings.
+- If using custom models, ensure they are deployed to the Hugging Face Inference API.
+
+# Setting Up Provider Credentials
+
+<Steps>
+<Step title="Access the Integrations Page">
+![Integrations Page](/images/integration/providers/providers-and-models.png)
+
+Navigate to the "Integration > Models" page. Here you'll see a grid of various AI model providers including Hugging Face, OpenAI, Google AI, and more.
+
+</Step>
+
+<Step title="Select Hugging Face">
+On the Integrations page, find the Hugging Face provider card.
+
+Click the "Setup Credential" button for Hugging Face.
+
+</Step>
+
+<Step title="Create Provider Credential">
+![Create Provider Credential](/images/integration/providers/create-provider-credential.png)
+
+A modal window will appear titled "Create provider credential". Follow these steps:
+
+1. Select "Hugging Face" from the dropdown (if not already selected)
+2. Enter a Key Name: Assign a unique name to this provider key for easy identification
+3. Enter the Hugging Face API Token: Input your Hugging Face API token
+4. Click "Configure" to save the credential
+
+</Step>
+
+<Step title="Verify Credential Setup">
+![View Provider Credential](/images/integration/providers/view-provider-credential.png)
+
+After setting up the credential, you can verify it's been added:
+
+1. The Hugging Face provider card should now show "Connected"
+2. If you click on the provider, you'll see a "View provider credential" modal
+3. This modal displays the credential name, when it was last updated, and options to delete or close
+
+</Step>
+</Steps>
+
+Your Hugging Face provider credential is now set up and ready to use with the integration system.
+
+## Using Custom Models with Hugging Face Inference API
+
+To use your custom models deployed on the Hugging Face Inference API:
+
+1. Deploy your model to the Hugging Face Inference API through your Hugging Face account.
+2. Note down the model deployment endpoint URL. It typically looks like:
+   `https://api-inference.huggingface.co/models/YOUR_USERNAME/YOUR_MODEL_NAME`
+3. When configuring your Rapida application to use this model, use the full endpoint URL as the model identifier.

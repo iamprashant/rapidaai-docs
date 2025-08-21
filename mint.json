@@ -35,12 +35,6 @@
             ]
         },
         {
-            "group": "Vault (Credentials Manager)",
-            "pages": [
-                "vaults/introduction"
-            ]
-        },
-         {
             "group": "Rapida Assistants",
             "pages": [
                 "assistants/create-assistant",
@@ -48,34 +42,38 @@
                 "assistants/add-knowledge-tool",
                 "assistants/twilio-integration",
                 "assistants/introduction-to-tools"
-
             ]
         },
-                 {
+        {
             "group": "Rapida Knowledge Base",
             "pages": [
                 "knowledge/create-knowledge"
             ]
         },
-                {
-            "group": "Integrations",
+        {
+            "group": "Model Providers",
             "pages": [
-                "integrations/confluence",
-                "integrations/notion",
-                "integrations/sharepoint",
-                "integrations/google-drive",
-                "integrations/github",
-                "integrations/one-drive",
-                "integrations/slack",
-                "integrations/hubspot",
-                "integrations/vonage",
-                "integrations/freshdesk",
-                "integrations/zendesk",
-                "integrations/microsoft-dynamics-365",
-                "integrations/zoho",
-                "integrations/salesforce",
-                "integrations/pipedrive",
-                "integrations/lead-squared"
+                "integrations/openai",
+                "integrations/anthropic",
+                "integrations/cohere",
+                "integrations/huggingface",
+                "integrations/google-ai",
+                "integrations/azure-openai",
+                "integrations/bedrock"
+            ]
+        },
+        {
+            "group": "External Integrations",
+            "pages": [
+                "integrations/external/vonage",
+                "integrations/external/twilio",
+                "integrations/external/exotel"
+            ]
+        },
+        {
+            "group": "Rapida Credentials",
+            "pages": [
+                "integrations/rapida-credentials"
             ]
         },
         {
