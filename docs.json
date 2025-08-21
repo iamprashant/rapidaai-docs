@@ -84,6 +84,15 @@
                         ]
                     },
                     {
+                        "group": "Activity and logs",
+                        "icon": "activity",
+                        "pages": [
+                            "activity/llm-logs",
+                            "activity/webhook-logs",
+                            "activity/conversation-logs"
+                        ]
+                    },
+                    {
                         "group": "Model Providers",
                         "icon": "cpu",
                         "pages": [

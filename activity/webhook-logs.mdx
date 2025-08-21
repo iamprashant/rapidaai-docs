@@ -1,0 +1,102 @@
+---
+title: "Webhook Logs"
+description: "Monitor and analyze webhook interactions in the Rapida platform"
+---
+
+The Webhook Logs feature provides detailed information about webhook requests and responses, allowing you to monitor and analyze the performance and behavior of webhook interactions within your system.
+
+## Log Overview
+
+<Frame>
+  <img
+    src="/images/activity/webhook-logs.png"
+    alt="Webhook Logs Overview Table"
+  />
+</Frame>
+
+The main log view displays a table with the following columns:
+
+- **Webhook ID**: Unique identifier for each webhook
+- **Session ID**: Identifier for the session associated with the webhook
+- **Event**: Type of event (e.g., conversation.begin, conversation.completed)
+- **Endpoint**: The URL endpoint where the webhook is sent
+- **HTTP Status**: Response status code (e.g., 200 for success)
+- **Time Taken**: Processing time for the request in milliseconds
+- **Retry Count**: Number of retry attempts, if any
+- **Created Date**: Timestamp of when the webhook was triggered
+
+## Detailed Log Entry
+
+Clicking on a log entry reveals more detailed information, divided into two tabs:
+
+### Request
+
+<Frame>
+  <img
+    src="/images/activity/webhook-request.png"
+    alt="Webhook Logs Request Tab"
+  />
+</Frame>
+
+Contains the data sent in the webhook request:
+
+- **data**: Object containing various details about the webhook trigger
+  - **analysis**: Any analysis data (empty in this example)
+  - **assistant**: Information about the AI assistant
+    - **id**: Unique identifier for the assistant
+    - **version**: Version of the assistant
+  - **conversation**: Details about the conversation
+    - **id**: Unique identifier for the conversation
+    - **messages**: Array of message objects in the conversation
+      - **message**: The content of the message
+      - **role**: The role of the sender (e.g., "user" or "assistant")
+
+### Response
+
+<Frame>
+  <img
+    src="/images/activity/webhook-response.png"
+    alt="Webhook Logs Response Tab"
+  />
+</Frame>
+
+Shows the response details from the webhook endpoint:
+
+- **body**: The response body (empty in this example)
+- **headers**: Various HTTP headers in the response
+  - **Alt-Svc**: Alternative services information
+  - **Cf-Cache-Status**: Cloudflare cache status
+  - **Cf-Ray**: Cloudflare Ray ID for the request
+  - **Content-Length**: Length of the response content
+  - **Content-Type**: MIME type of the response
+  - **Date**: Timestamp of the response
+  - **Nel**: Network Error Logging information
+  - **Report-To**: Reporting API configuration
+
+## Using Webhook Logs
+
+1. **Integration Monitoring**: Track successful and failed webhook deliveries to ensure your integrations are working correctly.
+2. **Debugging**: Investigate issues by examining the full request and response details for each webhook.
+3. **Performance Analysis**: Monitor response times and success rates to optimize your webhook-based processes.
+4. **Security Auditing**: Review webhook payloads and endpoints to ensure data is being sent to and received from authorized sources.
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Troubleshoot Integrations" icon="bug" iconType="duotone">
+    Quickly identify and resolve issues with third-party integrations by
+    examining detailed webhook logs.
+  </Card>
+  <Card title="Monitor Event Flow" icon="chart-network" iconType="duotone">
+    Track conversation events and ensure they are being properly transmitted to
+    external systems.
+  </Card>
+  <Card title="Optimize Performance" icon="brain" iconType="duotone">
+    Analyze response times and success rates to improve the efficiency of your
+    webhook-based processes.
+  </Card>
+  <Card title="Ensure Data Integrity" icon="shield-check" iconType="duotone">
+    Verify that webhook payloads contain the expected data and are being sent to
+    the correct endpoints.
+  </Card>
+</CardGroup>
