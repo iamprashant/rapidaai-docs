@@ -1,0 +1,47 @@
+---
+title: "Create new version"
+description: "Quick guide to updating your existing endpoint with a new version."
+---
+
+<Note>
+  New versions require manual deployment to update the production version.
+</Note>
+
+## Step-by-Step Guide
+
+<Steps>
+  <Step title="Access Endpoint Settings">
+    1. Go to Deployment section
+    2. Select the endpoint to update
+    3. Click "Create new version"
+  </Step>
+
+  <Step title="Modify Endpoint">
+    - **Change Endpoint Definition**: Adjust model, instructions, variables
+    - **Update Model Settings**: Fine-tune parameters (e.g., temperature, max tokens)
+    - **Revise Instructions**: Edit system/user messages, modify arguments
+
+    ![Modify Endpoint Interface](/images/endpoint/modify-endpoint-image.png)
+
+  </Step>
+
+<Step title="Describe Changes">
+  Enter a brief description of modifications in the "Change Description" field.
+  ![Modify Endpoint Interface](/images/endpoint/change-endpoint-image.png)
+</Step>
+
+  <Step title="Manage Versions">
+    - View "Version history"
+    - Compare versions if needed
+    - Deploy new version when ready
+
+    ![Version History Interface](/images/endpoint/version-history-image.png)
+
+  </Step>
+</Steps>
+## Best Practices
+
+- Use clear change logs
+- Test thoroughly before deployment
+- Consider separate dev/prod endpoints
+- Review performance metrics regularly

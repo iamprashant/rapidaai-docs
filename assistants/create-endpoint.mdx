@@ -2,7 +2,6 @@
 title: "Creating an Endpoint"
 description: "Step-by-step guide to creating a new AI endpoint"
 sidebarTitle: "Create Endpoint"
-icon: "server"
 ---
 
 This guide walks you through the process of creating a new endpoint in the platform.
@@ -12,18 +11,21 @@ This guide walks you through the process of creating a new endpoint in the platf
 ![Navigate to Endpoints](/images/create_assistant/create_endpoint_1.png)
 
 Begin by navigating to the Endpoints section under Deployments in the main navigation menu.
+
 </Step>
 
 <Step title="Initiate Endpoint Creation">
 ![Initiate Endpoint Creation](/images/create_assistant/create_endpoint_2.png)
 
 Click on the "Create new endpoint" button to start the process of creating a new endpoint.
+
 </Step>
 
 <Step title="Choose Model and Configure Instructions">
 ![Choose Model and Configure Instructions](/images/create_assistant/create_endpoint_3.png)
 
 In the form:
+
 - Select your preferred LLM (Language Learning Model) from the dropdown menu
 - Enter the system instructions for your endpoint
 - Note that instructions can accept parameters in Jinja2 format
@@ -57,19 +59,21 @@ In the form:
 ![Add User Prompts](/images/create_assistant/create_endpoint_4.png)
 
 You can add additional user prompts:
+
 - Click the "Add new message" button to include user messages
 - These prompts help define how the endpoint will interact with users
 - Configure multiple prompts to create more sophisticated conversation flows
-</Step>
+  </Step>
 
 <Step title="Configure Advanced Options">
 ![Configure Advanced Options](/images/create_assistant/create_endpoint_5.png)
 
 Access advanced configuration options:
+
 - Click the settings icon near the LLM choice
 - Adjust parameters like:
   - Frequency Penalty
-  - Temperature 
+  - Temperature
   - Top P
   - Presence Penalty
   - Max Completion Tokens
@@ -113,6 +117,7 @@ After configuring your endpoint's behavior, define its profile:
 Click "Create Endpoint" when done.
 
 Please note that new versions of the endpoint will not be deployed automatically. Manual deployment will be required to update the production version.
+
 </Step>
 </Steps>
 

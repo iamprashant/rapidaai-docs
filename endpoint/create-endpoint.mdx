@@ -1,0 +1,91 @@
+---
+title: "Create endpoint"
+description: "Endpoints allow you to integrate Large Language Models (LLMs) into your application, providing a powerful interface for AI-driven functionalities."
+---
+
+## Prerequisites
+
+Before creating an endpoint, ensure that you have integrated the desired AI provider with Rapida. To set up integrations:
+
+1. Navigate to the Integrations section in your Rapida dashboard.
+2. Select the AI provider you want to integrate (e.g., OpenAI, Anthropic, Google AI).
+3. Follow the provider-specific instructions to complete the integration.
+
+For detailed instructions on setting up integrations, refer to the provider-specific documentation in the Integrations section:
+
+- [OpenAI](/integrations/openai)
+- [Anthropic](/integrations/anthropic)
+- [Google AI](/integrations/google-ai)
+- [Hugging Face](/integrations/hugging-face)
+- [Cohere](/integrations/cohere)
+- [Azure OpenAI](/integrations/azure-openai)
+- [AWS Bedrock](/integrations/aws-bedrock)
+
+<Steps>
+  <Step title="Choose Model">
+    Select the LLM Provider you want to use for your endpoint. The interface shows various options.
+
+    <Note>
+      Each model may have different capabilities and pricing structures, so choose
+      the one that best fits your needs.
+    </Note>
+
+    ![Choose Model Interface](/images/endpoint/choose-model-image.png)
+
+  </Step>
+
+  <Step title="Configure Model Settings">
+    Depending on the chosen provider, configure various settings such as Frequency Penalty, Temperature, Top P, Max Completion Tokens, Response Format, and Stop Sequences.
+
+    ![Configure Model Settings](/images/endpoint/configure-settings-image.png)
+
+  </Step>
+
+  <Step title="Set Up Instructions">
+    Create a system message and user message template. Define the role or context for the AI, set up the structure for user inputs, and define custom arguments that can be dynamically inserted into your prompts.
+
+    ![Set Up Instructions](/images/endpoint/setup-instructions-image.png)
+
+  </Step>
+
+  <Step title="Define Endpoint Profile">
+    Provide a unique name for your endpoint, a brief description of its purpose, and add relevant tags to categorize it.
+
+    ![Define Endpoint Profile](/images/endpoint/define-profile-image.png)
+
+  </Step>
+</Steps>
+
+### Additional Notes
+
+- New versions of the assistant will not be deployed automatically. Manual deployment is required to update the production version.
+- You can add multiple messages to create more complex conversation flows.
+- The interface allows for easy editing and rearranging of messages.
+
+## Finalizing Your Endpoint
+
+After configuring all settings, click the "Create endpoint" or "Configure instruction" button to finalize your endpoint creation. Your new endpoint will then be listed in the Hosted Endpoints dashboard, where you can monitor its status, run count, error rate, and other performance metrics.
+
+By following these steps, you can create a custom endpoint that leverages powerful LLMs to enhance your application's capabilities.
+
+## Post-Conversation Analysis
+
+Enable post-conversation analysis to gain insights, improve performance, and ensure quality:
+
+- Set up custom metrics and KPIs
+- Configure alerts for specific patterns or issues
+- Generate reports on conversation trends and outcomes
+- Identify areas for improvement in your AI interactions
+
+[Learn more about Post-Conversation Analysis](/docs/post-conversation-analysis)
+
+## SDK Integration
+
+Our SDK simplifies the process of integrating your endpoint into your projects:
+
+- Available for multiple programming languages (Python, JavaScript, Java, etc.)
+- Simplified API calls and response handling
+- Built-in error handling and retry mechanisms
+- Comprehensive documentation and code examples
+
+[Explore SDK Integration](/docs/sdk-integration)

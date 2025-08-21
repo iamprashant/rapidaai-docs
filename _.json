@@ -5,7 +5,7 @@
         "dark": "/logo/dark.svg",
         "light": "/logo/light.svg"
     },
-    "favicon": "/favicon.svg",
+    "favicon": "/favicon.png",
     "colors": {
         "primary": "#2463eb",
         "light": "#2463eb",
@@ -35,6 +35,12 @@
             ]
         },
         {
+            "group": "SDK",
+            "pages": [
+                "sdk"
+            ]
+        },
+        {
             "group": "Rapida Assistants",
             "pages": [
                 "assistants/create-assistant",
@@ -45,9 +51,21 @@
             ]
         },
         {
-            "group": "Rapida Knowledge Base",
+            "group": "Knowledge",
             "pages": [
-                "knowledge/create-knowledge"
+                "knowledge/overview",
+                "knowledge/create-knowledge",
+                "knowledge/add-new-document",
+                "knowledge/manage-document-chunk"
+            ]
+        },
+        {
+            "group": "LLM Endpoint",
+            "pages": [
+                "endpoint/overview",
+                "endpoint/create-endpoint",
+                "endpoint/create-new-version",
+                "endpoint/monitor-endpoint-performance"
             ]
         },
         {
@@ -59,7 +77,8 @@
                 "integrations/huggingface",
                 "integrations/google-ai",
                 "integrations/azure-openai",
-                "integrations/bedrock"
+                "integrations/bedrock",
+                "integrations/voyageai"
             ]
         },
         {

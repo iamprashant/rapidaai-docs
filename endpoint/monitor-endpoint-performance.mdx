@@ -1,0 +1,104 @@
+---
+title: "Endpoint monitoring & debugging"
+description: "The endpoint dashboard provides a detailed view of your deployment's performance and activity. Here's how to use it effectively for monitoring and debugging:"
+---
+
+![Navigate to Knowledge](/images/endpoint/endpoint-log.png)
+
+<AccordionGroup>
+  <Accordion title="ID and Version">
+    Each row represents a unique request, identified by an ID and version
+    number. Use these to track specific invocations of your endpoint.
+  </Accordion>
+  <Accordion title="Source">
+    Indicates the origin of the request (e.g., "Replicate App"). This helps you
+    identify which integrations or applications are using your endpoint.
+  </Accordion>
+  <Accordion title="Status">
+    Shows the current state of each request. "Complete" indicates successful
+    processing. Monitor this column for any non-complete statuses that may
+    require attention.
+  </Accordion>
+  <Accordion title="Performance Metrics">
+    - Total Time Taken: The overall processing duration for each request. - LLM
+    Total Token: The number of tokens processed by the language model. - LLM
+    Time Taken: Time specifically spent on language model operations. Use these
+    metrics to identify performance bottlenecks or unexpected behavior.
+  </Accordion>
+  <Accordion title="Created Date">
+    The timestamp when the request was initiated. This helps in tracking the
+    timeline of requests and identifying patterns over time.
+  </Accordion>
+</AccordionGroup>
+
+### Detailed Request Information
+
+When monitoring your endpoint performance, you can expand individual requests to access detailed information. This feature provides in-depth insights into each request, helping you analyze performance, troubleshoot issues, and understand how your endpoint is being used.
+
+To view detailed information for a specific request:
+
+1. Locate the request you want to examine in your monitoring dashboard.
+2. Click on the request to expand its details.
+3. You'll see a tabbed interface with the following sections:
+
+#### Metrics
+
+View detailed performance data for the request, including:
+
+- Time taken to process the request
+- LLM request ID
+- Request status
+
+Use this tab for in-depth performance analysis and to identify potential bottlenecks.
+
+#### Metadata
+
+Access additional context about the request. This information is helpful for understanding the request's parameters and overall configuration.
+
+#### Options
+
+Review the configuration settings used for this specific request. This tab is useful to ensure the endpoint was called with the expected options and to verify any custom settings applied.
+
+#### Arguments
+
+Examine the input parameters provided to the endpoint for this request. This tab is particularly useful for:
+
+- Reproducing issues
+- Understanding how your endpoint is being used in practice
+- Verifying the correct inputs were sent to the endpoint
+
+To navigate between these sections, simply click on the desired tab in the left sidebar. The main content area on the right will update to display the selected information.
+
+By leveraging this detailed view, you can gain valuable insights into your endpoint's performance and usage patterns, enabling you to optimize your AI applications more effectively.
+
+## Debugging Techniques
+
+When investigating issues or optimizing performance:
+
+1. **Analyze Trends**: Look for patterns in the Total Time Taken or LLM Time Taken across requests. Sudden increases may indicate performance degradation.
+
+2. **Compare Versions**: Use the version history to identify if recent changes have impacted performance or reliability.
+
+3. **Inspect Failures**: For any non-"Complete" statuses, expand the request details to examine metrics, options, and arguments for clues about what went wrong.
+
+4. **Token Usage**: Monitor the LLM Total Token to ensure it aligns with expectations and to manage costs effectively.
+
+5. **Source Analysis**: If issues are isolated to specific sources, it may indicate problems with particular integrations or client implementations.
+
+## Advanced Monitoring
+
+For more in-depth analysis:
+
+<Card title="LLM Logs" icon="file-lines">
+  Access detailed logs of language model operations for advanced debugging.
+  These logs provide insights into the internal workings of the LLM during
+  request processing.
+</Card>
+
+<Card title="SDK & Integration" icon="code">
+  Consult the SDK documentation for implementation details and best practices
+  for client integration. Proper SDK usage can prevent many common issues and
+  optimize endpoint interaction.
+</Card>
+
+By leveraging these dashboard features and following these debugging strategies, you can effectively monitor your endpoint's health, quickly identify and resolve issues, and ensure optimal performance.

@@ -1,0 +1,70 @@
+---
+title: "Overview"
+description: "Configure webhooks to receive assistant data and conversation analysis"
+sidebarTitle: "Overview"
+---
+
+Webhooks are a powerful feature in Rapida that allow you to receive real-time data and analysis from your assistants' conversations. This guide provides an overview of webhooks and how they can be used to enhance your integration with Rapida's assistant platform.
+
+![webhook](/images/assistant/webhook.png)
+
+## What are Webhooks?
+
+Webhooks are automated messages sent from Rapida to your specified endpoint when certain events occur during an assistant's conversation. They enable you to:
+
+- Receive real-time updates about conversation status
+- Collect conversation data for analysis or storage
+- Trigger actions in external systems based on conversation events
+
+## Key Features of Rapida Webhooks
+
+1. **Event-based Triggers**: Webhooks can be configured to fire at specific points in a conversation:
+
+   - Conversation start
+   - Conversation end
+   - Conversation failure
+
+2. **Customizable Payload**: You can configure the data sent in each webhook, including:
+
+   - Event information
+   - Conversation data
+   - Assistant details
+   - Custom analysis results
+
+3. **Secure Communication**: Webhooks support custom headers for authentication and secure data transfer.
+
+4. **Flexible Integration**: Webhooks can be easily integrated with your existing systems and workflows.
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Real-time Monitoring" icon="chart-line">
+    Set up webhooks to receive instant notifications about conversation starts, completions, or failures. This allows you to monitor assistant performance and user engagement in real-time.
+  </Card>
+  
+  <Card title="Data Analysis" icon="magnifying-glass-chart">
+    Collect conversation data and analysis results through webhooks to feed into your analytics pipeline. This can help you gain insights into user behavior, common queries, and assistant effectiveness.
+  </Card>
+
+<Card title="CRM Integration" icon="users">
+  Use webhooks to automatically update customer records in your CRM system based
+  on conversation outcomes. This ensures your customer data stays current
+  without manual intervention.
+</Card>
+
+<Card title="Automated Workflows" icon="gears">
+  Trigger automated actions in your systems based on specific conversation
+  events or outcomes. For example, create support tickets, send follow-up
+  emails, or update inventory based on user interactions.
+</Card>
+
+<Card title="Conversation Logging" icon="book">
+  Maintain a comprehensive log of all assistant conversations by capturing
+  webhook data. This can be crucial for compliance, training, and quality
+  assurance purposes.
+</Card>
+
+  <Card title="Multi-channel Support" icon="messages">
+    Integrate webhook data with your omnichannel support system to provide seamless customer experiences across various platforms and touchpoints.
+  </Card>
+</CardGroup>

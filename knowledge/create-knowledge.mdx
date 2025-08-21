@@ -1,72 +1,88 @@
 ---
-title: "Creating a Knowledge Base"
-description: "Learn how to create and set up a new knowledge base in the Rapida platform"
-sidebarTitle: "Create Knowledge Base"
-icon: "book"
+title: "Create knowledge"
+description: "Learn how to create a new knowledge base in the system"
 ---
 
-This guide walks you through the process of creating a new knowledge base in the Rapida platform.
+## Prerequisites
 
-## Step 1: Navigate to Knowledge
+Before creating a knowledge base, ensure that you have set up an embedding model with Rapida. To set up an embedding model:
 
-![Navigate to Knowledge](/images/create_knowledge/create_knowledge_1.png)
+1. Navigate to the Embedding Models section in your Rapida dashboard.
+2. Select the embedding model provider you want to use (e.g., OpenAI, Cohere, Hugging Face).
+3. Follow the provider-specific instructions to complete the setup.
 
-Begin by navigating to the Knowledge section in the main navigation menu.
+For detailed instructions on setting up embedding models, refer to the provider-specific documentation in the Embedding Models section:
 
-## Step 2: Initiate Knowledge Base Creation
+- [OpenAI](/integrations/openai)
+- [VoyageAI](/integrations/voyageai)
+- [Google AI](/integrations/google-ai)
+- [Cohere](/integrations/cohere)
+- [Azure OpenAI](/integrations/azure-openai)
 
-![Initiate Knowledge Base Creation](/images/create_knowledge/create_knowledge_2.png)
+<Steps>
+  <Step title="Navigate to Knowledge">
+    Begin by navigating to the Knowledge section in the main navigation menu.
 
-Click on the "Add new knowledge" button to start the process of creating a new knowledge base.
+    ![Navigate to Knowledge](/images/create_knowledge/create_knowledge_1.png)
 
-## Step 3: Select Embedding Model
+  </Step>
 
-![Choose Embedding Model](/images/create_knowledge/create_knowledge_4.png)
+  <Step title="Initiate Knowledge Base Creation">
+    Click on the "Add new knowledge" button to start the process of creating a new knowledge base.
 
-1. **Embedding Model**: Click the dropdown menu and select an appropriate embedding model for your knowledge base.
+    ![Initiate Knowledge Base Creation](/images/create_knowledge/create_knowledge_2.png)
 
-## Step 4: Enter Basic Information
+  </Step>
 
-![Enter Basic Information](/images/create_knowledge/create_knowledge_5.png)
+  <Step title="Select Embedding Model">
+    Click the dropdown menu and select an appropriate embedding model for your knowledge base.
 
-Complete all required fields in the knowledge base creation form:
+    ![Choose Embedding Model](/images/create_knowledge/create_knowledge_4.png)
 
+  </Step>
 
-1. **Name**: Enter a descriptive name for your knowledge base in the text field (e.g., "Our website database").
+  <Step title="Enter Basic Information">
+    Complete all required fields in the knowledge base creation form:
 
-2. **Description**: Provide a brief explanation of the purpose of this knowledge base or what type of content it contains.
+    1. **Name**: Enter a descriptive name for your knowledge base in the text field (e.g., "Our website database").
+    2. **Description**: Provide a brief explanation of the purpose of this knowledge base or what type of content it contains.
+    3. **Tags**: Add relevant tags to make your knowledge base easier to find. Separate tags with commas and press Enter to confirm each tag.
+    4. **Review Information**: Double-check all entered information for accuracy.
+    5. **Create Knowledge Base**: Click the blue "Create knowledge" button in the bottom right corner to proceed.
 
-3. **Tags**: Add relevant tags to make your knowledge base easier to find. Separate tags with commas and press Enter to confirm each tag.
+    ![Enter Basic Information](/images/create_knowledge/create_knowledge_5.png)
 
-4. **Review Information**: Double-check all entered information for accuracy.
+  </Step>
 
-5. **Create Knowledge Base**: Click the blue "Create knowledge" button in the bottom right corner to proceed.
+  <Step title="Upload Content">
+    Upload the relevant content for your knowledge base:
 
-## Step 5: Upload Content
+    - Drag and drop files or click to select files from your computer
+    - Supported file formats will be processed and added to your knowledge base
 
-![Upload Content](/images/create_knowledge/create_knowledge_6.png)
+    ![Upload Content](/images/create_knowledge/create_knowledge_6.png)
 
-Upload the relevant content for your knowledge base:
-- Drag and drop files or click to select files from your computer
-- Supported file formats will be processed and added to your knowledge base
+  </Step>
 
+  <Step title="Review and Create">
+    Review all the information and settings for your knowledge base.
+    Click "**Upload new Document**" to finalize the creation process.
 
-## Step 7: Review and Create
+    ![Review and Create](/images/create_knowledge/create_knowledge_7.png)
 
-![Review and Create](/images/create_knowledge/create_knowledge_7.png)
+  </Step>
 
-Review all the information and settings for your knowledge base.
-Click "**Upload new Document**" to finalize the creation process.
+  <Step title="Success Confirmation">
+    You'll see a confirmation that your knowledge base has been created successfully.
+    The parsing and tokenization of the documents will take a while.
 
-## Step 8: Success Confirmation
+    ![Parsing documents](/images/create_knowledge/create_knowledge_8.png)
 
-![Parsing documents](/images/create_knowledge/create_knowledge_8.png)
+    Once the process is complete, you'll see a success message.
 
-You'll see a confirmation that your knowledge base has been created successfully. 
-The parsing and tokenization of the documents will take a while. 
+    ![Document Parsing Success](/images/create_knowledge/create_knowledge_9.png)
 
-![Document Parsing Success](/images/create_knowledge/create_knowledge_9.png)
+    You can now start using your new knowledge base with assistants or upload more documents.
 
-
-You can now start using your new knowledge base with assistants or upload more documents.
-
+  </Step>
+</Steps>

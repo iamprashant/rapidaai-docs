@@ -2,7 +2,6 @@
 title: "Twilio Phone Integration"
 description: "Complete guide to deploying your assistant with Twilio phone capabilities"
 sidebarTitle: "Twilio Integration"
-icon: "phone"
 ---
 
 <Steps>
@@ -10,24 +9,28 @@ icon: "phone"
 Click open AI Assistants module on Rapida
 
 ![Configure Twilio Step 1](/images/configure_twilio_1.png)
+
 </Step>
 
 <Step title="Open Assistant">
 Open the AI Assistants which needs Twilio integration
 
 ![Configure Twilio Step 2](/images/configure_twilio_2.png)
+
 </Step>
 
 <Step title="Manage Assistant">
 Click open Manage
 
 ![Configure Twilio Step 3](/images/configure_twilio_3.png)
+
 </Step>
 
 <Step title="Configure Phone Call">
-Click open Phone Call 
+Click open Phone Call
 
 ![Configure Twilio Step 4](/images/configure_twilio_4.png)
+
 </Step>
 
 <Step title="Fill Agent details for Phone call">
@@ -41,60 +44,65 @@ Click open Phone Call
 8. Closing Message of the Conversation: Fill in the ending message in Ending Message.
 
 ![Configure Twilio Step 5](/images/configure_twilio_5.png)
+
 </Step>
 
 <Step title="Provide Twilio Credentials">
 Enter your Twilio credentials:
 
-1. Twilio Account SID  
-2. Twilio Auth Token  
+1. Twilio Account SID
+2. Twilio Auth Token
 3. Twilio Phone number used to make Inbound / Outbound calls
 
 For detailed instructions on how to obtain these Twilio credentials, please refer to the [Twilio Credentials Guide](/assistants/twilio-credentials).
 
 ![Configure Twilio Step 6](/images/configure_twilio_6.png)
+
 </Step>
 
 <Step title="Select Speech to Text Configuration">
-Select the following parameters for your Speech to Text provider. 
+Select the following parameters for your Speech to Text provider.
 
-1. Choice: Deepgram.  
-2. Model. Example : Nova \-3 for Deepgram  
-3. Language  
-4. Encoding: Select **Mulaw** for Twilio  
-5. Required sample rate.  
+1. Choice: Deepgram.
+2. Model. Example : Nova \-3 for Deepgram
+3. Language
+4. Encoding: Select **Mulaw** for Twilio
+5. Required sample rate.
 6. Transcript Confidence Threshold
 
 ![Configure Twilio Step 7](/images/configure_twilio_7.png)
+
 </Step>
 
 <Step title="Configure phone call behavior">
 Select relevant configuration for your assistant
 
-1. Rapida to finalize the end of speech. Disable this if you do not want automatic end of speech detection.  
-2. Select correct values for Segmentation Silence Timeout. This is the duration of silence after which Rapida starts finalizing a message EOS: Based on silence and max time (1000-4000ms).  
-3. Background Denoising Enabled. Default active. Disabling this will affect performance of Speech to Text transcription.  
-4. User Idle Silence Timeout. After this Duration of silence, Rapida finalizes a phrase (3000-10000ms) and sends it back as audio response.  
+1. Rapida to finalize the end of speech. Disable this if you do not want automatic end of speech detection.
+2. Select correct values for Segmentation Silence Timeout. This is the duration of silence after which Rapida starts finalizing a message EOS: Based on silence and max time (1000-4000ms).
+3. Background Denoising Enabled. Default active. Disabling this will affect performance of Speech to Text transcription.
+4. User Idle Silence Timeout. After this Duration of silence, Rapida finalizes a phrase (3000-10000ms) and sends it back as audio response.
 5. Idle Message: Message that the assistant will speak when the user hasn't responded until the Idle Silence Timeout.
 
 ![Configure Twilio Step 8](/images/configure_twilio_8.png)
+
 </Step>
 
 <Step title="Select Text to Speech Configuration">
-Select the following parameters for your Text to Speech provider. 
+Select the following parameters for your Text to Speech provider.
 
-1. Provider Choice: Cartesia.  
-2. Model. Example : Sonic \- 2 for Cartesia  
-3. Language  
-4. Voice Id   
-5. Encoding: Select **PCM** **Mulaw** for Twilio  
+1. Provider Choice: Cartesia.
+2. Model. Example : Sonic \- 2 for Cartesia
+3. Language
+4. Voice Id
+5. Encoding: Select **PCM** **Mulaw** for Twilio
 6. Required sample rate.
 
 ![Configure Twilio Step 9](/images/configure_twilio_9.png)
+
 </Step>
 
 <Step title="Deploy Live">
-![Configure Twilio Step 10](/images/configure_twilio_10.png)
+  ![Configure Twilio Step 10](/images/configure_twilio_10.png)
 </Step>
 
 <Step title="Configuring Rapida Assistant on Twilio">
@@ -105,15 +113,16 @@ After obtaining your Twilio credentials, you need to configure your Twilio phone
 3. Select the phone number you want to use with Rapida
 4. Under "Voice & Fax" configuration:
    - Set "A CALL COMES IN" to "Webhook"
-   - Use the following URL format: 
+   - Use the following URL format:
 
- https://assistant-01.rapida.ai/v1/talk/twilio/call/__ASSISTANT_ID__?x-api-key=RAPIDA_API_KEY
+https://assistant-01.rapida.ai/v1/talk/twilio/call/__ASSISTANT_ID__?x-api-key=RAPIDA_API_KEY
 
-5. Replace __ASSISTANT_ID__ with your assistant's unique ID
+5. Replace **ASSISTANT_ID** with your assistant's unique ID
 6. Replace RAPIDA_API_KEY with your Rapida API key
 7. Set the HTTP method to "HTTP POST"
 8. Click "Save" to apply the changes
 
 ![Configure Twilio Step 10](/images/twilio-webhook-config.png)
+
 </Step>
 </Steps>

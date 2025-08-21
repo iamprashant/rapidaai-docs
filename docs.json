@@ -1,89 +1,114 @@
 {
     "$schema": "https://mintlify.com/docs.json",
-    "theme": "mint",
+    "theme": "willow",
     "name": "rapida.ai documentations",
     "colors": {
         "primary": "#2463eb",
         "light": "#2463eb",
         "dark": "#2463eb"
     },
-    "favicon": "/favicon.svg",
+    "favicon": "/favicon.png",
+    "icons": {
+        "library": "lucide"
+    },
     "navigation": {
         "tabs": [
             {
                 "tab": "Documentation",
                 "groups": [
                     {
-                        "group": "Get Started",
+                        "group": "Introduction",
+                        "icon": "book-open",
+                        "tag": "NEW",
                         "pages": [
-                            "introduction"
+                            "introduction/overview",
+                            "introduction/phone",
+                            "introduction/web-widget",
+                            "introduction/web-app"
+                        ]
+                    },
+                    {
+                        "group": "Get Started",
+                        "icon": "rocket",
+                        "pages": [
+                            "get-started/build-your-first-phone",
+                            "get-started/build-your-first-voice-widget",
+                            "get-started/sdk"
                         ]
                     },
                     {
                         "group": "Rapida Assistants",
+                        "icon": "bot",
                         "pages": [
                             "assistants/create-assistant",
                             "assistants/add-knowledge",
                             "assistants/add-knowledge-tool",
+                            "assistants/twilio-integration",
                             "assistants/introduction-to-tools",
-                            "assistants/generating-analysis",
-                            "assistants/create-endpoint",
-                            "assistants/webhooks",
-                            "assistants/twilio-integration"
+                            {
+                                "group": "Analysis",
+                                "pages": [
+                                    "assistants/analysis/overview",
+                                    "assistants/analysis/create-analysis"
+                                ]
+                            },
+                            {
+                                "group": "Webhooks",
+                                "pages": [
+                                    "assistants/webhook/overview",
+                                    "assistants/webhook/create-webhook"
+                                ]
+                            }
                         ]
                     },
                     {
-                        "group": "Rapida Knowledge Base",
+                        "group": "Knowledge",
+                        "icon": "database",
                         "pages": [
-                            "knowledge/create-knowledge"
+                            "knowledge/overview",
+                            "knowledge/create-knowledge",
+                            "knowledge/add-new-document",
+                            "knowledge/manage-document-chunk"
                         ]
                     },
                     {
-                        "group": "Models",
+                        "group": "LLM Endpoint",
+                        "icon": "server",
                         "pages": [
-                            "models/openai",
-                            "models/azure-openai",
-                            "models/anthropic",
-                            "models/google",
-                            "models/cohere",
-                            "models/mistral",
-                            "models/aws-bedrock",
-                            "models/huggingface",
-                            "models/ai21",
-                            "models/deepinfra",
-                            "models/deepgram",
-                            "models/perplexityai",
-                            "models/replicate",
-                            "models/stabilityai",
-                            "models/togetherai",
-                            "models/voyageai"
+                            "endpoint/overview",
+                            "endpoint/create-endpoint",
+                            "endpoint/create-new-version",
+                            "endpoint/monitor-endpoint-performance"
                         ]
                     },
                     {
-                        "group": "Integrations",
+                        "group": "Model Providers",
+                        "icon": "cpu",
                         "pages": [
-                            "integrations/confluence",
-                            "integrations/notion",
-                            "integrations/sharepoint",
-                            "integrations/google-drive",
-                            "integrations/github",
-                            "integrations/one-drive",
-                            "integrations/slack",
-                            "integrations/hubspot",
-                            "integrations/vonage",
-                            "integrations/freshdesk",
-                            "integrations/zendesk",
-                            "integrations/microsoft-dynamics-365",
-                            "integrations/zoho",
-                            "integrations/salesforce",
-                            "integrations/pipedrive",
-                            "integrations/lead-squared"
+                            "integrations/openai",
+                            "integrations/anthropic",
+                            "integrations/cohere",
+                            "integrations/huggingface",
+                            "integrations/google-ai",
+                            "integrations/azure-openai",
+                            "integrations/bedrock",
+                            "integrations/voyageai"
                         ]
                     },
                     {
-                        "group": "Vault (Credentials Manager)",
+                        "group": "External Integrations",
+                        "icon": "plug",
                         "pages": [
-                            "vaults/introduction"
+                            "integrations/external/vonage",
+                            "integrations/external/twilio",
+                            "integrations/external/exotel"
+                        ]
+                    },
+                    {
+                        "group": "Rapida Credentials",
+                        "icon": "key",
+                        "pages": [
+                            "integrations/rapida-credentials"
                         ]
                     }
                 ]
@@ -93,6 +118,7 @@
                 "groups": [
                     {
                         "group": "API Documentation",
+                        "icon": "file-code",
                         "pages": [
                             "api-reference/introduction"
                         ]
@@ -102,8 +128,8 @@
         ]
     },
     "logo": {
-        "light": "/logo/r.svg",
-        "dark": "/logo/r.svg"
+        "light": "/logo/light.svg",
+        "dark": "/logo/dark.svg"
     },
     "navbar": {
         "links": [
@@ -123,36 +149,6 @@
             "twitter": "https://twitter.com/rapida",
             "github": "https://github.com/rapida",
             "linkedin": "https://www.linkedin.com/company/rapida"
-        }
-    },
-    "api": {
-        "playground": {
-            "display": "interactive"
-        },
-        "examples": {
-            "languages": [
-                "javascript",
-                "curl",
-                "python"
-            ]
-        }
-    },
-    "contextual": {
-        "options": [
-            "copy",
-            "view",
-            "chatgpt",
-            "claude"
-        ]
-    },
-    "integrations": {
-        "telemetry": {
-            "enabled": true
-        }
-    },
-    "errors": {
-        "404": {
-            "redirect": true
         }
     }
 }

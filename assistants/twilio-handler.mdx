@@ -2,7 +2,6 @@
 title: "Twilio Handler Configuration"
 description: "Set up the primary handler URL to connect Twilio with your assistant"
 sidebarTitle: "Twilio Handler"
-icon: "link"
 ---
 
 # Twilio Primary Handler URL Configuration
@@ -15,11 +14,10 @@ The Twilio handler URL is the endpoint that Twilio will call when a phone call i
 
 https://assistant-01.rapida.ai/v1/talk/twilio/call/__ASSISTANT_ID__?x-api-key=RAPIDA_API_KEY
 
-
 Where:
+
 - `{assistant_id}` is your Rapida assistant's unique identifier
 - `{your_rapida_api_key}` is your Rapida API key
-
 
 ## How to Configure in Twilio
 
@@ -31,7 +29,6 @@ Where:
    - Paste your Rapida handler URL in the webhook field
    - Set the HTTP method to "HTTP POST"
 
-
 ![Twilio Webhook Configuration](/images/twilio-webhook-config.png)
 
 5. Click "Save" to apply the changes
@@ -39,6 +36,7 @@ Where:
 ## Finding Your Assistant ID
 
 To find your assistant ID:
+
 1. Log in to your Rapida dashboard
 2. Open the AI Assistants module
 3. Select your assistant
@@ -53,6 +51,7 @@ To find your assistant ID:
 ## Testing Your Configuration
 
 After setting up your Twilio handler URL:
+
 1. Call your Twilio phone number
 2. You should be connected to your Rapida AI Assistant
 3. Check the Rapida logs if you encounter any issues
