@@ -35,14 +35,23 @@
                         ]
                     },
                     {
-                        "group": "Rapida Assistants",
+                        "group": "Assistants",
                         "icon": "bot",
                         "pages": [
+                            "assistants/overview",
                             "assistants/create-assistant",
-                            "assistants/add-knowledge",
+                            "assistants/create-new-version",
                             "assistants/add-knowledge-tool",
                             "assistants/twilio-integration",
                             "assistants/introduction-to-tools",
+                            {
+                                "group": "Knowledge",
+                                "icon": "book",
+                                "pages": [
+                                    "assistants/knowledge/overview",
+                                    "assistants/knowledge/add-knowledge"
+                                ]
+                            },
                             {
                                 "group": "Analysis",
                                 "icon": "chart-area",
