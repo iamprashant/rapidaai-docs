@@ -1,41 +1,73 @@
 ---
 title: "Adding Knowledge Sources"
-description: "Attach knowledge sources to your assistant for enhanced information access"
+description: "Configure knowledge sources for your assistant to enhance information retrieval"
 sidebarTitle: "Add Knowledge"
+icon: "book-open"
 ---
 
-This guide explains how to attach knowledge sources to your assistant, enabling it to access and utilize external information.
+import { BookOpen, Bot, Search, Settings, RefreshCw } from 'lucide-react'
+
+This guide explains how to configure knowledge sources for your assistant, enabling it to access and utilize external information more effectively.
 
 ## Prerequisites
 
-- You must have already created a knowledge source in the platform. For more information on how to create new knowledge, please refer to the [Creating Knowledge Sources](/knowledge/create-knowledge) documentation.
-- You need an existing assistant or be in the process of creating one. For more information on how to create new assistant, please refer to the [Creating Assistant](/assistants/create-assistant) documentation.
+Before you begin, ensure you have:
+
+<CardGroup cols={2}>
+  <Card title="Created a Knowledge Source" icon="book">
+    Learn how to create a knowledge source in our [Creating Knowledge Sources](/knowledge/create-knowledge) guide.
+  </Card>
+  <Card title="Created an Assistant" icon="bot">
+    If you haven't created an assistant yet, follow our [Creating an Assistant](/assistants/create-assistant) guide.
+  </Card>
+</CardGroup>
 
 <Steps>
 <Step title="Access Knowledge Configuration">
-![Access Knowledge Configuration](/images/create_assistant/add_knowledge_to_assistant_1.png)
-
-When creating or editing an assistant, navigate to "Manage" -> "Knowledge" section of the assistant configuration page.
-
+  When creating or editing an assistant, navigate to the "Manage" tab and select "Knowledges" from the sidebar.
 </Step>
 
-<Step title="Browse Available Knowledge Sources">
-![Browse Knowledge Sources](/images/create_assistant/add_knowledge_to_assistant_2.png)
-
-You'll see a list of all knowledge sources that have been configured in your account. Each knowledge source will display:
-
-- Name
-- Description
-- Other Metadata
-
-Check the boxes next to the knowledge sources you want to attach to your assistant. You can select multiple knowledge sources to provide your assistant with access to various information repositories. Click **Add knowledge** when done.
-
+<Step title="Create or Select Knowledge Source">
+  ![Configure Retrieval Settings](/images/assistant/configure-knowledge.png)
+  In the "Knowledge" field, you can:
+  - Type to search for an existing knowledge source
+  - Select from the dropdown list of available knowledge sources
+  - Create a new knowledge source if needed
 </Step>
 
-<Step title="Confirm Knowledge Sources">
-![Select Knowledge Sources](/images/create_assistant/add_knowledge_to_assistant_3.png)
+<Step title="Configure Retrieval Settings">
+  ![Configure Retrieval Settings](/images/assistant/configure_knowledge_retrieval.png)
 
-You will see the list of Knowledge that is attached to the assistant. This knowledge base will need to be access by **Adding tools**. Refer to Add Tools to access this knowledge from the assistant.
+  1. **Choose the search method:**
+     - **Hybrid Search (recommended)**: Combines full-text search and vector search for optimal results.
+     - **Semantic Search**: Uses query embeddings to find semantically similar content.
+     - **Full Text Search**: Indexes and searches all terms in the document.
 
+  2. **Adjust the "Top K" value**: This determines the number of most relevant results to retrieve. A higher value may provide more comprehensive results but could include less relevant information.
+
+  3. **Set the "Score Threshold"**: This filters results based on their relevance score. A higher threshold will only return more closely matched results.
+
+  4. **Enable "Reranking" (Optional)**:
+     
+     Reranking improves the relevance of retrieved information by:
+     - Re-evaluating the initial search results
+     - Considering additional context and nuances
+     - Potentially reordering the results for better relevance
+
+  5. **Select the reranking model**: If reranking is enabled, choose an appropriate model. The default "Rerank English v2.0" works well for English content.
+</Step>
+
+<Step title="Confirm Knowledge Configuration">
+  After configuring the knowledge settings, click "Connect knowledge" to add it to your assistant.
+
+  You can add multiple knowledge sources by repeating this process, allowing your assistant to access a diverse range of information.
 </Step>
 </Steps>
+
+## Best Practices
+
+- Start with Hybrid Search for a balance of broad coverage and semantic understanding.
+- Experiment with different "Top K" and "Score Threshold" values to find the optimal balance for your use case.
+- Enable reranking for more nuanced and contextually relevant results, especially for complex queries.
+
+By carefully configuring these settings, you can significantly enhance your assistant's ability to retrieve and utilize knowledge effectively.

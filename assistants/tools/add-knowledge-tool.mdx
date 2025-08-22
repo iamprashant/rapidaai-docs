@@ -1,0 +1,102 @@
+---
+title: "Knowledge Retrieval Tool"
+description: "Configure and use the Knowledge Retrieval Tool to access information from your knowledge base"
+icon: 'grid-2x2-plus'
+---
+
+The Knowledge Retrieval Tool allows your assistant to fetch relevant information from your organization's knowledge base when responding to user queries. This guide will walk you through the process of adding and configuring this tool for your assistant.
+
+## Prerequisites
+
+Before adding the Knowledge Retrieval Tool, ensure that you have:
+
+- [Created an assistant](/assistants/create-assistant)
+- [Configured a knowledge base](/assistants/add-knowledge)
+
+## Adding the Knowledge Retrieval Tool
+
+<Steps>
+  <Step title="Navigate to Your Assistant">
+    1. Go to the Assistants section in the main navigation menu.
+    2. Select the assistant you want to configure.
+    3. Navigate to the "Manage" -> "Tools" tab.
+    4. Click on **Add Tools**.
+  </Step>
+
+  <Step title="Select the Knowledge Retrieval Tool">
+
+  ![Navigate to Assistants](/images/assistant/tools/knowledge-tool.png)
+    1. From the list of available tools, find "Knowledge Retrieval".
+    2. Click on the **Add Tool** button next to it.
+  </Step>
+
+  <Step title="Configure the Tool">
+    Once added, you can configure the Knowledge Retrieval Tool with the following settings:
+    
+    <AccordionGroup>
+    <Accordion title="Tool Name">
+      Knowledge Retrieval
+    </Accordion>
+
+    <Accordion title="Description">
+      Use this tool to retrieve relevant information from the knowledge base when answering user queries or discussing specific topics.
+    </Accordion>
+
+    <Accordion title="Fields">
+      <Accordion title="query">
+        - **Type**: String
+        - **Description**: The user's question or topic for knowledge retrieval
+        - **Required**: Yes
+      </Accordion>
+
+      <Accordion title="context">
+        - **Type**: String
+        - **Description**: Additional context or background information related to the query
+        - **Required**: No
+      </Accordion>
+
+      <Accordion title="max_results">
+        - **Type**: Integer
+        - **Description**: Maximum number of relevant results to retrieve (default: 5)
+        - **Required**: No
+      </Accordion>
+    </Accordion>
+
+    <Accordion title="When to Use">
+      The assistant should use this tool when:
+      - The user asks a question that may require information from the knowledge base
+      - The conversation topic relates to specific company knowledge, products, or services
+      - Additional context or details are needed to provide a comprehensive answer
+    </Accordion>
+    </AccordionGroup>
+  </Step>
+
+  <Step title="Save Configuration">
+    After configuring the tool, click on the **Save** or **Update** button to apply your changes.
+  </Step>
+</Steps>
+
+## Using the Knowledge Retrieval Tool
+
+Once configured, your assistant will automatically use the Knowledge Retrieval Tool when appropriate. The process typically follows these steps:
+
+1. The assistant analyzes the user's query or conversation context.
+2. If relevant, it calls the Knowledge Retrieval Tool with the necessary parameters.
+3. The tool fetches information from the knowledge base.
+4. The assistant incorporates the retrieved information into its response.
+
+## Managing the Knowledge Retrieval Tool
+
+You can modify or remove the Knowledge Retrieval Tool at any time:
+
+1. Go to your assistant's "Manage" -> "Tools" tab.
+2. Find the Knowledge Retrieval Tool in the list.
+3. Click on **Edit** to modify its configuration or **Remove** to delete it.
+
+## Best Practices
+
+- Regularly update your knowledge base to ensure the assistant provides the most current information.
+- Monitor your assistant's performance and adjust the tool's configuration as needed.
+- Use clear and specific queries to get the most relevant results from the knowledge base.
+
+By effectively configuring and utilizing the Knowledge Retrieval Tool, your assistant can provide more accurate, up-to-date, and relevant information to users based on your organization's specific knowledge resources.

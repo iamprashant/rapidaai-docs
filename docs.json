@@ -41,14 +41,21 @@
                             "assistants/overview",
                             "assistants/create-assistant",
                             "assistants/create-new-version",
-                            "assistants/add-knowledge-tool",
-                            "assistants/twilio-integration",
-                            "assistants/introduction-to-tools",
+                            {
+                                "group": "Tool",
+                                "icon": "pencil-ruler",
+                                "pages": [
+                                    "assistants/tools/add-knowledge-tool",
+                                    "assistants/tools/add-endpoint-tool",
+                                    "assistants/tools/add-api-tool",
+                                    "assistants/tools/add-put-on-hold-tool",
+                                    "assistants/tools/add-end-of-conversation-tool"
+                                ]
+                            },
                             {
                                 "group": "Knowledge",
                                 "icon": "book",
                                 "pages": [
-                                    "assistants/knowledge/overview",
                                     "assistants/knowledge/add-knowledge"
                                 ]
                             },
