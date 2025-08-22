@@ -31,8 +31,6 @@
                         "group": "Get Started",
                         "icon": "rocket",
                         "pages": [
-                            "get-started/build-your-first-phone",
-                            "get-started/build-your-first-voice-widget",
                             "get-started/sdk"
                         ]
                     },
