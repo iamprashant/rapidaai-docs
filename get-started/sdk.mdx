@@ -6,8 +6,6 @@ sidebarTitle: "SDK"
 
 The Rapida SDK lets you quickly integrate voice, chat, and AI-powered workflows into your applications. This guide covers installation and authentication for different languages. For detailed API references, see the [API Reference](/api-reference).
 
----
-
 ## Prerequisites
 
 <Info>
@@ -28,9 +26,10 @@ The Rapida SDK lets you quickly integrate voice, chat, and AI-powered workflows 
 You can check your installed versions:
 
 <CodeGroup>
-  ```bash Node.js
-  node --version
-  ```
+
+```bash Node.js
+node --version
+```
 
 ```bash Go
 go version
@@ -42,86 +41,63 @@ python --version
 
 </CodeGroup>
 
----
-
 ## Installation
 
-### React
-
 <CodeGroup>
-  ```bash npm
-  npm install rapida-react
-  ```
+    ```bash React
+    # React (choose one)
+    npm install rapida-react      # npm
+    yarn add rapida-react         # yarn
+    pnpm add rapida-react         # pnpm
+    # Other languages: see tabs
+    ```
 
-```bash yarn
-yarn add rapida-react
-```
+    ```bash Node.js
+    # Node.js (choose one)
+    npm install rapida-nodejs     # npm
+    yarn add rapida-nodejs        # yarn
+    pnpm add rapida-nodejs        # pnpm
+    # Other languages: see tabs
+    ```
 
-```bash pnpm
-pnpm add rapida-react
-```
+    ```bash Go
+    # Go
+    go get github.com/rapidaai/rapida-go@v0.0.7
+    # Other languages: see tabs
+    ```
+
+    ```bash Python
+    # Python (choose one)
+    pip install rapida-sdk        # pip
+    pip3 install rapida-sdk       # pip3
+    # Other languages: see tabs
+    ```
 
 </CodeGroup>
-
-### Node.js
-
-<CodeGroup>
-  ```bash npm
-  npm install rapida-nodejs
-  ```
-
-```bash yarn
-yarn add rapida-nodejs
-```
-
-```bash pnpm
-pnpm add rapida-nodejs
-```
-
-</CodeGroup>
-
-### Go
-
-```bash
-go get github.com/rapidaai/rapida-go@v0.0.7
-```
-
-### Python
-
-<CodeGroup>
-  ```bash pip
-  pip install rapida-sdk
-  ```
-
-```bash pip3
-pip3 install rapida-sdk
-```
-
-</CodeGroup>
-
----
 
 ## Authentication
 
 You can connect to Rapida using either **Personal Tokens** (for administration APIs) or **Project API Keys** (for typical app integration).
 
-### Administration (Personal Token)
+### Administration
 
-Use this for APIs that require write/admin access.
+Personal tokens are used for APIs that require write or administrative access. These tokens are essential for managing users, roles, projects, and performing create or update operations that need authentication.
+
+#### Implementation Example:
 
 <CodeGroup>
   ```typescript React/Node.js
-  import { ConnectionConfig } from "rapida-react"; // or "rapida-nodejs"
+
+import { ConnectionConfig } from "rapida-react"; // or "rapida-nodejs"
 
 export let connectionConfig = new ConnectionConfig();
 
 connectionConfig.withAuth(
 ConnectionConfig.WithPersonalToken({
-authorization: process.env.RAPIDA_PERSONAL_TOKEN!,
-userId: process.env.RAPIDA_USER_ID!,
-projectId: process.env.RAPIDA_PROJECT_ID!,
-})
-);
+    authorization: process.env.RAPIDA_PERSONAL_TOKEN!,
+    userId: process.env.RAPIDA_USER_ID!,
+    projectId: process.env.RAPIDA_PROJECT_ID!,
+}));
 
 ````
 
@@ -157,7 +133,7 @@ connection_config.with_auth(WithPersonalToken(
 
 </CodeGroup>
 
-### Project Credentials (SDK API Key)
+### Project Credentials
 
 Use this for typical integrations inside your apps and servers.
 
@@ -168,9 +144,9 @@ Use this for typical integrations inside your apps and servers.
 export let connectionConfig = new ConnectionConfig();
 
 connectionConfig.withAuth(
-ConnectionConfig.WithSDK({
-apiKey: process.env.RAPIDA_API_KEY!,
-})
+    ConnectionConfig.WithSDK({
+        apiKey: process.env.RAPIDA_API_KEY!,
+    })
 );
 
 ````
@@ -201,8 +177,6 @@ connection_config.with_auth(WithSDK(api_key=os.getenv("RAPIDA_API_KEY")))
 
 </CodeGroup>
 
----
-
 ## Environment Variables
 
 Create a `.env` file in your project root and add your Rapida credentials:
@@ -221,8 +195,6 @@ RAPIDA_API_KEY=your_api_key_here
   You can find your credentials in the Rapida dashboard under **Settings → API
   Keys**.
 </Info>
-
----
 
 ## Quick Start Example
 
@@ -320,8 +292,6 @@ print("Rapida SDK initialized successfully!")
 
   </Accordion>
 </AccordionGroup>
-
----
 
 ## Next Steps
 
