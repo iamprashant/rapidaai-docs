@@ -1,0 +1,163 @@
+---
+title: "Create Phone Call"
+---
+
+Creates an outbound phone call to the specified number using your configured assistant.
+
+<Info>
+  For full setup and authentication options, see the Installation guide: [/api-reference/introduction](/api-reference/introduction).
+</Info>
+
+<ParamField body="clientCfg" type="ConnectionConfig" required>
+  Configuration for the client connection.
+</ParamField>
+
+<ParamField body="assistant" type="AssistantDefinition" required>
+  Assistant configuration object.
+</ParamField>
+
+<ParamField body="toNumber" type="string" required>
+  Destination phone number in E.164 format (for example, +14155550123).
+</ParamField>
+
+<ParamField body="fromNumber" type="string">
+  Caller ID phone number to originate the call from (E.164 format). If omitted, the system default will be used.
+</ParamField>
+
+<ParamField body="args" type="Map<string, google_protobuf_any_pb.Any>">
+  Additional arguments passed to the call as a key-value map.
+</ParamField>
+
+<ParamField body="options" type="Map<string, google_protobuf_any_pb.Any>">
+  Call options for runtime behavior and configuration.
+</ParamField>
+
+<ParamField body="metadata" type="Map<string, google_protobuf_any_pb.Any>">
+  Arbitrary metadata to associate with the call for tracking and analytics.
+</ParamField>
+
+### Usage
+
+<CodeGroup>
+
+```ts TypeScript
+import { CreatePhoneCall, AssistantDefinition, type ConnectionConfig } from 'rapida-nodejs';
+
+const clientCfg: ConnectionConfig = { /* ... */ };
+
+const assistant = new AssistantDefinition();
+assistant.setAssistantid(assistantId);
+assistant.setVersion('latest');
+
+const toNumber = `${country.value}${phoneNumber}`;
+
+const res = await CreatePhoneCall(
+  clientCfg,
+  assistant,
+  toNumber,
+  fromNumber,   // optional
+  args,         // optional
+  options,      // optional
+  metadata      // optional
+);
+console.log('Phone call created successfully:', res);
+```
+
+```javascript Node.js
+const { CreatePhoneCall, AssistantDefinition } = require('rapida-nodejs');
+
+const clientCfg = { /* ... */ };
+
+const assistant = new AssistantDefinition();
+assistant.setAssistantid(assistantId);
+assistant.setVersion('latest');
+
+const toNumber = `${country}${phoneNumber}`;
+
+(async () => {
+  try {
+    const res = await CreatePhoneCall(
+      clientCfg,
+      assistant,
+      toNumber,
+      fromNumber,   // optional
+      args,         // optional
+      options,      // optional
+      metadata      // optional
+    );
+    console.log('Phone call created successfully:', res);
+  } catch (err) {
+    console.error('Failed to create phone call:', err);
+  }
+})();
+```
+
+```python Python
+from rapida_sdk import create_phone_call, AssistantDefinition
+
+client_cfg = {  # ...
+}
+
+assistant = AssistantDefinition()
+assistant.setAssistantid(assistant_id)
+assistant.setVersion("latest")
+
+to_number = f"{country}{phone_number}"
+
+res = create_phone_call(
+    client_cfg,
+    assistant,
+    to_number,
+    from_number,  # optional
+    args,         # optional
+    options,      # optional
+    metadata      # optional
+)
+print("Phone call created successfully:", res)
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  rapida "github.com/rapidaai/rapida-go"
+)
+
+func main() {
+  clientCfg := rapida.ConnectionConfig{ /* ... */ }
+
+  assistant := rapida.NewAssistantDefinition()
+  assistant.SetAssistantid(assistantID)
+  assistant.SetVersion("latest")
+
+  toNumber := country + phoneNumber
+
+  res, err := rapida.CreatePhoneCall(
+    clientCfg,
+    assistant,
+    toNumber,
+    fromNumber, // optional
+    args,       // optional
+    options,    // optional
+    metadata,   // optional
+  )
+  if err != nil {
+    panic(err)
+  }
+  fmt.Println("Phone call created successfully:", res)
+}
+```
+
+</CodeGroup>
+
+### Response
+
+The `CreatePhoneCall` request returns a `CreatePhoneCallResponse` with the following fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `code` | `number` | Numeric status code for the operation |
+| `success` | `boolean` | Indicates whether the operation was successful |
+| `data` | `AssistantConversation`, `undefined` | When successful, contains per-request results (may be undefined) |
+| `error` | `Error` | When unsuccessful, contains error information (may be undefined) |

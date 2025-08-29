@@ -156,7 +156,17 @@
                         "group": "API Documentation",
                         "icon": "file-code",
                         "pages": [
-                            "api-reference/introduction"
+                            "api-reference/introduction",
+                            "api-reference/authentication",
+                            "api-reference/definition"
+                        ]
+                    },
+                    {
+                        "group": "Calls",
+                        "icon": "phone",
+                        "pages": [
+                            "api-reference/call/create-call",
+                            "api-reference/call/create-bulk-call"
                         ]
                     }
                 ]
