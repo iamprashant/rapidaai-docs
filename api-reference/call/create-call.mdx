@@ -40,56 +40,66 @@ Creates an outbound phone call to the specified number using your configured ass
 
 <CodeGroup>
 
-```ts TypeScript
-import { CreatePhoneCall, AssistantDefinition, type ConnectionConfig } from 'rapida-nodejs';
+```ts React
+import {
+  ConnectionConfig,
+  CreatePhoneCall,
+  AssistantDefinition,
+} from 'rapida-react';
 
-const clientCfg: ConnectionConfig = { /* ... */ };
-
+// assistant definition
 const assistant = new AssistantDefinition();
-assistant.setAssistantid(assistantId);
+assistant.setAssistantid(<ASSISTANT_ID>);
 assistant.setVersion('latest');
 
-const toNumber = `${country.value}${phoneNumber}`;
 
-const res = await CreatePhoneCall(
-  clientCfg,
-  assistant,
-  toNumber,
-  fromNumber,   // optional
-  args,         // optional
-  options,      // optional
-  metadata      // optional
+// check authentication object
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
 );
-console.log('Phone call created successfully:', res);
+
+CreatePhoneCall(connectionCfg, assistant, "<PHONE_NUMBER>")
+.then(x => {
+    if (x.getSuccess()) {
+        console.log("call created succssfully")
+    } else {
+        let err = x.getError();
+        if (err?.getHumanmessage()) {
+            console.log(err?.getHumanmessage());
+        }
+    }
+})
+.catch(x => {
+    // network error occired
+    console.dir(x);
+});
 ```
 
 ```javascript Node.js
-const { CreatePhoneCall, AssistantDefinition } = require('rapida-nodejs');
+import {
+  AssistantDefinition,
+  CreatePhoneCall,
+  ConnectionConfig,
+} from "rapida-nodejs";
 
-const clientCfg = { /* ... */ };
-
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
+);
 const assistant = new AssistantDefinition();
 assistant.setAssistantid(assistantId);
 assistant.setVersion('latest');
-
-const toNumber = `${country}${phoneNumber}`;
-
-(async () => {
-  try {
-    const res = await CreatePhoneCall(
-      clientCfg,
-      assistant,
-      toNumber,
-      fromNumber,   // optional
-      args,         // optional
-      options,      // optional
-      metadata      // optional
-    );
-    console.log('Phone call created successfully:', res);
-  } catch (err) {
-    console.error('Failed to create phone call:', err);
-  }
-})();
+CreatePhoneCall(connectionCfg, assistant, "<PHONE_NUMBER>")
+.then((x) => {
+    if (x.getSuccess()) {
+        console.dir(x.getData().toObject());
+        return;
+    }
+    let err = x.getError();
+    if (err?.getHumanmessage()) setError(err?.getHumanmessage());
+})
+.catch((x) => {
+    console.dir(x);
+});
 ```
 
 ```python Python
