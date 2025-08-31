@@ -27,18 +27,17 @@ const connection = ConnectionConfig.DefaultConnectionConfig(
 ```
 
 ```go Go
-package main
 
 import (
   "os"
-  sdk "github.com/rapidaai/rapida-go"
+  "github.com/rapidaai/rapida-go/rapida/connections"
 )
 
-func main() {
-  cfg := sdk.NewConnectionConfig()
-  cfg.WithAuth(sdk.WithSDK(sdk.SDKOptions{ ApiKey: os.Getenv("RAPIDA_API_KEY") }))
-  // cfg.WithLocal() // if supported in your SDK version
-}
+connectionConfig := connections.DefaultconnectionConfig(
+    connections.WithSDK(
+        os.Getenv("RAPIDA_API_KEY"),
+    ),
+)
 ```
 
 ```python Python
@@ -96,6 +95,36 @@ const connection = ConnectionConfig.DefaultConnectionConfig(
 )
 
 ```
+
+```go Go
+
+import (
+  "os"
+  "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+connectionConfig := connections.DefaultconnectionConfig(
+    connections.WithPersonalToken(
+        os.Getenv("RAPIDA_AUTHORIZATION_TOKEN"),
+        os.Getenv("RAPIDA_AUTH_ID"),
+        os.Getenv("RAPIDA_PROJECT_ID"),
+    ),
+)
+```
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+)
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_personal_token(
+        authorization="RAPIDA_AUTHORIZATION_TOKEN",
+        auth_id="RAPIDA_AUTH_ID",
+        project_id="RAPIDA_PROJECT_ID",
+    )
+)
+```
 </CodeGroup>
 
 #### WithSDK
@@ -127,6 +156,33 @@ const connection = ConnectionConfig.DefaultConnectionConfig(
 import { ConnectionConfig } from 'rapida-react';
 const connection = ConnectionConfig.DefaultConnectionConfig(
    ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
+)
+```
+
+```go Go
+
+import (
+  "os"
+  "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+connectionConfig := connections.DefaultconnectionConfig(
+    connections.WithSDK(
+        os.Getenv("RAPIDA_API_KEY"),
+    ),
+)
+```
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+)
+
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(
+        api_key="API_KEY"
+    )
 )
 ```
 </CodeGroup>

@@ -12,6 +12,9 @@ Creates an outbound phone call to the specified number using your configured ass
   Configuration for the client connection.
 </ParamField>
 
+
+## Request Properties
+
 <ParamField body="assistant" type="AssistantDefinition" required>
   Assistant configuration object.
 </ParamField>
@@ -45,32 +48,34 @@ import {
   ConnectionConfig,
   CreatePhoneCall,
   AssistantDefinition,
+  CreatePhoneCallRequest,
 } from 'rapida-react';
 
-// assistant definition
+const phoneCallRequest = new CreatePhoneCallRequest();
 const assistant = new AssistantDefinition();
-assistant.setAssistantid(<ASSISTANT_ID>);
+assistant.setAssistantid("ASSISTANT_ID");
 assistant.setVersion('latest');
-
-
-// check authentication object
+phoneCallRequest.setAssistant(assistant);
+phoneCallRequest.setFromnumber('FROM_NUMBER');
+phoneCallRequest.setTonumber("TO_NUMBER");
 let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
-    ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
+    ConnectionConfig.WithPersonalToken({
+        Authorization: token,
+        AuthId: authId,
+        ProjectId: projectId,
+    }),
 );
 
-CreatePhoneCall(connectionCfg, assistant, "<PHONE_NUMBER>")
+CreatePhoneCall(connectionCfg, phoneCallRequest)
 .then(x => {
+    console.log(x);
     if (x.getSuccess()) {
-        console.log("call created succssfully")
-    } else {
-        let err = x.getError();
-        if (err?.getHumanmessage()) {
-            console.log(err?.getHumanmessage());
-        }
+    return;
     }
+    let err = x.getError();
+    if (err?.getHumanmessage()) setError(err?.getHumanmessage());
 })
 .catch(x => {
-    // network error occired
     console.dir(x);
 });
 ```
@@ -80,15 +85,23 @@ import {
   AssistantDefinition,
   CreatePhoneCall,
   ConnectionConfig,
+  CreatePhoneCallRequest,
 } from "rapida-nodejs";
 
 let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
     ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
 );
+const phoneCallRequest = new CreatePhoneCallRequest();
+// define assistant
 const assistant = new AssistantDefinition();
-assistant.setAssistantid(assistantId);
-assistant.setVersion('latest');
-CreatePhoneCall(connectionCfg, assistant, "<PHONE_NUMBER>")
+assistant.setAssistantid("<ASSISTANT_ID>");
+assistant.setVersion("latest");
+phoneCallRequest.setAssistant(assistant);
+
+phoneCallRequest.setFromnumber("FROM_NUMBER");
+phoneCallRequest.setTonumber("<TO_NUMBER>");
+
+CreatePhoneCall(connection, phoneCallRequest)
 .then((x) => {
     if (x.getSuccess()) {
         console.dir(x.getData().toObject());
@@ -100,62 +113,62 @@ CreatePhoneCall(connectionCfg, assistant, "<PHONE_NUMBER>")
 .catch((x) => {
     console.dir(x);
 });
+
 ```
 
 ```python Python
-from rapida_sdk import create_phone_call, AssistantDefinition
-
-client_cfg = {  # ...
-}
-
-assistant = AssistantDefinition()
-assistant.setAssistantid(assistant_id)
-assistant.setVersion("latest")
-
-to_number = f"{country}{phone_number}"
-
-res = create_phone_call(
-    client_cfg,
-    assistant,
-    to_number,
-    from_number,  # optional
-    args,         # optional
-    options,      # optional
-    metadata      # optional
+from rapida import (
+    ConnectionConfig,
+    create_phone_call,
+    CreatePhoneCallRequest,
+    AssistantDefinition,
 )
-print("Phone call created successfully:", res)
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_personal_token(
+        authorization="RAPIDA_AUTHORIZATION_TOKEN",
+        auth_id="RAPIDA_AUTH_ID",
+        project_id="RAPIDA_PROJECT_ID",
+    )
+)
+call = CreatePhoneCallRequest(
+    assistant=AssistantDefinition(assistantId=ASSISTANT_ID, version="latest"),
+    fromNumber="<FROM>",
+    toNumber="<TO>",
+)
+response = create_phone_call(client_cfg=connectionConfig, request=call)
+pprint.pprint(response)
+
 ```
 
 ```go Go
 package main
 
 import (
-  "fmt"
-  rapida "github.com/rapidaai/rapida-go"
+    "context"
+    "fmt"
+
+    "github.com/rapidaai/rapida-go/rapida/clients"
+    protos "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	"github.com/rapidaai/rapida-go/rapida/connections"
 )
 
 func main() {
-  clientCfg := rapida.ConnectionConfig{ /* ... */ }
-
-  assistant := rapida.NewAssistantDefinition()
-  assistant.SetAssistantid(assistantID)
-  assistant.SetVersion("latest")
-
-  toNumber := country + phoneNumber
-
-  res, err := rapida.CreatePhoneCall(
-    clientCfg,
-    assistant,
-    toNumber,
-    fromNumber, // optional
-    args,       // optional
-    options,    // optional
-    metadata,   // optional
-  )
-  if err != nil {
-    panic(err)
-  }
-  fmt.Println("Phone call created successfully:", res)
+  	connectionConfig := connections.DefaultconnectionConfig(
+		connections.WithSDK(os.Getenv("RAPIDA_API_KEY")),
+	)
+	response, err := clients.CreatePhoneCall(
+		context.Background(),
+		connectionConfig,
+		&protos.CreatePhoneCallRequest{
+			Assistant: &protos.AssistantDefinition{
+				AssistantId: <ASSISTANT_ID>,
+				Version:     "<ASSISTANT_VERSION> | latest",
+			},
+			ToNumber:   "<TO_NUMBER>",
+			FromNumber: "<FROM_NUMBER>",
+		},
+	)
 }
 ```
 
@@ -171,3 +184,5 @@ The `CreatePhoneCall` request returns a `CreatePhoneCallResponse` with the follo
 | `success` | `boolean` | Indicates whether the operation was successful |
 | `data` | `AssistantConversation`, `undefined` | When successful, contains per-request results (may be undefined) |
 | `error` | `Error` | When unsuccessful, contains error information (may be undefined) |
+
+
