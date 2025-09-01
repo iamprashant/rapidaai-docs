@@ -18,58 +18,59 @@ Before adding the End of Conversation Tool, ensure that you have:
   <Step title="Navigate to Your Assistant">
     1. Go to the Assistants section in the main navigation menu.
     2. Select the assistant you want to configure.
-    3. Navigate to the "Manage" -> "Configure Tool" tab.
-    4. Click on **Create** to add a new tool.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Tools and MCP" from the left sidebar menu.
+    5. Click on **Add Tools**.
   </Step>
 
-  <Step title="Select the End of Conversation Tool">
-  ![alt text](../../images/assistant/tools/end-of-conversation-tool.png)
-    1. From the list of available tools, find "End of Conversation".
-    2. Click on it to start configuring the tool.
-  </Step>
-
-  <Step title="Configure the Tool">
-    Configure the End of Conversation Tool with the following settings:
+    <Step title="Configure the Tool">
+    When configuring an End of Conversation tool, you'll need to provide several key elements:
     
-    <AccordionGroup>
-    <Accordion title="Tool Name">
-      End of Conversation
-    </Accordion>
-
-    <Accordion title="Description">
-      Use this tool to signal the end of a conversation when appropriate.
-    </Accordion>
-
-    <Accordion title="Fields">
-      <Accordion title="Expected Action">
-        - **Type**: String
-        - **Description**: A brief description of why the conversation is ending
-        - **Required**: Yes
-      </Accordion>
-    </Accordion>
-    </AccordionGroup>
+    1. **Name**: A unique identifier for your tool
+       - Example: "end_conversation"
+       - Use descriptive names that indicate the tool's purpose
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "Ends the conversation after a task is complete or the user says goodbye."
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format following the OpenAI Function Tool Call schema:
+       ```json
+       {
+         "type": "object",
+         "properties": {}
+       }
+       ```
+       
+       This simple schema indicates that the tool doesn't require any specific parameters.
+    
+    4. **Expected Action**: From the list select "End Of Conversation".
   </Step>
 
   <Step title="Save Configuration">
-    After configuring the tool, click on the **Configure Tool** button to save your changes.
+    After configuring the tool, click on the **Configure Tool** button to apply your changes.
   </Step>
 </Steps>
+
+![Put on hold](/images/assistant/tools/end-of-conversation-tool.png)
+
 
 ## Using the End of Conversation Tool
 
 Once configured, your assistant can use the End of Conversation Tool when appropriate. The process typically follows these steps:
 
 1. The assistant determines that the conversation has reached a natural conclusion.
-2. It calls the End of Conversation Tool with a brief explanation.
+2. It calls the End of Conversation Tool.
 3. The conversation is marked as ended, and the assistant stops generating further responses.
 
 ## Managing the End of Conversation Tool
 
 You can modify or remove the End of Conversation Tool at any time:
 
-1. Go to your assistant's "Manage" -> "Configure Tool" tab.
-2. Find the End of Conversation Tool in the list.
-3. Click on it to modify its configuration or remove it.
+1. Go to your assistant's configuration page.
+2. Select "Tools and MCP" from the left sidebar menu.
+3. Find the End of Conversation Tool in the list.
+4. Click on **Edit Tool** to modify its configuration or **Delete Tool** to delete it.
 
 ## Best Practices
 

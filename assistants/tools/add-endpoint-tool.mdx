@@ -1,10 +1,10 @@
 ---
 title: "Endpoint (LLM Call) Tool"
-description: "Configure and use the Endpoint (LLM Call) Tool to make external API calls to language models"
+description: "Configure and use the Endpoint (LLM Call) Tool to make API calls to language models"
 icon: 'grid-2x2-plus'
 ---
 
-The Endpoint (LLM Call) Tool allows your assistant to make external API calls to language models when responding to user queries. This guide will walk you through the process of adding and configuring this tool for your assistant.
+The Endpoint (LLM Call) Tool allows your assistant to make API calls to language models when responding to user queries. This guide will walk you through the process of adding and configuring this tool for your assistant.
 
 ## Prerequisites
 
@@ -12,7 +12,6 @@ Before adding the Endpoint (LLM Call) Tool, ensure that you have:
 
 - [Created an assistant](/assistants/create-assistant)
 - [Created an endpoint](/endpoint/create-endpoint)
-- Access to an external LLM API endpoint
 
 ## Adding the Endpoint (LLM Call) Tool
 
@@ -20,85 +19,82 @@ Before adding the Endpoint (LLM Call) Tool, ensure that you have:
   <Step title="Navigate to Your Assistant">
     1. Go to the Assistants section in the main navigation menu.
     2. Select the assistant you want to configure.
-    3. Navigate to the "Manage" -> "Tools" tab.
-    4. Click on **Add Tools**.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Tools and MCP" from the left sidebar menu.
+    5. Click on **Add Tools**.
   </Step>
 
-  <Step title="Select the Endpoint (LLM Call) Tool">
-
-  ![Navigate to Assistants](/images/assistant/tools/endpoint-tool.png)
-    1. From the list of available tools, find "Endpoint (LLM Call)".
-    2. Click on the **Add Tool** button next to it.
-  </Step>
-
-  <Step title="Configure the Tool">
-    Once added, you can configure the Endpoint (LLM Call) Tool with the following settings:
+<Step title="Configure the Tool">
+    When configuring an Endpoint (LLM Call) tool, you'll need to provide several key elements:
     
-    <AccordionGroup>
-    <Accordion title="Tool Name">
-      Endpoint (LLM Call)
-    </Accordion>
+    1. **Name**: A unique identifier for your tool (e.g., "fetch_user_details")
+       - Use descriptive names that indicate the tool's purpose
+       - Follow a consistent naming convention (e.g., snake_case)
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "Fetch user name and user role"
+       - Provide clear guidance on the tool's purpose and use cases
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format following the OpenAI Function Tool Call schema:
+       ```json
+       {
+         "additionalProperties": false,
+         "properties": {
+           "user_name": {
+             "description": "name of user",
+             "type": "string"
+           },
+            "user_role": {
+             "description": "role of user",
+             "type": "string"
+           }
+         },
+          "required": ["user_name", "user_role"]
+       }
+       ```
+       
+       This schema follows the OpenAI Function Tool Call format where:
+       - `additionalProperties: false` ensures only defined properties are allowed
+       - `properties` defines the parameters the tool accepts. Each property has a description and data type
+       - `required` specifies which parameters must be included
+    
+    4. **Expected Action**: From the list select "Endpoint (LLM Call)".
+    
+    5. **Endpoint Selection**: Choose an existing endpoint from the dropdown, or create a new one.
+       - Select from the dropdown list of available endpoints
+       - Or create a [new endpoint](/endpoint/create-endpoint) directly
 
-    <Accordion title="Description">
-      Use this tool to make external API calls to language models for additional processing or specialized tasks.
-    </Accordion>
-
-    <Accordion title="Fields">
-      <Accordion title="endpoint">
-        - **Type**: String
-        - **Description**: The URL of the external LLM API endpoint
-        - **Required**: Yes
-      </Accordion>
-
-      <Accordion title="prompt">
-        - **Type**: String
-        - **Description**: The prompt or query to send to the external LLM
-        - **Required**: Yes
-      </Accordion>
-
-      <Accordion title="parameters">
-        - **Type**: Object
-        - **Description**: Additional parameters for the API call (e.g., temperature, max_tokens)
-        - **Required**: No
-      </Accordion>
-    </Accordion>
-
-    <Accordion title="When to Use">
-      The assistant should use this tool when:
-      - Specialized language processing is required
-      - The task benefits from an external LLM's capabilities
-      - Additional context or processing is needed beyond the assistant's built-in abilities
-    </Accordion>
-    </AccordionGroup>
   </Step>
 
   <Step title="Save Configuration">
-    After configuring the tool, click on the **Save** or **Update** button to apply your changes.
+    After configuring the tool, click on the **Configure Tool** button to apply your changes.
   </Step>
 </Steps>
 
 ## Using the Endpoint (LLM Call) Tool
 
-Once configured, your assistant can use the Endpoint (LLM Call) Tool when appropriate. The process typically follows these steps:
+Once configured, your assistant will automatically use the Endpoint Tool when appropriate. The process typically follows these steps:
 
-1. The assistant determines a need for external LLM processing.
-2. It calls the Endpoint (LLM Call) Tool with the necessary parameters.
-3. The tool makes an API call to the specified endpoint.
-4. The assistant incorporates the response from the external LLM into its own response.
+1. The assistant analyzes the user's query or conversation context.
+2. If a specialized task is needed, it calls the Endpoint Tool with the necessary parameters.
+3. The tool makes an API call to the specified endpoint language model.
+4. The assistant incorporates the response from the endpoint language model into its reply.
 
 ## Managing the Endpoint (LLM Call) Tool
 
-You can modify or remove the Endpoint (LLM Call) Tool at any time:
+You can modify or remove the Endpoint Tool at any time:
 
-1. Go to your assistant's "Manage" -> "Tools" tab.
-2. Find the Endpoint (LLM Call) Tool in the list.
-3. Click on **Edit** to modify its configuration or **Remove** to delete it.
+1. Go to your assistant's configuration page.
+2. Select "Tools and MCP" from the left sidebar menu.
+3. Find the Endpoint Tool in the list.
+4. Click on **Edit Tool** to modify its configuration or **Delete Tool** to delete it.
 
 ## Best Practices
 
-- Ensure the external LLM API endpoint is reliable and secure.
-- Monitor API usage and costs associated with external calls.
-- Use the tool judiciously to balance between built-in capabilities and external processing.
-- Regularly review and update the tool's configuration to optimize performance.
+- Use the Endpoint Tool for specialized tasks that benefit from additional model capabilities.
+- Consider performance implications when making additional API calls.
+- Carefully craft prompts to get the most relevant results from additional models.
+- Test different model configurations to find the optimal settings for your use case.
 
-By effectively configuring and utilizing the Endpoint (LLM Call) Tool, your assistant can leverage external language models for enhanced capabilities and specialized processing tasks.
+By effectively configuring and utilizing the Endpoint (LLM Call) Tool, your assistant can leverage specialized language models to enhance its capabilities and provide more sophisticated responses to complex user queries.

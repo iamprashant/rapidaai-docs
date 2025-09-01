@@ -9,7 +9,7 @@ icon: "database-zap"
 Before creating a knowledge base, ensure that you have set up an embedding model with Rapida. To set up an embedding model:
 
 1. Navigate to the Embedding Models section in your Rapida dashboard.
-2. Select the embedding model provider you want to use (e.g., OpenAI, Cohere, Hugging Face).
+2. Select the embedding model provider you want to use (e.g., OpenAI, Cohere, etc).
 3. Follow the provider-specific instructions to complete the setup.
 
 For detailed instructions on setting up embedding models, refer to the provider-specific documentation in the Embedding Models section:
@@ -18,7 +18,6 @@ For detailed instructions on setting up embedding models, refer to the provider-
 - [VoyageAI](/integrations/voyageai)
 - [Google AI](/integrations/google-ai)
 - [Cohere](/integrations/cohere)
-- [Azure OpenAI](/integrations/azure-openai)
 
 <Steps>
   <Step title="Navigate to Knowledge">
@@ -35,12 +34,27 @@ For detailed instructions on setting up embedding models, refer to the provider-
 
   </Step>
 
-  <Step title="Select Embedding Model">
-    Click the dropdown menu and select an appropriate embedding model for your knowledge base.
+<Step title="Select Embedding Model and Credentials">
+    First, select an appropriate embedding model for your knowledge base by clicking the dropdown menu.
 
     ![Choose Embedding Model](/images/create_knowledge/create_knowledge_4.png)
 
-  </Step>
+    After selecting the embedding model provider, you'll need to select the credentials to use:
+
+    1. Click the "Select credential" dropdown in the Credential section
+    2. Choose from existing credentials for the selected provider, or click the "+" button to add a new credential
+    3. If adding a new credential, you'll need to provide:
+       - A name for the credential
+       - The API key or required authentication information for the selected provider
+
+    Different providers require different credential information:
+    - **OpenAI**: API key
+    - **VoyageAI**: API key
+    - **Google AI**: API key
+    - **Cohere**: API key
+
+    For detailed instructions on setting up credentials for each provider, refer to the respective integration documentation linked in the Prerequisites section.
+</Step>
 
   <Step title="Enter Basic Information">
     Complete all required fields in the knowledge base creation form:

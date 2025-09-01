@@ -17,10 +17,8 @@ For detailed instructions on setting up integrations, refer to the provider-spec
 - [OpenAI](/integrations/openai)
 - [Anthropic](/integrations/anthropic)
 - [Google AI](/integrations/google-ai)
-- [Hugging Face](/integrations/hugging-face)
 - [Cohere](/integrations/cohere)
 - [Azure OpenAI](/integrations/azure-openai)
-- [AWS Bedrock](/integrations/aws-bedrock)
 
 <Steps>
   <Step title="Choose Model">
@@ -35,8 +33,20 @@ For detailed instructions on setting up integrations, refer to the provider-spec
 
   </Step>
 
+  <Step title="Select Provider Credential">
+    Choose the appropriate credential for the selected provider from the dropdown menu. If you haven't set up credentials for this provider yet, you can:
+    
+    - Click the "+" button to add a new credential
+    - Click the refresh button to update the list of available credentials
+    
+    <Note>
+      Make sure you've already configured credentials for your chosen provider in the Integrations section.
+    </Note>
+    
+  </Step>
+
   <Step title="Configure Model Settings">
-    Depending on the chosen provider, configure various settings such as Frequency Penalty, Temperature, Top P, Max Completion Tokens, Response Format, and Stop Sequences.
+    Depending on the chosen provider, configure various settings such as Frequency Penalty, Temperature, Top P, Max Completion Tokens, Response Format, and Stop Sequences by clicking on the settings icon next to the selected model.
 
     ![Configure Model Settings](/images/endpoint/configure-settings-image.png)
 
@@ -69,24 +79,3 @@ After configuring all settings, click the "Create endpoint" or "Configure instru
 
 By following these steps, you can create a custom endpoint that leverages powerful LLMs to enhance your application's capabilities.
 
-## Post-Conversation Analysis
-
-Enable post-conversation analysis to gain insights, improve performance, and ensure quality:
-
-- Set up custom metrics and KPIs
-- Configure alerts for specific patterns or issues
-- Generate reports on conversation trends and outcomes
-- Identify areas for improvement in your AI interactions
-
-[Learn more about Post-Conversation Analysis](/docs/post-conversation-analysis)
-
-## SDK Integration
-
-Our SDK simplifies the process of integrating your endpoint into your projects:
-
-- Available for multiple programming languages (Python, JavaScript, Java, etc.)
-- Simplified API calls and response handling
-- Built-in error handling and retry mechanisms
-- Comprehensive documentation and code examples
-
-[Explore SDK Integration](/docs/sdk-integration)
