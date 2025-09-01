@@ -18,52 +18,42 @@ Before adding the Put On Hold Tool, ensure that you have:
   <Step title="Navigate to Your Assistant">
     1. Go to the Assistants section in the main navigation menu.
     2. Select the assistant you want to configure.
-    3. Navigate to the "Manage" -> "Configure Tool" tab.
-    4. Click on **Create** to add a new tool.
-  </Step>
-
-  <Step title="Select the Put On Hold Tool">
-  ![Put on hold](../../images/assistant/tools/put-on-hold-tool.png)
-
-    1. From the list of available tools, find "Put On Hold".
-    2. Click on it to start configuring the tool.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Tools and MCP" from the left sidebar menu.
+    5. Click on **Add Tools**.
   </Step>
 
   <Step title="Configure the Tool">
-    Configure the Put On Hold Tool with the following settings:
+    When configuring a Put On Hold tool, you'll need to provide several key elements:
     
-    <AccordionGroup>
-    <Accordion title="Tool Name">
-      Put On Hold
-    </Accordion>
-
-    <Accordion title="Description">
-      Use this tool to pause the phone call or stop responding for a specified duration.
-    </Accordion>
-
-    <Accordion title="Fields">
-      <Accordion title="Expected Action">
-        - **Type**: String
-        - **Description**: Put On Hold
-        - **Required**: Yes
-      </Accordion>
-
-      <Accordion title="Hold Time (in minutes)">
-        - **Type**: Number
-        - **Description**: The duration in minutes for which the call should be put on hold
-        - **Required**: Yes
-        - **Default**: 1
-        - **Min**: 1
-        - **Max**: 5
-      </Accordion>
-    </Accordion>
-    </AccordionGroup>
+    1. **Name**: A unique identifier for your tool
+       - Example: "put_on_hold"
+       - Use descriptive names that indicate the tool's purpose
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "Call this tool to when user asks to hold."
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format following the OpenAI Function Tool Call schema:
+       ```json
+       {
+         "type": "object",
+         "properties": {}
+       }
+       ```
+       
+       This schema follows the OpenAI Function Tool Call format where:
+       - `properties` defines the parameters the tool accepts
+    
+    4. **Expected Action**: From the list select "Put On Hold".
   </Step>
 
   <Step title="Save Configuration">
     After configuring the tool, click on the **Configure Tool** button to save your changes.
   </Step>
 </Steps>
+
+![Put on hold](/images/assistant/tools/put-on-hold-tool.png)
 
 ## Using the Put On Hold Tool
 
@@ -78,9 +68,10 @@ Once configured, your assistant can use the Put On Hold Tool when appropriate. T
 
 You can modify or remove the Put On Hold Tool at any time:
 
-1. Go to your assistant's "Manage" -> "Configure Tool" tab.
-2. Find the Put On Hold Tool in the list.
-3. Click on it to modify its configuration or remove it.
+1. Go to your assistant's configuration page.
+2. Select "Tools and MCP" from the left sidebar menu.
+3. Find the Put On Hold Tool in the list.
+4. Click on **Edit Tool** to modify its configuration or **Delete Tool** to delete it.
 
 ## Best Practices
 

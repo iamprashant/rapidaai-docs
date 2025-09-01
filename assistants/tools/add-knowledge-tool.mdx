@@ -19,60 +19,62 @@ Before adding the Knowledge Retrieval Tool, ensure that you have:
   <Step title="Navigate to Your Assistant">
     1. Go to the Assistants section in the main navigation menu.
     2. Select the assistant you want to configure.
-    3. Navigate to the "Manage" -> "Tools" tab.
-    4. Click on **Add Tools**.
-  </Step>
-
-  <Step title="Select the Knowledge Retrieval Tool">
-
-  ![Navigate to Assistants](/images/assistant/tools/knowledge-tool.png)
-    1. From the list of available tools, find "Knowledge Retrieval".
-    2. Click on the **Add Tool** button next to it.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Tools and MCP" from the left sidebar menu.
+    5. Click on **Add Tools**.
   </Step>
 
   <Step title="Configure the Tool">
-    Once added, you can configure the Knowledge Retrieval Tool with the following settings:
+    When configuring a Knowledge Retrieval tool, you'll need to provide several key elements:
     
-    <AccordionGroup>
-    <Accordion title="Tool Name">
-      Knowledge Retrieval
-    </Accordion>
+    1. **Name**: A unique identifier for your tool (e.g., "knowledge_retrieval_challenges")
+       - Use descriptive names that indicate the tool's purpose
+       - Follow a consistent naming convention (e.g., snake_case)
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "retrieve challenges for user role and user industry"
+       - Provide clear guidance on the tool's purpose and use cases
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format following the OpenAI Function Tool Call schema:
+       ```json
+       {
+         "additionalProperties": false,
+         "properties": {
+           "query": {
+             "description": "user role and user industry",
+             "type": "string"
+           }
+         }
+       }
+       ```
+       
+       This schema follows the OpenAI Function Tool Call format where:
+       - `additionalProperties: false` ensures only defined properties are allowed
+       - `properties` defines the parameters the tool accepts
+       - Each property (like `query`) has a description and data type
+       - This schema will be used to validate inputs when the tool is called
+    
+    4. **Expected Action**: From the list select "Knowledge Retrieval".
+    
+    5. **Knowledge**: Choose an existing knowledge from the dropdown, or create new.
+       - Select from the dropdown list of available sources
+       - Or create a [new knowledge](/assistants/knowledge/add-knowledge) source directly
 
-    <Accordion title="Description">
-      Use this tool to retrieve relevant information from the knowledge base when answering user queries or discussing specific topics.
-    </Accordion>
+    6. **Retrieval Setting**: Select a search method:
+       - **Hybrid Search**: Combines full-text and vector searches for optimal results
+       - **Semantic Search**: Uses vector embeddings to find semantically similar content
+       - **Full Text Search**: Indexes all terms for keyword-based retrieval
+    
+    7. Configure **Top K** results (default: 5) to limit the number of results returned
+    
+    8. Set a **Score Threshold** (default: 0.5) for relevance filtering
 
-    <Accordion title="Fields">
-      <Accordion title="query">
-        - **Type**: String
-        - **Description**: The user's question or topic for knowledge retrieval
-        - **Required**: Yes
-      </Accordion>
-
-      <Accordion title="context">
-        - **Type**: String
-        - **Description**: Additional context or background information related to the query
-        - **Required**: No
-      </Accordion>
-
-      <Accordion title="max_results">
-        - **Type**: Integer
-        - **Description**: Maximum number of relevant results to retrieve (default: 5)
-        - **Required**: No
-      </Accordion>
-    </Accordion>
-
-    <Accordion title="When to Use">
-      The assistant should use this tool when:
-      - The user asks a question that may require information from the knowledge base
-      - The conversation topic relates to specific company knowledge, products, or services
-      - Additional context or details are needed to provide a comprehensive answer
-    </Accordion>
-    </AccordionGroup>
+    After configuring all parameters, click "Save tool" to add it to your assistant.
   </Step>
 
   <Step title="Save Configuration">
-    After configuring the tool, click on the **Save** or **Update** button to apply your changes.
+    After configuring the tool, click on the **Configure Tool** button to apply your changes.
   </Step>
 </Steps>
 
@@ -89,9 +91,10 @@ Once configured, your assistant will automatically use the Knowledge Retrieval T
 
 You can modify or remove the Knowledge Retrieval Tool at any time:
 
-1. Go to your assistant's "Manage" -> "Tools" tab.
-2. Find the Knowledge Retrieval Tool in the list.
-3. Click on **Edit** to modify its configuration or **Remove** to delete it.
+1. Go to your assistant's configuration page.
+2. Select "Tools and MCP" from the left sidebar menu.
+3. Find the Knowledge Retrieval Tool in the list.
+4. Click on **Edit Tool** to modify its configuration or **Delete Tool** to delete it.
 
 ## Best Practices
 

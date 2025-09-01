@@ -18,61 +18,104 @@ Before adding the API Call Tool, ensure that you have:
   <Step title="Navigate to Your Assistant">
     1. Go to the Assistants section in the main navigation menu.
     2. Select the assistant you want to configure.
-    3. Navigate to the "Manage" -> "Configure Tool" tab.
-    4. Click on **Create** to add a new tool.
-  </Step>
-
-  <Step title="Select the API Call Tool">
-
-  ![Api Tool Call](/images/assistant/tools/api-tool.png)
-    1. From the list of available tools, find "API Request".
-    2. Click on it to start configuring the tool.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Tools and MCP" from the left sidebar menu.
+    5. Click on **Add Tools**.
   </Step>
 
   <Step title="Configure the Tool">
     Configure the API Call Tool with the following settings:
     
+    1. **Name**: A unique identifier for your tool (e.g., "fetch_user_details")
+       - Use descriptive names that indicate the tool's purpose
+       - Follow a consistent naming convention (e.g., snake_case)
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "Fetch user name and user role"
+       - Provide clear guidance on the tool's purpose and use cases
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format following the OpenAI Function Tool Call schema:
+       ```json
+       {
+         "additionalProperties": false,
+         "properties": {
+           "user_name": {
+             "description": "name of user",
+             "type": "string"
+           },
+            "user_role": {
+             "description": "role of user",
+             "type": "string"
+           }
+         },
+          "required": ["user_name", "user_role"]
+       }
+       ```
+       
+       This schema follows the OpenAI Function Tool Call format where:
+       - `additionalProperties: false` ensures only defined properties are allowed
+       - `properties` defines the parameters the tool accepts. Each property has a description and data type
+       - `required` specifies which parameters must be included
+    
+    4. **Expected Action**: Select "API Request" from the dropdown.
+
+    5. **Method**: Choose the appropriate HTTP method (GET, POST, PUT, PATCH, etc.)
+    
+    6. **Server URL**: Enter the URL of the external API server
+    
+    7. **Headers**: Add any necessary HTTP headers as key-value pairs
+    
+    8. **Parameters**: Add any query parameters or body parameters as key-value pairs
+  </Step>
+
+  <Step title="Configure Endpoint Settings">
+    Set up the API endpoint details:
+
+    - **Method**: Select the appropriate HTTP method (GET, POST, PUT, PATCH, DELETE)
+    - **Server URL**: Enter the URL of the external API server
+  </Step>
+
+  <Step title="Add Headers">
+    Configure any HTTP headers needed for your API request:
+
+    - Click **Add header** to include authentication headers or other required metadata
+    - Common examples include API keys, Content-Type headers, or Authorization tokens
+  </Step>
+
+  <Step title="Configure Parameters">
+    Add parameters to be sent with your API request:
+
+    1. Click **Add parameters** to include data in your request
+    2. Select the parameter type from the dropdown menu:
+
     <AccordionGroup>
-    <Accordion title="Tool Name">
-      API Request
-    </Accordion>
-
-    <Accordion title="Description">
-      Use this tool to make external API calls for additional data or functionality.
-    </Accordion>
-
-    <Accordion title="Fields">
-      <Accordion title="Expected Action">
-        - **Type**: String
-        - **Description**: A brief description of what this API call is expected to do
-        - **Required**: Yes
+      <Accordion title="Assistant">
+        Include assistant-related information in the request:
+        - Name
+        - Prompt
       </Accordion>
 
-      <Accordion title="Method">
-        - **Type**: Dropdown
-        - **Options**: POST, GET, PUT, DELETE, etc.
-        - **Required**: Yes
+      <Accordion title="Conversation">
+        Include conversation data in the request:
+        - Conversation history
       </Accordion>
 
-      <Accordion title="Endpoint URL">
-        - **Type**: String
-        - **Description**: The URL of the external API endpoint
-        - **Required**: Yes
+      <Accordion title="Argument">
+        - Include any arguments passed to the assistant. Key is the name passed, value is the new key that will be passed to the api call.
       </Accordion>
 
-      <Accordion title="Headers">
-        - **Type**: Key-Value Pairs
-        - **Description**: HTTP headers to be sent with the request
-        - **Required**: No
+      <Accordion title="Metadata">
+        - Custom metadata that you want to send
       </Accordion>
 
-      <Accordion title="Parameters">
-        - **Type**: Key-Value Pairs
-        - **Description**: Query parameters or body parameters for the API call
-        - **Required**: No
+      <Accordion title="Option">
+        - Include configuration options passed to the assistant. Key is the name passed, value is the new key that will be passed to the api call.
       </Accordion>
-    </Accordion>
+
     </AccordionGroup>
+
+    You can add multiple parameters to construct a complete API request.
   </Step>
 
   <Step title="Save Configuration">

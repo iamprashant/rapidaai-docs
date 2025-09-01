@@ -8,11 +8,14 @@ icon: "plus"
 This guide walks you through the process of setting up analysis functionality for your assistant to gain insights from conversations.
 
 <Steps>
-  <Step title="Navigate to Analysis Section and Create New Analysis">
+  <Step title="Navigate to Your Assistant">
+    1. Go to the Assistants section in the main navigation menu.
+    2. Select the assistant you want to configure.
+    3. Click "Configure assistant" in the top right corner.
+    4. Select "Analysis" from the left sidebar menu.
+    5. Click on **Create new analysis**.
+  
     ![Navigate to Analysis](/images/create_assistant/create_analysis_1.png)
-
-    Begin by navigating to your assistant, clicking on the "Manage" tab, and then selecting "Analysis" from the left navigation panel. On the Analysis page, click the "Create new analysis" button to begin setting up your analysis configuration.
-
   </Step>
 
   <Step title="Configure Analysis Details">
@@ -49,34 +52,40 @@ This guide walks you through the process of setting up analysis functionality fo
     **Optional Additional Parameters**:
 
 
-      <AccordionGroup>
-        <Accordion title="Assistant">
-          Select one of the following keys:
-          - Name
-          - Prompt
-        </Accordion>
+      <Step title="Configure Parameters">
+    Add parameters to be sent with your API request:
 
-        <Accordion title="Conversation">
-          The only available key is:
-          - Messages
-        </Accordion>
+    1. Click **Add parameters** to include data in your request
+    2. Select the parameter type from the dropdown menu:
 
-        <Accordion title="Argument">
-          Enter a custom key name for the argument data.
-        </Accordion>
+    <AccordionGroup>
+      <Accordion title="Assistant">
+        Include assistant-related information in the request:
+        - Name
+        - Prompt
+      </Accordion>
 
-        <Accordion title="Metadata">
-          Enter a custom key name for the metadata.
-        </Accordion>
+      <Accordion title="Conversation">
+        Include conversation data in the request:
+        - Conversation history
+      </Accordion>
 
-        <Accordion title="Option">
-          Enter a custom key name for the option data.
-        </Accordion>
+      <Accordion title="Argument">
+        - Include any arguments passed to the assistant. Key is the name passed, value is the new key that will be passed to the api call.
+      </Accordion>
 
-        <Accordion title="Analysis">
-          Enter a custom key name for the analysis results.
-        </Accordion>
-      </AccordionGroup>
+      <Accordion title="Metadata">
+        - Custom metadata that you want to send
+      </Accordion>
+
+      <Accordion title="Option">
+        - Include configuration options passed to the assistant. Key is the name passed, value is the new key that will be passed to the api call.
+      </Accordion>
+
+    </AccordionGroup>
+
+    You can add multiple parameters to construct a complete API request.
+  </Step>
 
     ![Optional Parameters](/images/create_assistant/create_analysis_5.png)
 
