@@ -27,7 +27,15 @@ This guide walks you through the process of creating a new assistant in the plat
 
     Select the capabilities for your assistant:
 
-    - Choose the appropriate model from the model provider list.
+    - Choose the appropriate model from the model provider list. The platform supports various model providers including:
+      - [OpenAI](/integrations/openai)
+      - [Azure OpenAI](/integrations/azure-openai)
+      - [Anthropic](/integrations/anthropic)
+      - [Google AI](/integrations/google-ai)
+    
+    - For each provider, you'll need to select a specific model (like GPT-4o for Azure OpenAI as shown in the image).
+    
+    - Make sure you've already configured credentials for your chosen provider in the Integrations section.
 
   </Step>
 
@@ -41,18 +49,69 @@ This guide walks you through the process of creating a new assistant in the plat
 
   </Step>
 
-  <Step title="Add Knowledge">
-    ![Add Knowledge](/images/create_assistant/create_assistant_5.png)
-
-    Add any Knowledge that you have configured. To know more on how to add Knowledge, visit Add Knowledge.
-
-  </Step>
-
   <Step title="Add Tools">
     ![Add Tools](/images/create_assistant/create_assistant_6.png)
 
-    Add any tool that you have configured. To know more on how to configure tools, visit Add Tools.
+    Add tools to extend your assistant's capabilities. The platform supports several tool types:
+    
+    - **[Knowledge Retrieval](/assistants/tools/add-knowledge-tool)**: Access and search documents from your knowledge base
+    - **[API Request](/assistants/tools/add-api-tool)**: Make external API calls
+    - **[Endpoint (LLM Call)](/assistants/tools/add-endpoint-tool)**: Trigger other LLM services
+    - **[Put On Hold](/assistants/tools/add-put-on-hold-tool)**: Pause conversation flow
+    - **[End Of Conversation](/assistants/tools/add-end-of-conversation-tool)**: Terminate the conversation
 
+    ### Configuring a Knowledge Retrieval Tool
+
+    When configuring a Knowledge Retrieval tool, you'll need to provide several key elements:
+    
+    1. **Name**: A unique identifier for your function (e.g., "knowledge_retrieval_challenges")
+       - Use descriptive names that indicate the tool's purpose
+       - Follow a consistent naming convention (e.g., snake_case)
+    
+    2. **Description**: Details on when and how to use the function
+       - Example: "retrieve challenges for user role and user industry"
+       - Provide clear guidance on the tool's purpose and use cases
+       - This helps the model determine when to invoke the tool
+    
+    3. **Fields**: Define parameters in JSON format:
+       ```json
+       {
+         "additionalProperties": false,
+         "properties": {
+           "query": {
+             "description": "user role and user industry",
+             "type": "string"
+           }
+         }
+       }
+       ```
+       
+       The JSON schema follows a structure similar to function definitions:
+       - `additionalProperties`: Boolean indicating if extra properties are allowed
+       - `properties`: Object containing parameter definitions
+         - Each parameter needs a `type` (string, number, boolean, etc.)
+         - Include a `description` to guide the model on parameter usage
+         - Optionally add `enum` for restricted value sets
+         - Use `required` array to specify mandatory parameters
+    
+    4. **Expected Action**: Select the action type (Knowledge Retrieval)
+    
+    5. **Knowledge**: Choose an existing knowledge from from the dropdown, or create new.
+       - Select from the dropdown list of available sources
+       - Or create a [new knowledge](/assistants/knowledge/add-knowledge)  source directly
+
+    6. **Retrieval Setting**: Select a search method:
+       - **Hybrid Search**: Combines full-text and vector searches for optimal results
+       - **Semantic Search**: Uses vector embeddings to find semantically similar content
+       - **Full Text Search**: Indexes all terms for keyword-based retrieval
+    
+    7. Configure **Top K** results (default: 5) to limit the number of results returned
+    
+    8. Set a **Score Threshold** (default: 0.5) for relevance filtering
+
+    After configuring all parameters, click "Save tool" to add it to your assistant.
+
+    For more detailed instructions on configuring different tool types, visit the Add Tools section.
   </Step>
 
   <Step title="Finalise Name">
