@@ -113,10 +113,8 @@
                             "integrations/openai",
                             "integrations/anthropic",
                             "integrations/cohere",
-                            "integrations/huggingface",
                             "integrations/google-ai",
                             "integrations/azure-openai",
-                            "integrations/bedrock",
                             "integrations/voyageai"
                         ]
                     },
