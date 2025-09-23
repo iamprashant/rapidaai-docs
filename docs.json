@@ -7,6 +7,10 @@
         "light": "#2463eb",
         "dark": "#2463eb"
     },
+    "fonts": {
+        "family": "IBM Plex Sans",
+        "weight": 400
+    },
     "favicon": "/favicon.png",
     "icons": {
         "library": "lucide"
@@ -154,7 +158,7 @@
                         "group": "API Documentation",
                         "icon": "file-code",
                         "pages": [
-                            "api-reference/introduction",
+                            "api-reference/installation",
                             "api-reference/authentication",
                             "api-reference/definition"
                         ]

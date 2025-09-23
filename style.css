@@ -1,0 +1,16 @@
+#navbar {
+    background: "#fffff2";
+    padding: 1rem;
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+.rounded,
+.rounded-sm,
+.rounded-xl,
+.rounded-xt,
+.rounded-2xl {
+    border-radius: 2px !important;
+}
