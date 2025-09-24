@@ -8,39 +8,48 @@ Creates an outbound phone call to the specified number using your configured ass
   For full setup and authentication options, see the Installation guide: [/api-reference/introduction](/api-reference/introduction).
 </Info>
 
-<ParamField body="clientCfg" type="ConnectionConfig" required>
+
+
+## Parameters
+
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
   Configuration for the client connection.
 </ParamField>
 
-
-## Request Properties
-
-<ParamField body="assistant" type="AssistantDefinition" required>
-  Assistant configuration object.
+<ParamField body="request" type="CreatePhoneCallRequest" required>
+  <Expandable>
+        <ParamField body="assistant" type="AssistantDefinition" required description="jf">
+            <Expandable>
+                <ParamField body="assistantId" type="string" required>
+                    AssistantID which will be used.
+                </ParamField>
+                <ParamField body="version" type="string">
+                    Version of assistant
+                </ParamField>
+            </Expandable>
+        </ParamField>
+        <ParamField body="toNumber" type="string" required>
+        Destination phone number in E.164 format (for example, +14155550123).
+        </ParamField>
+        <ParamField body="fromNumber" type="string">
+        Caller ID phone number to originate the call from (E.164 format). If omitted, the system default will be used.
+        </ParamField>
+        <ParamField body="args" type="Map<string, google_protobuf_any_pb.Any>">
+        Additional arguments passed to the call as a key-value map.
+        </ParamField>
+        <ParamField body="options" type="Map<string, google_protobuf_any_pb.Any>">
+        Call options for runtime behavior and configuration.
+        </ParamField>
+        <ParamField body="metadata" type="Map<string, google_protobuf_any_pb.Any>">
+        Arbitrary metadata to associate with the call for tracking and analytics.
+        </ParamField>
+  </Expandable>
 </ParamField>
 
-<ParamField body="toNumber" type="string" required>
-  Destination phone number in E.164 format (for example, +14155550123).
-</ParamField>
 
-<ParamField body="fromNumber" type="string">
-  Caller ID phone number to originate the call from (E.164 format). If omitted, the system default will be used.
-</ParamField>
 
-<ParamField body="args" type="Map<string, google_protobuf_any_pb.Any>">
-  Additional arguments passed to the call as a key-value map.
-</ParamField>
-
-<ParamField body="options" type="Map<string, google_protobuf_any_pb.Any>">
-  Call options for runtime behavior and configuration.
-</ParamField>
-
-<ParamField body="metadata" type="Map<string, google_protobuf_any_pb.Any>">
-  Arbitrary metadata to associate with the call for tracking and analytics.
-</ParamField>
 
 ### Usage
-
 <CodeGroup>
 
 ```ts React
@@ -49,7 +58,7 @@ import {
   CreatePhoneCall,
   AssistantDefinition,
   CreatePhoneCallRequest,
-} from 'rapida-react';
+} from '@rapidaai/react';
 
 const phoneCallRequest = new CreatePhoneCallRequest();
 const assistant = new AssistantDefinition();
@@ -86,59 +95,56 @@ import {
   CreatePhoneCall,
   ConnectionConfig,
   CreatePhoneCallRequest,
-} from "rapida-nodejs";
+} from "@rapidaai/nodejs";
 
 let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
-    ConnectionConfig.WithSDK({ ApiKey: process.env.RAPIDA_API_KEY })
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
 );
 const phoneCallRequest = new CreatePhoneCallRequest();
 // define assistant
 const assistant = new AssistantDefinition();
-assistant.setAssistantid("<ASSISTANT_ID>");
-assistant.setVersion("latest");
+assistant.setAssistantid("ASSISTANT_ID_PLACEHOLDER");
+assistant.setVersion("VERSION_PLACEHOLDER");
 phoneCallRequest.setAssistant(assistant);
+phoneCallRequest.setTonumber("TO_NUMBER_PLACEHOLDER");
 
-phoneCallRequest.setFromnumber("FROM_NUMBER");
-phoneCallRequest.setTonumber("<TO_NUMBER>");
-
-CreatePhoneCall(connection, phoneCallRequest)
-.then((x) => {
+CreatePhoneCall(connectionCfg, phoneCallRequest)
+  .then((x) => {
     if (x.getSuccess()) {
-        console.dir(x.getData().toObject());
-        return;
+      console.dir(x.getData().toObject());
+      return;
     }
     let err = x.getError();
     if (err?.getHumanmessage()) setError(err?.getHumanmessage());
-})
-.catch((x) => {
+  })
+  .catch((x) => {
     console.dir(x);
-});
+  });
+
 
 ```
 
 ```python Python
+import os
 from rapida import (
     ConnectionConfig,
     create_phone_call,
     CreatePhoneCallRequest,
     AssistantDefinition,
 )
+from pprint import pprint
 
 connectionConfig = ConnectionConfig.default_connection_config(
-    ConnectionConfig.with_personal_token(
-        authorization="RAPIDA_AUTHORIZATION_TOKEN",
-        auth_id="RAPIDA_AUTH_ID",
-        project_id="RAPIDA_PROJECT_ID",
-    )
-)
+    ConnectionConfig.with_sdk(os.getenv("RAPIDA_PROJECT_KEY"))
+).with_local()
 call = CreatePhoneCallRequest(
-    assistant=AssistantDefinition(assistantId=ASSISTANT_ID, version="latest"),
-    fromNumber="<FROM>",
-    toNumber="<TO>",
+    assistant=AssistantDefinition(assistantId={ASSISTANT_ID}),
+    toNumber="{TO_PHONE}",
 )
 response = create_phone_call(client_cfg=connectionConfig, request=call)
 pprint.pprint(response)
-
 ```
 
 ```go Go
@@ -176,13 +182,66 @@ func main() {
 
 ### Response
 
-The `CreatePhoneCall` request returns a `CreatePhoneCallResponse` with the following fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `code` | `number` | Numeric status code for the operation |
-| `success` | `boolean` | Indicates whether the operation was successful |
-| `data` | `AssistantConversation`, `undefined` | When successful, contains per-request results (may be undefined) |
-| `error` | `Error` | When unsuccessful, contains error information (may be undefined) |
-
-
+<ParamField body="code" type="int">
+    Numeric status code for the operation
+</ParamField>
+<ParamField body="success" type="boolean">
+    Indicates whether the operation was successful
+</ParamField>
+<ParamField body="error" type="Error">
+<Expandable>
+  <ResponseField name="errorCode" type="string (uint64)">
+    Stable, machine-readable numeric code. Represented as a string in JS/TS; parse only if you need numeric comparisons.
+  </ResponseField>
+  <ResponseField name="errorMessage" type="string">
+    Developer-oriented message with diagnostic details. Avoid showing directly to end-users.
+  </ResponseField>
+  <ResponseField name="humanMessage" type="string">
+    Human-friendly description safe for display to end-users. Localize in your app if needed.
+  </ResponseField>
+  </Expandable>
+</ParamField>
+<ParamField body="data" type="AssistantConversation" >
+  <Expandable>
+    <ParamField body="id" type="string" >
+      Unique identifier for the conversation instance.
+    </ParamField>
+    <ParamField body="assistantId" type="string" >
+      Identifier for the Assistant associated with this conversation.
+    </ParamField>
+    <ParamField body="projectId" type="string">
+      Project ID associated with this conversation.
+    </ParamField>
+    <ParamField body="organizationId" type="string">
+      Organization ID related to the conversation.
+    </ParamField>
+    <ParamField body="source" type="string">
+      Source of the conversation (e.g., "phone-call").
+    </ParamField>
+    <ParamField body="assistantProviderModelId" type="string">
+      Identifier for the assistant provider model used in the conversation.
+    </ParamField>
+    <ParamField body="identifier" type="string">
+      Unique identifier string for tracking this conversation.
+    </ParamField>
+    <ParamField body="status" type="string">
+      Indicates the current status of the conversation (e.g., "ACTIVE").
+    </ParamField>
+    <ParamField body="createdDate" type="google.protobuf.Timestamp">
+      Timestamp indicating when the conversation was created.
+    </ParamField>
+    <ParamField body="updatedDate" type="google.protobuf.Timestamp">
+      Timestamp indicating the last update to the conversation.
+    </ParamField>
+    <ParamField body="metadata" type="Map<string, string>" description="Key-value pairs of metadata associated with the call.">
+      <Expandable>
+        <ParamField body="key" type="string">
+          Metadata key (e.g., "talk.outgoing_api_response", "talk.client").
+        </ParamField>
+        <ParamField body="value" type="string">
+          Metadata value, often a JSON string containing detailed data (e.g., account details, client information).
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>

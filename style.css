@@ -10,7 +10,14 @@ footer {
 .rounded,
 .rounded-sm,
 .rounded-xl,
+.rounded-lg,
 .rounded-xt,
+.rounded-t-xl,
+.rounded-md,
 .rounded-2xl {
+    border-radius: 2px !important;
+}
+
+[class^="rounded-"] {
     border-radius: 2px !important;
 }

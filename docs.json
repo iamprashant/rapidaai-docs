@@ -159,8 +159,7 @@
                         "icon": "file-code",
                         "pages": [
                             "api-reference/installation",
-                            "api-reference/authentication",
-                            "api-reference/definition"
+                            "api-reference/authentication"
                         ]
                     },
                     {

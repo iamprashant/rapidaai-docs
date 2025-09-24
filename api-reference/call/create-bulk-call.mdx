@@ -8,145 +8,192 @@ Creates multiple outbound phone calls in a single request using your configured 
   For full setup and authentication options, see the Installation guide: [/api-reference/introduction](/api-reference/introduction).
 </Info>
 
-<ParamField body="clientCfg" type="ConnectionConfig" required>
+
+
+## Parameters
+
+
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
   Configuration for the client connection.
 </ParamField>
 
-<ParamField body="assistant" type="AssistantDefinition" required>
-  Assistant configuration object.
+<ParamField body="request" type="CreateBulkPhoneCallRequest" required>
+  <Expandable>
+    <ParamField body="PhoneCalls" type="CreatePhoneCallRequest[]" required>
+      <Expandable>
+        <ParamField body="assistant" type="AssistantDefinition" required description="jf">
+          <Expandable>
+            <ParamField body="assistantId" type="string" required>
+              AssistantID which will be used.
+            </ParamField>
+            <ParamField body="version" type="string">
+              Version of assistant
+            </ParamField>
+          </Expandable>
+        </ParamField>
+        <ParamField body="toNumber" type="string" required>
+          Destination phone number in E.164 format (for example, +14155550123).
+        </ParamField>
+        <ParamField body="fromNumber" type="string">
+          Caller ID phone number to originate the call from (E.164 format). If omitted, the system default will be used.
+        </ParamField>
+        <ParamField body="args" type="Map<string, google_protobuf_any_pb.Any>">
+          Additional arguments passed to the call as a key-value map.
+        </ParamField>
+        <ParamField body="options" type="Map<string, google_protobuf_any_pb.Any>">
+          Call options for runtime behavior and configuration.
+        </ParamField>
+        <ParamField body="metadata" type="Map<string, google_protobuf_any_pb.Any>">
+          Arbitrary metadata to associate with the call for tracking and analytics.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
 </ParamField>
 
-<ParamField body="params" type="{ toNumber: string; fromNumber?: string; args?: Map<string, google_protobuf_any_pb.Any>; options?: Map<string, google_protobuf_any_pb.Any>; metadata?: Map<string, google_protobuf_any_pb.Any>; }[]" required>
-  Array of call parameter objects. Each object contains the destination and optional configuration for an individual call.
-</ParamField>
-
-<Fields>
-  <ResponseField name="toNumber" type="string" required>
-    Destination phone number in E.164 format (for example, +14155550123).
-  </ResponseField>
-  <ResponseField name="fromNumber" type="string">
-    Caller ID phone number to originate the call from (E.164 format). If omitted, the system default will be used.
-  </ResponseField>
-  <ResponseField name="args" type="Map<string, google_protobuf_any_pb.Any>">
-    Additional arguments passed to the call as a key-value map.
-  </ResponseField>
-  <ResponseField name="options" type="Map<string, google_protobuf_any_pb.Any>">
-    Call options for runtime behavior and configuration.
-  </ResponseField>
-  <ResponseField name="metadata" type="Map<string, google_protobuf_any_pb.Any>">
-    Arbitrary metadata to associate with the call for tracking and analytics.
-  </ResponseField>
-</Fields>
 
 ### Usage
 
 <CodeGroup>
 
-```ts TypeScript
-import { CreateBulkPhoneCall, AssistantDefinition, type ConnectionConfig } from 'rapida-nodejs';
+```ts React
+import {   
+  AssistantDefinition,
+  CreatePhoneCall,
+  ConnectionConfig,
+  CreateBulkPhoneCallRequest,
+  CreatePhoneCallRequest, 
+} from '@rapidaai/react';
 
-const clientCfg: ConnectionConfig = { /* ... */ };
-
+const connectionConfig: ConnectionConfig = { /* ... */ };
+const phoneCallRequest = new CreatePhoneCallRequest();
+// define assistant
 const assistant = new AssistantDefinition();
-assistant.setAssistantid(assistantId);
-assistant.setVersion('latest');
+assistant.setAssistantid("ASSISTANT_ID_PLACEHOLDER");
+assistant.setVersion("VERSION_PLACEHOLDER");
+phoneCallRequest.setAssistant(assistant);
+phoneCallRequest.setTonumber("TO_NUMBER_PLACEHOLDER");
 
-const params = [
-  {
-    toNumber: `+14155550123`,
-    fromNumber: `+14155559876`,
-    args: new Map([["campaignId", { value: "fall-2024" }]]),
-    options: new Map(),
-    metadata: new Map([["source", { value: "crm" }]]),
-  },
-  { toNumber: `+441234567890` },
-];
+const bulkPhoneCallRequest = new CreateBulkPhoneCallRequest();
+bulkPhoneCallRequest.addPhonecalls(phoneCallRequest);
+CreateBulkPhoneCallRequest(connectionConfig, phoneCallRequest)
+  .then((x) => {
+    if (x.getSuccess()) {
+      console.dir(x.getData().toObject());
+      return;
+    }
+    let err = x.getError();
+    if (err?.getHumanmessage()) setError(err?.getHumanmessage());
+  })
+  .catch((x) => {
+    console.dir(x);
+  });
 
-const res = await CreateBulkPhoneCall(clientCfg, assistant, params);
-console.log('Bulk phone calls requested:', res);
 ```
 
 ```javascript Node.js
-const { CreateBulkPhoneCall, AssistantDefinition } = require('rapida-nodejs');
+import {
+  AssistantDefinition,
+  CreatePhoneCall,
+  ConnectionConfig,
+  CreateBulkPhoneCallRequest,
+  CreatePhoneCallRequest,
+} from "@rapidaai/nodejs";
 
-const clientCfg = { /* ... */ };
-
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
+);
+const phoneCallRequest = new CreatePhoneCallRequest();
+// define assistant
 const assistant = new AssistantDefinition();
-assistant.setAssistantid(assistantId);
-assistant.setVersion('latest');
+assistant.setAssistantid("ASSISTANT_ID_PLACEHOLDER");
+assistant.setVersion("VERSION_PLACEHOLDER");
+phoneCallRequest.setAssistant(assistant);
+phoneCallRequest.setTonumber("TO_NUMBER_PLACEHOLDER");
 
-const params = [
-  {
-    toNumber: `+14155550123`,
-    fromNumber: `+14155559876`,
-    args: new Map([["campaignId", { value: "fall-2024" }]]),
-    options: new Map(),
-    metadata: new Map([["source", { value: "crm" }]]),
-  },
-  { toNumber: `+441234567890` },
-];
+const bulkPhoneCallRequest = new CreateBulkPhoneCallRequest();
+bulkPhoneCallRequest.addPhonecalls(phoneCallRequest);
+CreateBulkPhoneCallRequest(connectionCfg, phoneCallRequest)
+  .then((x) => {
+    if (x.getSuccess()) {
+      console.dir(x.getData().toObject());
+      return;
+    }
+    let err = x.getError();
+    if (err?.getHumanmessage()) setError(err?.getHumanmessage());
+  })
+  .catch((x) => {
+    console.dir(x);
+  });
 
-(async () => {
-  const res = await CreateBulkPhoneCall(clientCfg, assistant, params);
-  console.log('Bulk phone calls requested:', res);
-})();
 ```
 
 ```python Python
-from rapida_sdk import create_bulk_phone_call, AssistantDefinition
+import os
+from rapida import (
+    ConnectionConfig,
+    create_bulk_phone_call,
+    CreatePhoneCallRequest,
+    CreateBulkPhoneCallRequest,
+    AssistantDefinition,
+)
+from pprint import pprint
 
-client_cfg = {  # ...
-}
-
-assistant = AssistantDefinition()
-assistant.setAssistantid(assistant_id)
-assistant.setVersion("latest")
-
-params = [
-    {
-        "toNumber": "+14155550123",
-        "fromNumber": "+14155559876",
-        "args": {"campaignId": {"value": "fall-2024"}},
-        "options": {},
-        "metadata": {"source": {"value": "crm"}},
-    },
-    {"toNumber": "+441234567890"},
-]
-
-res = create_bulk_phone_call(client_cfg, assistant, params)
-print("Bulk phone calls requested:", res)
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(os.getenv("RAPIDA_PROJECT_KEY"))
+)
+call = CreatePhoneCallRequest(
+    assistant=AssistantDefinition(assistantId={ASSISTANT_ID}),
+    toNumber="{TO_PHONE}",
+)
+response = create_bulk_phone_call(
+    client_cfg=connectionConfig,
+    request=CreateBulkPhoneCallRequest(
+        phoneCalls=[call],
+    ),
+)
+pprint.pprint(response)
 ```
 
 ```go Go
 package main
 
 import (
-  "fmt"
-  rapida "github.com/rapidaai/rapida-go"
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	lexatic_backend "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
 )
 
 func main() {
-  clientCfg := rapida.ConnectionConfig{ /* ... */ }
 
-  assistant := rapida.NewAssistantDefinition()
-  assistant.SetAssistantid(assistantID)
-  assistant.SetVersion("latest")
+	// for more authentication check https://doc.rapida.ai/api-reference/authentication
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+	response, err := clients.CreateBulkPhoneCall(context.Background(), connectionConfig, &lexatic_backend.CreateBulkPhoneCallRequest{
+		PhoneCalls: []*lexatic_backend.CreatePhoneCallRequest{
+			// add multiple phone call request here to make call
+			{
+				Assistant: &lexatic_backend.AssistantDefinition{
+					// change
+					AssistantId: 2227823180112723968,
+				},
+				ToNumber: "{PHONE_NUMBER}",
+			}},
+	})
 
-  params := []rapida.BulkPhoneCallParam{
-    {
-      ToNumber: "+14155550123",
-      FromNumber: "+14155559876",
-      // Args, Options, Metadata omitted for brevity
-    },
-    { ToNumber: "+441234567890" },
-  }
-
-  res, err := rapida.CreateBulkPhoneCall(clientCfg, assistant, params)
-  if err != nil {
-    panic(err)
-  }
-  fmt.Println("Bulk phone calls requested:", res)
+	if err != nil {
+		fmt.Printf("error while making call using rapida %+v", err)
+		return
+	}
+	fmt.Printf("rapida calling response %+v", response)
 }
+
 ```
 
 </CodeGroup>
