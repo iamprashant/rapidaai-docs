@@ -55,9 +55,9 @@ python --version
 
     ```bash Node.js
     # Node.js (choose one)
-    npm install rapida-nodejs     # npm
-    yarn add rapida-nodejs        # yarn
-    pnpm add rapida-nodejs        # pnpm
+    npm install @rapidaai/nodejs     # npm
+    yarn add @rapidaai/nodejs        # yarn
+    pnpm add @rapidaai/nodejs        # pnpm
     # Other languages: see tabs
     ```
 
@@ -69,8 +69,8 @@ python --version
 
     ```bash Python
     # Python (choose one)
-    pip install rapida-sdk        # pip
-    pip3 install rapida-sdk       # pip3
+    pip install rapida-python        # pip
+    pip3 install rapida-python       # pip3
     # Other languages: see tabs
     ```
 
@@ -86,97 +86,135 @@ Personal tokens are used for APIs that require write or administrative access. T
 
 #### Implementation Example:
 
+
 <CodeGroup>
-  ```typescript React/Node.js
+```typescript React
+import {
+  ConnectionConfig,
+} from "@rapidaai/react";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithPersonalToken({
+    Authorization: "AUTH_TOKEN",
+    AuthId: "AUTH_ID",
+    ProjectId: "PROJECT_ID",
+  })
+);
 
-import { ConnectionConfig } from "@rapidaai/react"; // or "rapida-nodejs"
-
-export let connectionConfig = new ConnectionConfig();
-
-connectionConfig.withAuth(
-ConnectionConfig.WithPersonalToken({
-    authorization: process.env.RAPIDA_PERSONAL_TOKEN!,
-    userId: process.env.RAPIDA_USER_ID!,
-    projectId: process.env.RAPIDA_PROJECT_ID!,
-}));
+console.log("Rapida SDK initialized successfully!");
 
 ````
 
+```typescript Node.js
+import {
+  ConnectionConfig,
+} from "@rapidaai/nodejs";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithPersonalToken({
+    Authorization: "AUTH_TOKEN",
+    AuthId: "AUTH_ID",
+    ProjectId: "PROJECT_ID",
+  })
+);
+// Your Rapida integration code here
+console.log("Rapida SDK initialized successfully!");
+
+````
+```python Python
+from rapida import ConnectionConfig
+import os
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_personal_token(
+        authorization=os.getenv("AUTH_TOKEN"),
+        auth_id=os.getenv("AUTH_ID"),
+        project_id=os.getenv("PROJECT_ID"),
+    )
+)
+
+
+print("Rapida SDK initialized successfully!")
+```
 ```go Go
 package main
 
 import (
+    "fmt"
     "os"
-    sdk "github.com/rapidaai/rapida-go"
+    connections "github.com/rapidaai/rapida-go/rapida/connections"
 )
 
 func main() {
-    cfg := sdk.NewConnectionConfig()
-    cfg.WithAuth(sdk.WithPersonalToken(sdk.PersonalTokenOptions{
-        Authorization: os.Getenv("RAPIDA_PERSONAL_TOKEN"),
-        UserID:       os.Getenv("RAPIDA_USER_ID"),
-        ProjectID:    os.Getenv("RAPIDA_PROJECT_ID"),
-    }))
+  	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithPersonalToken(
+			os.Getenv("AUTH_TOKEN"), os.Getenv("AUTH_ID"), os.Getenv("PROJECT_ID"),
+		))
+    fmt.Println("Rapida SDK initialized successfully!")
 }
 ````
-
-```python Python
-from rapida_sdk import ConnectionConfig, WithPersonalToken
-import os
-
-connection_config = ConnectionConfig()
-connection_config.with_auth(WithPersonalToken(
-    authorization=os.getenv("RAPIDA_PERSONAL_TOKEN"),
-    user_id=os.getenv("RAPIDA_USER_ID"),
-    project_id=os.getenv("RAPIDA_PROJECT_ID"),
-))
-```
-
 </CodeGroup>
+
+
 
 ### Project Credentials
 
 Use this for typical integrations inside your apps and servers.
 
+
 <CodeGroup>
-  ```typescript React/Node.js
-  import { ConnectionConfig } from "rapida-react"; // or "rapida-nodejs"
-
-export let connectionConfig = new ConnectionConfig();
-
-connectionConfig.withAuth(
-    ConnectionConfig.WithSDK({
-        apiKey: process.env.RAPIDA_API_KEY!,
-    })
+```typescript React
+import {
+  ConnectionConfig,
+} from "@rapidaai/react";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
 );
+// Your Rapida integration code here
+console.log("Rapida SDK initialized successfully!");
 
 ````
 
+```typescript Node.js
+import {
+  ConnectionConfig,
+} from "@rapidaai/nodejs";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
+);
+// Your Rapida integration code here
+console.log("Rapida SDK initialized successfully!");
+
+````
+```python Python
+from rapida import ConnectionConfig
+import os
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(os.getenv("RAPIDA_PROJECT_KEY"))
+)
+
+print("Rapida SDK initialized successfully!")
+```
 ```go Go
 package main
 
 import (
+    "fmt"
     "os"
-    sdk "github.com/rapidaai/rapida-go"
+    connections "github.com/rapidaai/rapida-go/rapida/connections"
 )
 
 func main() {
-    cfg := sdk.NewConnectionConfig()
-    cfg.WithAuth(sdk.WithSDK(sdk.SDKOptions{
-        ApiKey: os.Getenv("RAPIDA_API_KEY"),
-    }))
+  connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+    fmt.Println("Rapida SDK initialized successfully!")
 }
 ````
-
-```python Python
-from rapida_sdk import ConnectionConfig, WithSDK
-import os
-
-connection_config = ConnectionConfig()
-connection_config.with_auth(WithSDK(api_key=os.getenv("RAPIDA_API_KEY")))
-```
-
 </CodeGroup>
+
 
 ## Environment Variables
 
@@ -202,50 +240,58 @@ RAPIDA_API_KEY=your_api_key_here
 Here's a simple example to verify your installation:
 
 <CodeGroup>
-  ```typescript Node.js
-  import { ConnectionConfig } from "rapida-nodejs";
-
-const connectionConfig = new ConnectionConfig();
-connectionConfig.withAuth(
-ConnectionConfig.WithSDK({
-apiKey: process.env.RAPIDA_API_KEY!,
-})
+```typescript React
+import {
+  ConnectionConfig,
+} from "@rapidaai/react";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
 );
-
 // Your Rapida integration code here
 console.log("Rapida SDK initialized successfully!");
 
 ````
 
+```typescript Node.js
+import {
+  ConnectionConfig,
+} from "@rapidaai/nodejs";
+let connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+  ConnectionConfig.WithSDK({
+    ApiKey: "YOUR_API_KEY_PLACEHOLDER",
+  })
+);
+// Your Rapida integration code here
+console.log("Rapida SDK initialized successfully!");
+
+````
+```python Python
+from rapida import ConnectionConfig
+import os
+
+connectionConfig = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(os.getenv("RAPIDA_PROJECT_KEY"))
+)
+
+print("Rapida SDK initialized successfully!")
+```
 ```go Go
 package main
 
 import (
     "fmt"
     "os"
-    sdk "github.com/rapidaai/rapida-go"
+    connections "github.com/rapidaai/rapida-go/rapida/connections"
 )
 
 func main() {
-    cfg := sdk.NewConnectionConfig()
-    cfg.WithAuth(sdk.WithSDK(sdk.SDKOptions{
-        ApiKey: os.Getenv("RAPIDA_API_KEY"),
-    }))
-
+  connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
     fmt.Println("Rapida SDK initialized successfully!")
 }
 ````
-
-```python Python
-from rapida_sdk import ConnectionConfig, WithSDK
-import os
-
-connection_config = ConnectionConfig()
-connection_config.with_auth(WithSDK(api_key=os.getenv("RAPIDA_API_KEY")))
-
-print("Rapida SDK initialized successfully!")
-```
-
 </CodeGroup>
 
 
