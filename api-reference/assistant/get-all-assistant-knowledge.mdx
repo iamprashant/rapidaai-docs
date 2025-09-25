@@ -1,0 +1,237 @@
+---
+title: 'Get All Assistant Knowledge'
+---
+Retrieves a paginated list of all knowledge bases associated with a specific assistant using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAllAssistantKnowledgeRequest" required>
+<Expandable>
+<ParamField body="assistantId" type="uint64" required>
+The unique identifier of the assistant whose knowledge bases to retrieve.
+</ParamField>
+<ParamField body="paginate" type="Paginate" optional>
+Pagination configuration for the results.
+<Expandable>
+<ParamField body="page" type="uint32">
+The page number to retrieve (0-based).
+</ParamField>
+<ParamField body="pageSize" type="uint32">
+Number of items per page.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="criterias" type="Criteria[]" optional>
+Array of search criteria to filter the results.
+<Expandable>
+<ParamField body="key" type="string">
+The field name to filter by.
+</ParamField>
+<ParamField body="value" type="string">
+The value to filter for.
+</ParamField>
+<ParamField body="logic" type="string">
+The logic operator for the criteria ("should" or "must").
+</ParamField>
+</Expandable>
+</ParamField>
+</Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve all knowledge bases for an assistant
+	response, err := clients.GetAllAssistantKnowledge(context.Background(), connectionConfig, &rapida_proto.GetAllAssistantKnowledgeRequest{
+		AssistantId: 3456789876541212,
+		Paginate: &rapida_proto.Paginate{
+			Page:     0,
+			PageSize: 20,
+		},
+		// Optional: Add search criteria
+		// Criterias: []*rapida_proto.Criteria{{
+		// 	Key:   "status",
+		// 	Value: "active",
+		// 	Logic: "must",
+		// }},
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantKnowledge[]">
+Array of assistant knowledge configurations.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the assistant knowledge mapping.
+</ParamField>
+<ParamField body="knowledgeId" type="uint64">
+Identifier of the associated knowledge base.
+</ParamField>
+<ParamField body="rerankerEnable" type="boolean">
+Whether reranking is enabled for this knowledge base.
+</ParamField>
+<ParamField body="topK" type="uint32">
+Number of top results to retrieve from the knowledge base.
+</ParamField>
+<ParamField body="scoreThreshold" type="float32">
+Minimum similarity score threshold for results.
+</ParamField>
+<ParamField body="knowledge" type="Knowledge">
+Detailed information about the knowledge base.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the knowledge base.
+</ParamField>
+<ParamField body="name" type="string">
+Name of the knowledge base.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the knowledge base purpose.
+</ParamField>
+<ParamField body="visibility" type="string">
+Visibility setting of the knowledge base.
+</ParamField>
+<ParamField body="language" type="string">
+Language setting for the knowledge base.
+</ParamField>
+<ParamField body="embeddingModelProviderId" type="uint64">
+Identifier of the embedding model provider.
+</ParamField>
+<ParamField body="embeddingModelProviderName" type="string">
+Name of the embedding model provider.
+</ParamField>
+<ParamField body="knowledgeEmbeddingModelOptions" type="Metadata[]">
+Array of embedding model configuration options.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the knowledge base.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the knowledge base creator.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object of the knowledge base creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the knowledge base was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the knowledge base was last updated.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Associated organization identifier.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Associated project identifier.
+</ParamField>
+<ParamField body="organization" type="Organization">
+Organization details associated with the knowledge base.
+</ParamField>
+<ParamField body="knowledgeTag" type="Tag">
+Tag information associated with the knowledge base.
+</ParamField>
+<ParamField body="documentCount" type="uint32">
+Number of documents in the knowledge base.
+</ParamField>
+<ParamField body="tokenCount" type="uint32">
+Total token count in the knowledge base.
+</ParamField>
+<ParamField body="wordCount" type="uint32">
+Total word count in the knowledge base.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="retrievalMethod" type="string">
+Method used for retrieving information from the knowledge base.
+</ParamField>
+<ParamField body="rerankerModelProviderId" type="uint64">
+Identifier of the reranker model provider.
+</ParamField>
+<ParamField body="rerankerModelProviderName" type="string">
+Name of the reranker model provider.
+</ParamField>
+<ParamField body="assistantKnowledgeRerankerOptions" type="Metadata[]">
+Array of reranker configuration options.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the assistant knowledge mapping was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the assistant knowledge mapping was last updated.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the assistant knowledge mapping.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Technical error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>
+<ParamField body="paginated" type="Paginated">
+Pagination information for the results.
+<Expandable>
+<ResponseField name="page" type="uint32">
+Current page number.
+</ResponseField>
+<ResponseField name="pageSize" type="uint32">
+Number of items per page.
+</ResponseField>
+<ResponseField name="totalPages" type="uint32">
+Total number of pages available.
+</ResponseField>
+<ResponseField name="totalItems" type="uint64">
+Total number of items across all pages.
+</ResponseField>
+</Expandable>
+</ParamField>

@@ -1,0 +1,264 @@
+---
+title: 'Get Assistant Conversation'
+---
+Retrieves a paginated list of conversations for a specific assistant using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAllAssistantConversationRequest" required>
+<Expandable>
+<ParamField body="assistantId" type="uint64" required>
+The unique identifier of the assistant whose conversations to retrieve.
+</ParamField>
+<ParamField body="paginate" type="Paginate" optional>
+Pagination configuration for the results.
+<Expandable>
+<ParamField body="page" type="uint32">
+Page number (0-based indexing).
+</ParamField>
+<ParamField body="pageSize" type="uint32">
+Number of items per page.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="criterias" type="Criteria[]" optional>
+Array of filtering criteria to apply to the search.
+<Expandable>
+<ParamField body="key" type="string">
+The field key to filter on.
+</ParamField>
+<ParamField body="value" type="string">
+The value to match against.
+</ParamField>
+<ParamField body="logic" type="string">
+Logic operator: "should" or "must".
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="source" type="Source" optional>
+Source filter for conversations.
+</ParamField>
+</Expandable>
+</ParamField>
+
+### Usages
+<CodeGroup>
+```go GO
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve all conversations for an assistant
+	response, err := clients.GetAllAssistantConversation(context.Background(), connectionConfig, &rapida_proto.GetAllAssistantConversationRequest{
+		AssistantId: 3456789876541212,
+		Paginate: &rapida_proto.Paginate{
+			Page:     0,
+			PageSize: 20,
+		},
+		// Optional: Apply filtering criteria
+		// Criterias: []*rapida_proto.Criteria{{
+		// 	Key:   "status",
+		// 	Value: "active",
+		// 	Logic: "must",
+		// }},
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantConversation[]">
+Array of assistant conversations.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the conversation.
+</ParamField>
+<ParamField body="userId" type="uint64">
+Identifier of the user participating in the conversation.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the assistant in the conversation.
+</ParamField>
+<ParamField body="name" type="string">
+Name or title of the conversation.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Associated project identifier.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Associated organization identifier.
+</ParamField>
+<ParamField body="source" type="string">
+Source platform or origin of the conversation.
+</ParamField>
+<ParamField body="identifier" type="string">
+External identifier for the conversation.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the conversation.
+</ParamField>
+<ParamField body="direction" type="string">
+Direction of the conversation flow.
+</ParamField>
+<ParamField body="user" type="User">
+User information for the conversation participant.
+</ParamField>
+<ParamField body="assistantProviderModelId" type="uint64">
+Identifier for the assistant provider model used.
+</ParamField>
+<ParamField body="assistantConversationMessage" type="AssistantConversationMessage[]">
+Array of messages within the conversation.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the message.
+</ParamField>
+<ParamField body="messageId" type="string">
+External message identifier.
+</ParamField>
+<ParamField body="assistantConversationId" type="uint64">
+Parent conversation identifier.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Associated assistant identifier.
+</ParamField>
+<ParamField body="assistantProviderModelId" type="uint64">
+Model identifier used for this message.
+</ParamField>
+<ParamField body="request" type="Message">
+User's request message.
+</ParamField>
+<ParamField body="response" type="Message">
+Assistant's response message.
+</ParamField>
+<ParamField body="source" type="string">
+Source platform of the message.
+</ParamField>
+<ParamField body="status" type="string">
+Status of the message.
+</ParamField>
+<ParamField body="suggestedQuestions" type="string[]">
+Array of suggested follow-up questions.
+</ParamField>
+<ParamField body="stages" type="AssistantMessageStage[]">
+Processing stages for the message.
+</ParamField>
+<ParamField body="metrics" type="Metric[]">
+Performance metrics for the message.
+</ParamField>
+<ParamField body="metadata" type="Metadata[]">
+Additional metadata for the message.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the message creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the message was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the message was last updated.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="contexts" type="AssistantConversationContext[]">
+Array of conversation contexts.
+</ParamField>
+<ParamField body="metrics" type="Metric[]">
+Performance metrics for the conversation.
+</ParamField>
+<ParamField body="metadata" type="Metadata[]">
+Additional metadata for the conversation.
+</ParamField>
+<ParamField body="arguments" type="Argument[]">
+Arguments passed to the conversation.
+</ParamField>
+<ParamField body="options" type="Metadata[]">
+Configuration options for the conversation.
+</ParamField>
+<ParamField body="recordings" type="AssistantConversationRecording[]">
+Array of conversation recordings.
+<Expandable>
+<ParamField body="recordingUrl" type="string">
+URL to access the recording.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the conversation creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the conversation was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the conversation was last updated.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="paginated" type="Paginated">
+Pagination information for the response.
+<Expandable>
+<ParamField body="page" type="uint32">
+Current page number.
+</ParamField>
+<ParamField body="pageSize" type="uint32">
+Number of items per page.
+</ParamField>
+<ParamField body="totalPages" type="uint32">
+Total number of pages available.
+</ParamField>
+<ParamField body="totalItems" type="uint64">
+Total number of items across all pages.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Technical error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

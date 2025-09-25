@@ -1,0 +1,180 @@
+---
+title: 'Get All Assistant Webhook'
+---
+Retrieves a list of webhooks associated with a specific assistant using the Rapida API. This endpoint supports pagination and filtering capabilities.
+
+<Info> For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication) </Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+  Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAllAssistantWebhookRequest" required>
+  <Expandable>
+    <ParamField body="webhookId" type="uint64" optional>
+      Filter results by a specific webhook ID.
+    </ParamField>
+    <ParamField body="assistantId" type="uint64" optional>
+      Filter results by a specific assistant ID.
+    </ParamField>
+    <ParamField body="paginate" type="Paginate" optional>
+      Pagination settings for the results.
+      <Expandable>
+        <ParamField body="page" type="uint32">
+          The page number (0-based).
+        </ParamField>
+        <ParamField body="pageSize" type="uint32">
+          Number of items per page.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+    <ParamField body="criterias" type="Criteria[]" optional>
+      Array of filtering criteria.
+      <Expandable>
+        <ParamField body="key" type="string">
+          The field name to filter by.
+        </ParamField>
+        <ParamField body="value" type="string">
+          The value to match against.
+        </ParamField>
+        <ParamField body="logic" type="string">
+          The logic operator to use ("should" or "must").
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve all assistant webhooks with pagination
+	response, err := clients.GetAllAssistantWebhook(context.Background(), connectionConfig, &rapida_proto.GetAllAssistantWebhookRequest{
+		AssistantId: 3456789876541212,
+		Paginate: &rapida_proto.Paginate{
+			Page:     0,
+			PageSize: 20,
+		},
+		// Optional: Add filtering criteria
+		// Criterias: []*rapida_proto.Criteria{{
+		//     Key:   "status",
+		//     Value: "active",
+		//     Logic: "must",
+		// }},
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+  Numeric status code for the operation.
+</ParamField>
+
+<ParamField body="success" type="boolean">
+  Indicates whether the operation was successful.
+</ParamField>
+
+<ParamField body="data" type="AssistantWebhook[]">
+  Array of assistant webhooks.
+  <Expandable>
+    <ParamField body="id" type="uint64">
+      Unique identifier for the webhook.
+    </ParamField>
+    <ParamField body="assistantEvents" type="string[]">
+      Array of events that trigger this webhook.
+    </ParamField>
+    <ParamField body="description" type="string">
+      Description of the webhook's purpose.
+    </ParamField>
+    <ParamField body="httpMethod" type="string">
+      HTTP method used for the webhook (GET, POST, PUT, DELETE, etc.).
+    </ParamField>
+    <ParamField body="httpUrl" type="string">
+      Target URL for the webhook.
+    </ParamField>
+    <ParamField body="httpHeaders" type="map[string]string">
+      HTTP headers to include with webhook requests.
+    </ParamField>
+    <ParamField body="httpBody" type="map[string]string">
+      HTTP body parameters for the webhook request.
+    </ParamField>
+    <ParamField body="timeoutSecond" type="uint32">
+      Timeout duration for webhook requests in seconds.
+    </ParamField>
+    <ParamField body="executionPriority" type="uint32">
+      Execution priority of the webhook.
+    </ParamField>
+    <ParamField body="retryStatusCodes" type="string[]">
+      HTTP status codes that should trigger a retry.
+    </ParamField>
+    <ParamField body="retryCount" type="uint32">
+      Maximum number of retry attempts.
+    </ParamField>
+    <ParamField body="assistantId" type="uint64">
+      Associated assistant identifier.
+    </ParamField>
+    <ParamField body="status" type="string">
+      Current status of the webhook.
+    </ParamField>
+    <ParamField body="createdBy" type="uint64">
+      Identifier of the webhook creator.
+    </ParamField>
+    <ParamField body="createdUser" type="User">
+      User object of the webhook creator.
+    </ParamField>
+    <ParamField body="updatedBy" type="uint64">
+      Identifier of the last updater.
+    </ParamField>
+    <ParamField body="updatedUser" type="User">
+      User object of the last updater.
+    </ParamField>
+    <ParamField body="createdDate" type="timestamp">
+      Timestamp when the webhook was created.
+    </ParamField>
+    <ParamField body="updatedDate" type="timestamp">
+      Timestamp when the webhook was last updated.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="error" type="object">
+  Error information, if applicable.
+  <Expandable>
+    <ResponseField name="errorCode" type="uint64">
+      Numeric error code.
+    </ResponseField>
+    <ResponseField name="errorMessage" type="string">
+      Technical error message.
+    </ResponseField>
+    <ResponseField name="humanMessage" type="string">
+      Human-readable error description.
+    </ResponseField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="paginated" type="Paginated">
+  Pagination information for the results.
+</ParamField>

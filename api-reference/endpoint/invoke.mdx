@@ -1,0 +1,153 @@
+---
+title: "Invoke"
+---
+
+Invokes an endpoint to execute a specific operation using the Rapida API.
+
+<Info>
+For full setup and authentication options, see the Installation guide: [/api-reference/introduction](/api-reference/introduction).
+</Info>
+
+## Parameters
+
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+
+<ParamField body="request" type="InvokeRequest" required>
+<Expandable>
+<ParamField body="endpoint" type="EndpointDefinition" required>
+<Expandable>
+<ParamField body="endpointId" type="number" required>
+Unique identifier of the endpoint to invoke.
+</ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="args" type="Map<string, google_protobuf_any_pb.Any>">
+Arguments passed to the endpoint as a key-value map.
+</ParamField>
+
+<ParamField body="options" type="Map<string, google_protobuf_any_pb.Any>">
+Request options for runtime behavior and configuration.
+</ParamField>
+
+<ParamField body="metadata" type="Map<string, google_protobuf_any_pb.Any>">
+Metadata associated with the request for tracking and analytics.
+</ParamField>
+</Expandable>
+</ParamField>
+
+### Usage
+
+<CodeGroup>
+
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+	"github.com/rapidaai/rapida-go/rapida/utils"
+	"google.golang.org/protobuf/types/known/anypb"
+)
+
+func main() {
+	// for more authentication check https://doc.rapida.ai/api-reference/authentication
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL"))).WithLocal()
+	argumentValue, _ := utils.StringToAny("Hello how are you doing")
+	metadataValue, _ := utils.StringToAny("metadata_to_track")
+	optionValue, _ := utils.Int64ToAny(4567898656789)
+	response, _ := clients.Invoke(context.Background(), connectionConfig, &rapida_proto.InvokeRequest{
+		Endpoint: &rapida_proto.EndpointDefinition{
+			EndpointId: 2223006263292198912,
+		},
+		Args: map[string]*anypb.Any{
+			"can": argumentValue,
+		},
+		Metadata: map[string]*anypb.Any{
+			"test": metadataValue,
+		},
+		Options: map[string]*anypb.Any{
+			"opts1": optionValue,
+		},
+	})
+
+	fmt.Printf("rapida calling response %+v", response)
+}
+```
+
+</CodeGroup>
+### Response
+
+<ParamField body="code" type="int">
+Numeric status code for the operation.
+</ParamField>
+
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+
+<ParamField body="error" type="Error">
+<Expandable>
+<ResponseField name="errorCode" type="string (uint64)">
+Stable, machine-readable numeric code for the error.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Developer-oriented error message for debugging.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+End-user-friendly error message.
+</ResponseField>
+</Expandable>
+</ParamField>
+
+<ParamField body="data" type="array" description="Array of Content, representing the returned results.">
+<Expandable>
+<ParamField body="name" type="string">
+Name of the content.
+</ParamField>
+<ParamField body="contentType" type="string">
+Type of the content (e.g., audio, image, video, text).
+</ParamField>
+<ParamField body="contentFormat" type="string">
+Format of the content (e.g., raw string, URL).
+</ParamField>
+<ParamField body="content" type="bytes">
+Raw content data.
+</ParamField>
+<ParamField body="meta" type="object">
+Metadata of the content.
+</ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="requestId" type="uint64">
+Unique ID for tracking the request.
+</ParamField>
+
+<ParamField body="timeTaken" type="uint64">
+Duration of the operation in milliseconds.
+</ParamField>
+
+<ParamField body="metrics" type="array" description="Performance metrics captured during the request.">
+<Expandable>
+<ParamField body="name" type="string">
+Name of the metric.
+</ParamField>
+<ParamField body="value" type="string">
+Value of the metric.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the metric.
+</ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="meta" type="object" description="Structured metadata related to the response."></ParamField>

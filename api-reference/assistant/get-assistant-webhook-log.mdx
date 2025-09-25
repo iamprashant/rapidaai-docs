@@ -1,0 +1,135 @@
+----
+title: 'Get Assistant Webhook Log'
+----
+Retrieves a specific webhook log entry by its ID using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAssistantWebhookLogRequest" required>
+<Expandable>
+<ParamField body="projectId" type="uint64" optional>
+The project identifier for scope filtering.
+</ParamField>
+<ParamField body="id" type="uint64" required>
+The unique identifier of the webhook log to retrieve.
+</ParamField>
+</Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve specific webhook log
+	response, err := clients.GetAssistantWebhookLog(context.Background(), connectionConfig, &rapida_proto.GetAssistantWebhookLogRequest{
+		Id: 567898765456788765,
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantWebhookLog">
+The webhook log entry details.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the webhook log.
+</ParamField>
+<ParamField body="webhookId" type="uint64">
+Identifier of the associated webhook.
+</ParamField>
+<ParamField body="request" type="object">
+The request payload sent to the webhook.
+</ParamField>
+<ParamField body="response" type="object">
+The response received from the webhook.
+</ParamField>
+<ParamField body="status" type="string">
+Status of the webhook execution.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the log entry was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the log entry was last updated.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the associated assistant.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Identifier of the associated project.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Identifier of the associated organization.
+</ParamField>
+<ParamField body="assistantConversationId" type="uint64">
+Identifier of the associated conversation.
+</ParamField>
+<ParamField body="assetPrefix" type="string">
+Asset prefix used for the webhook.
+</ParamField>
+<ParamField body="event" type="string">
+Event type that triggered the webhook.
+</ParamField>
+<ParamField body="responseStatus" type="uint64">
+HTTP response status code from the webhook.
+</ParamField>
+<ParamField body="timeTaken" type="uint64">
+Time taken for the webhook execution in milliseconds.
+</ParamField>
+<ParamField body="retryCount" type="uint32">
+Number of retry attempts made.
+</ParamField>
+<ParamField body="httpMethod" type="string">
+HTTP method used for the webhook request.
+</ParamField>
+<ParamField body="httpUrl" type="string">
+URL that was called for the webhook.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

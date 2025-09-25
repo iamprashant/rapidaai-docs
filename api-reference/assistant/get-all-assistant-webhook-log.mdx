@@ -1,0 +1,185 @@
+---
+title: 'Get All Assistant Webhook Logs'
+---
+Retrieves a paginated list of webhook logs with optional filtering and ordering using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAllAssistantWebhookLogRequest" required>
+<Expandable>
+<ParamField body="projectId" type="uint64" optional>
+The project identifier for scope filtering.
+</ParamField>
+<ParamField body="paginate" type="Paginate" optional>
+Pagination configuration.
+<Expandable>
+<ParamField body="page" type="uint32">
+Page number (0-based indexing).
+</ParamField>
+<ParamField body="pageSize" type="uint32">
+Number of items per page.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="criterias" type="Criteria[]" optional>
+Array of filtering criteria.
+<Expandable>
+<ParamField body="key" type="string">
+Field name to filter on.
+</ParamField>
+<ParamField body="value" type="string">
+Value to filter by.
+</ParamField>
+<ParamField body="logic" type="string">
+Filter logic: "should" or "must".
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="order" type="Ordering" optional>
+Sorting configuration.
+<Expandable>
+<ParamField body="column" type="string">
+Column name to sort by.
+</ParamField>
+<ParamField body="order" type="string">
+Sort order: "asc" or "desc".
+</ParamField>
+</Expandable>
+</ParamField>
+</Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve paginated webhook logs
+	response, err := clients.GetAllAssistantWebhookLog(context.Background(), connectionConfig, &rapida_proto.GetAllAssistantWebhookLogRequest{
+		Paginate: &rapida_proto.Paginate{
+			Page:     0,
+			PageSize: 20,
+		},
+		// Optional: Add filtering criteria
+		// Criterias: []*rapida_proto.Criteria{{
+		// 	Key:   "status",
+		// 	Value: "success",
+		// 	Logic: "must",
+		// }},
+		// Optional: Add sorting
+		// Order: &rapida_proto.Ordering{
+		// 	Column: "createdDate",
+		// 	Order:  "desc",
+		// },
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantWebhookLog[]">
+Array of webhook log entries.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the webhook log.
+</ParamField>
+<ParamField body="webhookId" type="uint64">
+Identifier of the associated webhook.
+</ParamField>
+<ParamField body="request" type="object">
+The request payload sent to the webhook.
+</ParamField>
+<ParamField body="response" type="object">
+The response received from the webhook.
+</ParamField>
+<ParamField body="status" type="string">
+Status of the webhook execution.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the log entry was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the log entry was last updated.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the associated assistant.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Identifier of the associated project.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Identifier of the associated organization.
+</ParamField>
+<ParamField body="assistantConversationId" type="uint64">
+Identifier of the associated conversation.
+</ParamField>
+<ParamField body="assetPrefix" type="string">
+Asset prefix used for the webhook.
+</ParamField>
+<ParamField body="event" type="string">
+Event type that triggered the webhook.
+</ParamField>
+<ParamField body="responseStatus" type="uint64">
+HTTP response status code from the webhook.
+</ParamField>
+<ParamField body="timeTaken" type="uint64">
+Time taken for the webhook execution in milliseconds.
+</ParamField>
+<ParamField body="retryCount" type="uint32">
+Number of retry attempts made.
+</ParamField>
+<ParamField body="httpMethod" type="string">
+HTTP method used for the webhook request.
+</ParamField>
+<ParamField body="httpUrl" type="string">
+URL that was called for the webhook.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="paginated" type="Paginated">
+Pagination metadata.
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

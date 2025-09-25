@@ -1,0 +1,145 @@
+---
+title: 'Get Assistant Webhook'
+---
+
+Retrieves detailed information about a specific webhook configured for an assistant using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAssistantWebhookRequest" required>
+    <Expandable>
+        <ParamField body="id" type="uint64" required>
+        The unique identifier of the webhook to retrieve.
+        </ParamField>
+        <ParamField body="assistantId" type="uint64" required>
+        The unique identifier of the assistant that owns the webhook.
+        </ParamField>
+    </Expandable>
+</ParamField>
+
+### Usage
+
+<CodeGroup>
+```go Go
+package main
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve webhook information
+	response, err := clients.GetAssistantWebhook(context.Background(), connectionConfig, &rapida_proto.GetAssistantWebhookRequest{
+		AssistantId: 3456789876541212,
+		Id:          567898765456788765,
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+
+### Response
+
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantWebhook">
+Detailed information about the assistant webhook.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the webhook.
+</ParamField>
+<ParamField body="assistantEvents" type="string[]">
+Array of assistant events that trigger this webhook.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the webhook's purpose and functionality.
+</ParamField>
+<ParamField body="httpMethod" type="string">
+HTTP method used for webhook requests (e.g., "POST", "GET", "PUT").
+</ParamField>
+<ParamField body="httpUrl" type="string">
+Target URL where webhook requests are sent.
+</ParamField>
+<ParamField body="httpHeaders" type="map[string]string">
+Key-value pairs of HTTP headers included in webhook requests.
+</ParamField>
+<ParamField body="httpBody" type="map[string]string">
+Key-value pairs representing the HTTP body structure for webhook requests.
+</ParamField>
+<ParamField body="timeoutSecond" type="uint32">
+Maximum time in seconds to wait for webhook response before timeout.
+</ParamField>
+<ParamField body="executionPriority" type="uint32">
+Priority level for webhook execution when multiple webhooks are triggered.
+</ParamField>
+<ParamField body="retryStatusCodes" type="string[]">
+Array of HTTP status codes that trigger webhook retry attempts.
+</ParamField>
+<ParamField body="retryCount" type="uint32">
+Maximum number of retry attempts for failed webhook calls.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the assistant that owns this webhook.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the webhook (e.g., "active", "inactive").
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the user who created the webhook.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object representing the creator of the webhook.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the user who last updated the webhook.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object representing the last updater of the webhook.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the webhook was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the webhook was last updated.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code for machine-readable error handling.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Technical error message for debugging purposes.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message for user display.
+</ResponseField>
+</Expandable>
+</ParamField>

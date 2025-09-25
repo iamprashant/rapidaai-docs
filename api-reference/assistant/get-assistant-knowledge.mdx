@@ -1,0 +1,211 @@
+---
+title: 'Get Assistant Knowledge'
+---
+Retrieves detailed information about a specific assistant's knowledge configuration using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAssistantKnowledgeRequest" required>
+<Expandable>
+<ParamField body="id" type="uint64" required>
+The unique identifier of the assistant knowledge configuration to retrieve.
+</ParamField>
+<ParamField body="assistantId" type="uint64" required>
+The unique identifier of the assistant associated with the knowledge configuration.
+</ParamField>
+</Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve assistant knowledge configuration
+	response, err := clients.GetAssistantKnowledge(context.Background(), connectionConfig, &rapida_proto.GetAssistantKnowledgeRequest{
+		AssistantId: 3456789876541212,
+		Id:          567898765456788765,
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantKnowledge">
+Detailed information about the assistant's knowledge configuration.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the assistant knowledge configuration.
+</ParamField>
+<ParamField body="knowledgeId" type="uint64">
+Identifier of the associated knowledge base.
+</ParamField>
+<ParamField body="rerankerEnable" type="boolean">
+Whether the reranker is enabled for knowledge retrieval.
+</ParamField>
+<ParamField body="topK" type="uint32">
+Maximum number of top results to retrieve from the knowledge base.
+</ParamField>
+<ParamField body="scoreThreshold" type="float32">
+Minimum similarity score threshold for knowledge retrieval.
+</ParamField>
+<ParamField body="knowledge" type="Knowledge">
+Detailed information about the associated knowledge base.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the knowledge base.
+</ParamField>
+<ParamField body="name" type="string">
+Name of the knowledge base.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the knowledge base.
+</ParamField>
+<ParamField body="visibility" type="string">
+Visibility setting of the knowledge base.
+</ParamField>
+<ParamField body="language" type="string">
+Language of the knowledge base content.
+</ParamField>
+<ParamField body="embeddingModelProviderId" type="uint64">
+Identifier of the embedding model provider.
+</ParamField>
+<ParamField body="embeddingModelProviderName" type="string">
+Name of the embedding model provider.
+</ParamField>
+<ParamField body="knowledgeEmbeddingModelOptions" type="Metadata[]">
+Array of embedding model configuration options.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the metadata entry.
+</ParamField>
+<ParamField body="key" type="string">
+The option key name.
+</ParamField>
+<ParamField body="value" type="string">
+The option value.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the knowledge base.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the knowledge base creator.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object of the knowledge base creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the knowledge base was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the knowledge base was last updated.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Associated organization identifier.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Associated project identifier.
+</ParamField>
+<ParamField body="organization" type="Organization">
+Organization details associated with the knowledge base.
+</ParamField>
+<ParamField body="knowledgeTag" type="Tag">
+Tag information associated with the knowledge base.
+</ParamField>
+<ParamField body="documentCount" type="uint32">
+Total number of documents in the knowledge base.
+</ParamField>
+<ParamField body="tokenCount" type="uint32">
+Total number of tokens in the knowledge base.
+</ParamField>
+<ParamField body="wordCount" type="uint32">
+Total number of words in the knowledge base.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="retrievalMethod" type="string">
+Method used for retrieving knowledge from the knowledge base.
+</ParamField>
+<ParamField body="rerankerModelProviderId" type="uint64">
+Identifier of the reranker model provider.
+</ParamField>
+<ParamField body="rerankerModelProviderName" type="string">
+Name of the reranker model provider.
+</ParamField>
+<ParamField body="assistantKnowledgeRerankerOptions" type="Metadata[]">
+Array of reranker configuration options.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the metadata entry.
+</ParamField>
+<ParamField body="key" type="string">
+The option key name.
+</ParamField>
+<ParamField body="value" type="string">
+The option value.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the assistant knowledge configuration was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the assistant knowledge configuration was last updated.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the assistant knowledge configuration.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

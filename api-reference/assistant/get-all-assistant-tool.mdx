@@ -1,0 +1,146 @@
+---
+title: 'Get All Assistant Tools'
+---
+Retrieves a paginated list of all assistant tools for a specific assistant using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAllAssistantToolRequest" required>
+<Expandable>
+<ParamField body="assistantId" type="uint64" required>
+The unique identifier of the assistant whose tools to retrieve.
+</ParamField>
+<ParamField body="paginate" type="Paginate" optional>
+Pagination configuration for the results.
+<Expandable>
+<ParamField body="page" type="uint32">
+Page number to retrieve (0-indexed).
+</ParamField>
+<ParamField body="pageSize" type="uint32">
+Number of items per page.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="criterias" type="Criteria[]" optional>
+Array of search criteria for filtering results.
+<Expandable>
+<ParamField body="key" type="string">
+The field key to filter on.
+</ParamField>
+<ParamField body="value" type="string">
+The value to filter by.
+</ParamField>
+<ParamField body="logic" type="string">
+Logic operator for the criteria ("should" | "must").
+</ParamField>
+</Expandable>
+</ParamField>
+</Expandable>
+</ParamField>
+### Usage
+<CodeGroup>
+```go Go
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve all assistant tools with pagination
+	response, err := clients.GetAllAssistantTool(context.Background(), connectionConfig, &rapida_proto.GetAllAssistantToolRequest{
+		AssistantId: 3456789876541212,
+		Paginate: &rapida_proto.Paginate{
+			Page:     0,
+			PageSize: 20,
+		},
+		// Optional: Add filtering criteria
+		// Criterias: []*rapida_proto.Criteria{{
+		// 	Key:   "status",
+		// 	Value: "active",
+		// 	Logic: "must",
+		// }},
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantTool[]">
+Array of assistant tools.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the assistant tool.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the assistant that owns this tool.
+</ParamField>
+<ParamField body="name" type="string">
+Name of the assistant tool.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the tool's functionality.
+</ParamField>
+<ParamField body="fields" type="Struct">
+Tool fields configuration as a structured object.
+</ParamField>
+<ParamField body="executionMethod" type="string">
+Method used for tool execution.
+</ParamField>
+<ParamField body="executionOptions" type="Metadata[]">
+Array of execution configuration options.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the tool.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the tool was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the tool was last updated.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="paginated" type="Paginated">
+Pagination information for the results.
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Numeric error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

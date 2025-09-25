@@ -169,6 +169,35 @@
                             "api-reference/call/create-call",
                             "api-reference/call/create-bulk-call"
                         ]
+                    },
+                    {
+                        "group": "Endpoint",
+                        "icon": "route",
+                        "pages": [
+                            "api-reference/endpoint/invoke",
+                            "api-reference/endpoint/get-endpoint",
+                            "api-reference/endpoint/get-all-endpoint",
+                            "api-reference/endpoint/get-endpoint-log",
+                            "api-reference/endpoint/get-all-endpoint-log"
+                        ]
+                    },
+                    {
+                        "group": "Assistant",
+                        "icon": "bot",
+                        "pages": [
+                            "api-reference/assistant/get-assistant",
+                            "api-reference/assistant/get-all-assistant",
+                            "api-reference/assistant/get-assistant-conversation",
+                            "api-reference/assistant/get-all-assistant-conversation",
+                            "api-reference/assistant/get-assistant-webhook",
+                            "api-reference/assistant/get-all-assistant-webhook",
+                            "api-reference/assistant/get-assistant-knowledge",
+                            "api-reference/assistant/get-all-assistant-knowledge",
+                            "api-reference/assistant/get-assistant-tool",
+                            "api-reference/assistant/get-all-assistant-tool",
+                            "api-reference/assistant/get-assistant-webhook-log",
+                            "api-reference/assistant/get-all-assistant-webhook-log"
+                        ]
                     }
                 ]
             }

@@ -1,0 +1,126 @@
+---
+title: 'Get Assistant Analysis'
+---
+Retrieves detailed information about a specific assistant analysis using the Rapida API.
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+### Parameters
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetAssistantAnalysisRequest" required>
+<Expandable>
+<ParamField body="id" type="uint64" required>
+The unique identifier of the assistant analysis to retrieve.
+</ParamField>
+<ParamField body="assistantId" type="uint64" required>
+The unique identifier of the assistant associated with the analysis.
+</ParamField>
+</Expandable>
+</ParamField>
+###  Usage
+<CodeGroup>
+```go Go
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve assistant analysis information
+	response, err := clients.GetAssistantAnalysis(context.Background(), connectionConfig, &rapida_proto.GetAssistantAnalysisRequest{
+		AssistantId: 3456789876541212,
+		Id:          567898765456788765,
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+</CodeGroup>
+### Response
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+<ParamField body="data" type="AssistantAnalysis">
+Detailed information about the assistant analysis.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the assistant analysis.
+</ParamField>
+<ParamField body="name" type="string">
+Name of the assistant analysis.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the assistant analysis purpose.
+</ParamField>
+<ParamField body="endpointId" type="uint64">
+Identifier of the associated endpoint.
+</ParamField>
+<ParamField body="endpointVersion" type="string">
+Version of the endpoint being used.
+</ParamField>
+<ParamField body="endpointParameters" type="map[string]string">
+Key-value pairs of parameters for the endpoint.
+</ParamField>
+<ParamField body="assistantId" type="uint64">
+Identifier of the associated assistant.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the assistant analysis.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the analysis creator.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object of the analysis creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the analysis was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the analysis was last updated.
+</ParamField>
+<ParamField body="executionPriority" type="uint32">
+Priority level for analysis execution.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="uint64">
+Machine-readable error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+<ResponseField name="humanMessage" type="string">
+Human-readable error message.
+</ResponseField>
+</Expandable>
+</ParamField>

@@ -1,0 +1,138 @@
+---
+title: 'Get Endpoint'
+---
+
+Retrieves data or executes operations on a specified endpoint using the Rapida API.
+
+<Info>
+For full setup and authentication options, see the Installation guide: [/api-reference/introduction](/api-reference/introduction).
+</Info>
+## Parameters
+
+
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+<ParamField body="request" type="GetEndpointRequest" required>
+<Expandable>
+<ParamField body="id" type="uint64" required>
+A unique identifier for the endpoint. This is a mandatory field for the request.
+</ParamField>
+<ParamField body="endpointProviderModelId" type="uint64 (optional)">
+An optional identifier for the provider model associated with the endpoint.
+</ParamField>
+</Expandable>
+</ParamField>
+
+
+### Usage
+
+<CodeGroup>
+
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL"))).WithLocal()
+
+	// Provide the endpoint ID to fetch endpoint details
+	response, err := clients.GetEndpoint(context.Background(), connectionConfig, &rapida_proto.GetEndpointRequest{
+		Id: 2223006263292198912,
+	})
+
+	if err != nil {
+		fmt.Printf("Error while fetching endpoint details: %+v\n", err)
+		return
+	}
+
+	// Print the retrieved endpoint details
+	fmt.Printf("Endpoint details: Code: %d, Success: %t, Endpoint ID: %d\n", response.Code, response.Success, response.Data.Id)
+}
+```
+
+</CodeGroup>
+
+### Response
+
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+
+<ParamField body="data" type="object">
+Detailed information about the endpoint.
+<Expandable>
+  <ParamField body="id" type="uint64">
+  Unique identifier for the endpoint.
+  </ParamField>
+  <ParamField body="status" type="string">
+  Operational status of the endpoint.
+  </ParamField>
+  <ParamField body="visibility" type="string">
+  Visibility status of the endpoint.
+  </ParamField>
+  <ParamField body="source" type="string">
+  Source of the endpoint.
+  </ParamField>
+  <ParamField body="sourceIdentifier" type="uint64">
+  Identifier mapping to the endpoint's source.
+  </ParamField>
+  <ParamField body="projectId" type="uint64">
+  Associated project identifier.
+  </ParamField>
+  <ParamField body="organizationId" type="uint64">
+  Associated organization identifier.
+  </ParamField>
+  <ParamField body="endpointProviderModelId" type="uint64">
+  Model identifier tied to the endpoint provider.
+  </ParamField>
+  <ParamField body="language" type="string">
+  Selected language configuration for the endpoint.
+  </ParamField>
+  <ParamField body="name" type="string">
+  Name assigned to the endpoint.
+  </ParamField>
+  <ParamField body="description" type="string">
+  Description of the endpoint's purpose.
+  </ParamField>
+  <ParamField body="createdDate" type="timestamp">
+  Timestamp of endpoint creation.
+  </ParamField>
+  <ParamField body="updatedDate" type="timestamp">
+  Timestamp of last endpoint update.
+  </ParamField>
+  <ParamField body="createdBy" type="uint64">
+  Identifier of the creator.
+  </ParamField>
+  <ParamField body="updatedBy" type="uint64">
+  Identifier of the last updater.
+  </ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="string">
+Machine-readable error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+</Expandable>
+</ParamField>

@@ -1,0 +1,248 @@
+---
+title: 'Get Assistant'
+---
+
+Retrieves detailed information about a specific assistant using the Rapida API.
+
+<Info>
+For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
+</Info>
+
+### Parameters
+
+<ParamField body="connectionConfig" type="ConnectionConfig" required>
+Configuration for the client connection.
+</ParamField>
+
+<ParamField body="request" type="GetAssistantRequest" required>
+<Expandable>
+<ParamField body="id" type="uint64" required>
+The unique identifier of the assistant to retrieve.
+</ParamField>
+<ParamField body="assistantProviderModelId" type="uint64" optional>
+Optional identifier for the assistant provider model. Use utils.Ptr() to set this value.
+</ParamField>
+</Expandable>
+</ParamField>
+
+### Usage
+
+<CodeGroup>
+
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	clients "github.com/rapidaai/rapida-go/rapida/clients"
+	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
+	connections "github.com/rapidaai/rapida-go/rapida/connections"
+	"github.com/rapidaai/rapida-go/rapida/utils"
+)
+
+func main() {
+	// Configure client connection using RAPIDA_PROJECT_CREDENTIAL environment variable
+	connectionConfig := connections.
+		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL")))
+
+	// Retrieve assistant information
+	response, err := clients.GetAssistant(context.Background(), connectionConfig, &rapida_proto.GetAssistantRequest{
+		Id: 45678903456789,
+		// Optional: Specify assistant provider model ID
+		AssistantProviderModelId: utils.Ptr(uint64(3476544567890987654)),
+	})
+
+	if err != nil {
+		fmt.Printf("Error while making call using rapida: %+v\n", err)
+		return
+	}
+
+	// Print the response
+	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+
+</CodeGroup>
+
+### Response
+
+<ParamField body="code" type="int32">
+Numeric status code for the operation.
+</ParamField>
+
+<ParamField body="success" type="boolean">
+Indicates whether the operation was successful.
+</ParamField>
+
+<ParamField body="data" type="Assistant">
+Detailed information about the assistant.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the assistant.
+</ParamField>
+<ParamField body="status" type="string">
+Current status of the assistant.
+</ParamField>
+<ParamField body="visibility" type="string">
+Visibility setting of the assistant.
+</ParamField>
+<ParamField body="source" type="string">
+Source system or origin of the assistant.
+</ParamField>
+<ParamField body="sourceIdentifier" type="uint64">
+Identifier mapping to the assistant's source.
+</ParamField>
+<ParamField body="assistantTools" type="AssistantTool[]">
+Array of tools available to the assistant.
+</ParamField>
+<ParamField body="projectId" type="uint64">
+Associated project identifier.
+</ParamField>
+<ParamField body="organizationId" type="uint64">
+Associated organization identifier.
+</ParamField>
+<ParamField body="assistantProviderModelId" type="uint64">
+Model identifier tied to the assistant provider.
+</ParamField>
+<ParamField body="assistantProviderModel" type="AssistantProviderModel">
+Detailed information about the assistant's provider model.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the provider model.
+</ParamField>
+<ParamField body="template" type="TextChatCompletePrompt">
+Template configuration for text chat completion.
+<Expandable>
+<ParamField body="prompt" type="TextPrompt[]">
+Array of prompt configurations.
+<Expandable>
+<ParamField body="role" type="string">
+Role of the prompt (e.g., "system", "user", "assistant").
+</ParamField>
+<ParamField body="content" type="string">
+Content of the prompt.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="promptVariables" type="Variable[]">
+Array of variables used in the prompt template.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="description" type="string">
+Description of the provider model.
+</ParamField>
+<ParamField body="modelProviderId" type="uint64">
+Identifier of the model provider.
+</ParamField>
+<ParamField body="modelProviderName" type="string">
+Name of the model provider.
+</ParamField>
+<ParamField body="assistantModelOptions" type="Metadata[]">
+Array of model configuration options.
+<Expandable>
+<ParamField body="id" type="uint64">
+Unique identifier for the metadata entry.
+</ParamField>
+<ParamField body="key" type="string">
+The option key name.
+</ParamField>
+<ParamField body="value" type="string">
+The option value.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="status" type="string">
+Status of the provider model.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the creator.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object of the creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the provider model was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the provider model was last updated.
+</ParamField>
+</Expandable>
+</ParamField>
+<ParamField body="name" type="string">
+Name of the assistant.
+</ParamField>
+<ParamField body="description" type="string">
+Description of the assistant's purpose.
+</ParamField>
+<ParamField body="assistantTag" type="Tag">
+Tag information associated with the assistant.
+</ParamField>
+<ParamField body="language" type="string">
+Language setting for the assistant.
+</ParamField>
+<ParamField body="organization" type="Organization">
+Organization details associated with the assistant.
+</ParamField>
+<ParamField body="createdBy" type="uint64">
+Identifier of the assistant creator.
+</ParamField>
+<ParamField body="createdUser" type="User">
+User object of the assistant creator.
+</ParamField>
+<ParamField body="updatedBy" type="uint64">
+Identifier of the last updater.
+</ParamField>
+<ParamField body="updatedUser" type="User">
+User object of the last updater.
+</ParamField>
+<ParamField body="createdDate" type="timestamp">
+Timestamp when the assistant was created.
+</ParamField>
+<ParamField body="updatedDate" type="timestamp">
+Timestamp when the assistant was last updated.
+</ParamField>
+<ParamField body="debuggerDeployment" type="AssistantDebuggerDeployment">
+Configuration for debugger deployment.
+</ParamField>
+<ParamField body="phoneDeployment" type="AssistantPhoneDeployment">
+Configuration for phone deployment.
+</ParamField>
+<ParamField body="whatsappDeployment" type="AssistantWhatsappDeployment">
+Configuration for WhatsApp deployment.
+</ParamField>
+<ParamField body="webPluginDeployment" type="AssistantWebpluginDeployment">
+Configuration for web plugin deployment.
+</ParamField>
+<ParamField body="apiDeployment" type="AssistantApiDeployment">
+Configuration for API deployment.
+</ParamField>
+<ParamField body="assistantConversations" type="AssistantConversation[]">
+Array of conversations associated with the assistant.
+</ParamField>
+<ParamField body="assistantWebhooks" type="AssistantWebhook[]">
+Array of webhooks configured for the assistant.
+</ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="error" type="object">
+Error information, if applicable.
+<Expandable>
+<ResponseField name="errorCode" type="string">
+Machine-readable error code.
+</ResponseField>
+<ResponseField name="errorMessage" type="string">
+Detailed error message.
+</ResponseField>
+</Expandable>
+</ParamField>
