@@ -82,7 +82,51 @@ func main() {
 	fmt.Printf("rapida calling response %+v", response)
 }
 ```
+```typescript NodeJs 
+import {
+  Invoke,
+  ConnectionConfig,
+  GetEndpoint,
+  InvokeRequest,
+  EndpointDefinition,
+  StringToAny,
+} from "@rapidaai/nodejs";
 
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  invokeEndpoint(connectionCfg)
+})();
+
+
+async function invokeEndpoint(connectionCfg) {
+  const request = new InvokeRequest();
+  let endpointDef = new EndpointDefinition();
+  endpointDef.setEndpoint(2223006263292198912);
+  endpointDef.setVersion("latest");
+  request.setEndpoint(endpointDef);
+  request.getArgsMap().set("can", StringToAny("Prompt_ARGUMENT"));
+  request.getArgsMap().set("can", StringToAny("Prompt_ARGUMENT_2"));
+
+  // metadata
+  request.getMetadataMap().set("track", StringToAny("metadata_to_track"));
+
+  // options
+  request.getOptionsMap().set("model_options", StringToAny("x"));
+  const response = await Invoke(connectionCfg, request);
+  if (response.getError()) {
+    console.error(
+      "Error invoking endpoint:",
+      response.getError()?.getHumanmessage()
+    );
+  } else {
+    console.log("Endpoint invoked successfully:", response.getData());
+  }
+}
+```
 </CodeGroup>
 ### Response
 

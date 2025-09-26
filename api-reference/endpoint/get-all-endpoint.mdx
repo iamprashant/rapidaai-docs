@@ -91,6 +91,49 @@ func main() {
 }
 ```
 
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAllEndpoints,
+  Paginate,
+  Criteria,
+  GetAllEndpointRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllEndpoints(connectionCfg)
+})();
+
+async function getAllEndpoints(connectionCfg) {
+  const request = new GetAllEndpointRequest();
+
+  let paginate = new Paginate();
+  paginate.setPage(0);
+  paginate.setPagesize(20);
+  request.setPaginate(paginate);
+
+  let criteria = new Criteria();
+  criteria.setKey("KEY FOR FILTER");
+  criteria.setValue("MATCHING _VAULE");
+  criteria.setLogic("should" || "must");
+  request.addCriterias(criteria);
+  const response = await GetAllEndpoints(connectionCfg, request);
+  if (response.getError()) {
+    console.error(
+      "Error fetching all endpoints:",
+      response.getError()?.getHumanmessage()
+    );
+  } else {
+    console.log("All Endpoints:", response.getData().toObject());
+  }
+}
+```
+
 </CodeGroup>
 
 ## Response

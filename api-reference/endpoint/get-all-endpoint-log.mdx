@@ -95,6 +95,48 @@ func main() {
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
 ```
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAllEndpointLog,
+  Paginate,
+  Criteria,
+  GetAllEndpointLogRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllEndpointLogs(connectionCfg)
+})();
+async function getAllEndpointLogs(connectionCfg) {
+  const request = new GetAllEndpointLogRequest();
+
+  let paginate = new Paginate();
+  paginate.setPage(0);
+  paginate.setPagesize(20);
+  request.setPaginate(paginate);
+
+  let criteria = new Criteria();
+  criteria.setKey("KEY FOR FILTER");
+  criteria.setValue("MATCHING _VAULE");
+  criteria.setLogic("should" || "must");
+  request.addCriterias(criteria);
+  const response = await GetAllEndpointLog(connectionCfg, request);
+
+  if (response.getError()) {
+    console.error(
+      "Error fetching all endpoint logs:",
+      response.getError()?.getHumanmessage()
+    );
+  } else {
+    console.log("All Endpoint Logs:", response.getData().toObject());
+  }
+}
+```
 
 </CodeGroup>
 

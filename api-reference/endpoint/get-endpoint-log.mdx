@@ -63,6 +63,39 @@ func main() {
 }
 ```
 
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetEndpointLog,
+  GetEndpointLogRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getEndpointLog(connectionCfg)
+})();
+
+async function getEndpointLog(connectionCfg) {
+  const request = new GetEndpointLogRequest();
+  request.setId(2223006263292198912);
+  request.setEndpointid(2223006263292198912);
+  const response = await GetEndpointLog(connectionCfg, request);
+
+  if (response.getError()) {
+    console.error(
+      "Error fetching endpoint log:",
+      response.getError()?.getHumanmessage()
+    );
+  } else {
+    console.log("Endpoint Log Details:", response.getData());
+  }
+}
+```
+
 </CodeGroup>
 
 ## Response
