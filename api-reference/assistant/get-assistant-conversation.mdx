@@ -47,10 +47,8 @@ Source filter for conversations.
 
 ### Usages
 <CodeGroup>
-```go GO
 
-package main
-
+```go Go
 import (
 	"context"
 	"fmt"
@@ -88,6 +86,39 @@ func main() {
 
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+``` typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantConversation,
+  GetAssistantConversationRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantConversation(connectionCfg, "3456789876541212", "567898765456788765", [
+    { field: "metadata" },
+  ]);
+})();
+
+async function getAssistantConversation(connectionCfg, assistantId, conversationId, fields) {
+  const request = new GetAssistantConversationRequest();
+  request.setAssistantId(assistantId);
+  request.setAssistantConversationId(conversationId);
+  request.setSelectors(fields);
+
+  try {
+    const response =
+      await GetAssistantConversation(connectionCfg, request);
+    console.log("Assistant Conversation Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantConversation call:", error);
+  }
 }
 ```
 </CodeGroup>

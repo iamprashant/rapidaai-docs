@@ -23,8 +23,8 @@ Configuration for the client connection.
 </ParamField>
 
 ### Usage
-
 <CodeGroup>
+
 ```go Go
 package main
 import (
@@ -56,6 +56,36 @@ func main() {
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
+```
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantWebhook,
+  GetAssistantWebhookRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantWebhook(45678903456789, 12345676543211);
+})();
+
+async function getAssistantWebhook(connectionCfg, assistantId, webhookId) {
+  const request = new GetAssistantWebhookRequest();
+  request.setAssistantId(assistantId);
+  request.setId(webhookId);
+
+  try {
+    const response = await GetAssistantWebhook(connectionCfg, request);
+    console.log("Assistant Webhook Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantWebhook call:", error);
+  }
+}
+
 ```
 </CodeGroup>
 

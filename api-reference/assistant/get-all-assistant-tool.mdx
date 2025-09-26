@@ -43,8 +43,8 @@ Logic operator for the criteria ("should" | "must").
 </ParamField>
 ### Usage
 <CodeGroup>
-```go Go
 
+```go Go
 import (
 	"context"
 	"fmt"
@@ -83,6 +83,39 @@ func main() {
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
+
+```
+
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantTool,
+  GetAssistantToolRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantTool(connectionCfg, 45678903456789);
+})();
+
+
+async function getAssistantTool(connectionCfg, assistantId, toolId) {
+  const request = new GetAssistantToolRequest();
+  request.setAssistantId(assistantId);
+  request.setId(toolId);
+
+  try {
+    const response = await GetAssistantTool(connectionCfg, request);
+    console.log("Assistant Tool Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantTool call:", error);
+  }
+}
+
 ```
 </CodeGroup>
 ### Response

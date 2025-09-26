@@ -21,6 +21,7 @@ The unique identifier of the assistant associated with the knowledge configurati
 </ParamField>
 ### Usage
 <CodeGroup>
+
 ```go Go
 
 import (
@@ -52,6 +53,37 @@ func main() {
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
+```
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantKnowledge,
+  GetAssistantKnowledgeRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantKnowledge(connectionCfg, 45678903456789, 12345676543211);
+})();
+
+
+async function getAssistantKnowledge(connectionCfg, assistantId, knowledgeId) {
+  const request = new GetAssistantKnowledgeRequest();
+  request.setAssistantId(assistantId);
+  request.setId(knowledgeId);
+
+  try {
+    const response = await GetAssistantKnowledge(connectionCfg, request);
+    console.log("Assistant Knowledge Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantKnowledge call:", error);
+  }
+}
+
 ```
 </CodeGroup>
 ### Response

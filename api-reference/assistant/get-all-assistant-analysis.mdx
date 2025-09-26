@@ -7,43 +7,46 @@ For more authentication options, see: [https://doc.rapida.ai/api-reference/authe
 </Info>
 ### Parameters
 <ParamField body="connectionConfig" type="ConnectionConfig" required>
-Configuration for the client connection.
+  Configuration for the client connection.
 </ParamField>
+
 <ParamField body="request" type="GetAllAssistantAnalysisRequest" required>
-<Expandable>
-<ParamField body="assistantId" type="uint64" required>
-The unique identifier of the assistant to retrieve analyses for.
-</ParamField>
-<ParamField body="paginate" type="Paginate" optional>
-Pagination configuration for the request.
-<Expandable>
-<ParamField body="page" type="uint32">
-Page number to retrieve (0-based).
-</ParamField>
-<ParamField body="pageSize" type="uint32">
-Number of items per page.
-</ParamField>
-</Expandable>
-</ParamField>
-<ParamField body="criterias" type="Criteria[]" optional>
-Array of search criteria to filter results.
-<Expandable>
-<ParamField body="key" type="string">
-The field key to filter on.
-</ParamField>
-<ParamField body="value" type="string">
-The value to filter by.
-</ParamField>
-<ParamField body="logic" type="string">
-The logic operator for the filter. Accepted values: "should" or "must".
-</ParamField>
-</Expandable>
-</ParamField>
-</Expandable>
+  <Expandable>
+    <ParamField body="assistantId" type="uint64" required>
+      The unique identifier of the assistant to retrieve analyses for.
+    </ParamField>
+    <ParamField body="paginate" type="Paginate" optional>
+      Pagination configuration for the request.
+      <Expandable>
+        <ParamField body="page" type="uint32">
+          Page number to retrieve (0-based).
+        </ParamField>
+        <ParamField body="pageSize" type="uint32">
+          Number of items per page.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+    <ParamField body="criterias" type="Criteria[]" optional>
+      Array of search criteria to filter results.
+      <Expandable>
+        <ParamField body="key" type="string">
+          The field key to filter on.
+        </ParamField>
+        <ParamField body="value" type="string">
+          The value to filter by.
+        </ParamField>
+        <ParamField body="logic" type="string">
+          The logic operator for the filter. Accepted values: "should" or "must".
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
 </ParamField>
 ### Usage
 <CodeGroup>
+
 ```go Go
+
 import (
 	"context"
 	"fmt"
@@ -82,6 +85,42 @@ func main() {
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
+```
+```typescript NodeJs
+
+import {
+  ConnectionConfig,
+  Paginate,
+  GetAllAssistantAnalysis,
+  GetAllAssistantAnalysisRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllAssistantAnalysis(connectionCfg, 56789678987890121, 0, 20);
+})();
+
+async function getAllAssistantAnalysis(connectionCfg, assistantId, page = 0, pageSize = 20) {
+  const pagination = new Paginate();
+  pagination.setPage(page);
+  pagination.setPageSize(pageSize);
+
+  const request = new GetAllAssistantAnalysisRequest();
+  request.setAssistantId(assistantId);
+  request.setPaginate(pagination);
+
+  try {
+    const response = await GetAllAssistantAnalysis(request);
+    console.log("All Assistant Analyses Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAllAssistantAnalysis call:", error);
+  }
+}
+
 ```
 </CodeGroup>
 ### Response

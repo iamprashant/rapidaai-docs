@@ -64,6 +64,36 @@ func main() {
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
 ```
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistant,
+  GetAssistantRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistant(connectionCfg, "45678903456789", "3476544567890987654");
+})();
+
+async function getAssistant(connectionCfg, assistantId, providerModelId) {
+  const request = new GetAssistantRequest();
+  request.setId(assistantId);
+  if (providerModelId) {
+    request.setAssistantProviderModelId(providerModelId);
+  }
+  try {
+    const response = await GetAssistant(connectionCfg, request);
+    console.log("Assistant Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistant call:", error);
+  }
+}
+```
 
 </CodeGroup>
 
@@ -234,7 +264,6 @@ Array of webhooks configured for the assistant.
 </ParamField>
 </Expandable>
 </ParamField>
-
 <ParamField body="error" type="object">
 Error information, if applicable.
 <Expandable>

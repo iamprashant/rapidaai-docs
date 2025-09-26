@@ -1,6 +1,6 @@
-----
+---
 title: 'Get Assistant Webhook Log'
-----
+---
 Retrieves a specific webhook log entry by its ID using the Rapida API.
 <Info>
 For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication)
@@ -21,6 +21,7 @@ The unique identifier of the webhook log to retrieve.
 </ParamField>
 ### Usage
 <CodeGroup>
+
 ```go Go
 
 import (
@@ -52,6 +53,38 @@ func main() {
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
 ```
+
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantWebhookLog,
+  GetAssistantWebhookLogRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantWebhookLog(connectionCfg, 45678903456789);
+})();
+
+
+async function getAssistantWebhookLog(connectionCfg, webhookLogId) {
+  const request = new GetAssistantWebhookLogRequest();
+  request.setId(webhookLogId);
+
+  try {
+    const response = await GetAssistantWebhookLog(connectionCfg, request);
+    console.log("Assistant Webhook Log Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantWebhookLog call:", error);
+  }
+}
+
+```
+
 </CodeGroup>
 ### Response
 <ParamField body="code" type="int32">

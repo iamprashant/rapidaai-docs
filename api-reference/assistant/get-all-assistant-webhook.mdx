@@ -4,6 +4,7 @@ title: 'Get All Assistant Webhook'
 Retrieves a list of webhooks associated with a specific assistant using the Rapida API. This endpoint supports pagination and filtering capabilities.
 
 <Info> For more authentication options, see: [https://doc.rapida.ai/api-reference/authentication](https://doc.rapida.ai/api-reference/authentication) </Info>
+
 ### Parameters
 <ParamField body="connectionConfig" type="ConnectionConfig" required>
   Configuration for the client connection.
@@ -45,6 +46,7 @@ Retrieves a list of webhooks associated with a specific assistant using the Rapi
 </ParamField>
 ### Usage
 <CodeGroup>
+
 ```go Go
 package main
 
@@ -86,6 +88,40 @@ func main() {
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
+```
+```typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAllAssistantWebhook,
+  GetAllAssistantWebhookRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllAssistantWebhook(connectionCfg, 45678903456789);
+})();
+
+async function getAllAssistantWebhook(connectionCfg, assistantId, page = 0, pageSize = 20) {
+  const pagination = new Paginate();
+  pagination.setPage(page);
+  pagination.setPageSize(pageSize);
+
+  const request = new GetAllAssistantWebhookRequest();
+  request.setAssistantId(assistantId);
+  request.setPaginate(pagination);
+
+  try {
+    const response = await GetAllAssistantWebhook(connectionCfg, request);
+    console.log("All Assistant Webhooks Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAllAssistantWebhook call:", error);
+  }
+}
+
 ```
 </CodeGroup>
 ### Response

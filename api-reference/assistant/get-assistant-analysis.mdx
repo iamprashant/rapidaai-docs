@@ -21,6 +21,7 @@ The unique identifier of the assistant associated with the analysis.
 </ParamField>
 ###  Usage
 <CodeGroup>
+
 ```go Go
 import (
 	"context"
@@ -52,6 +53,36 @@ func main() {
 	fmt.Printf("Rapida calling response: %+v\n", response)
 }
 ```
+``` typescript NodeJs
+import {
+  ConnectionConfig,
+  GetAssistantAnalysis,
+  GetAssistantAnalysisRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAssistantAnalysis(connectionCfg, 3456789876541212, 567898765456788765);
+})();
+
+async function getAssistantAnalysis(connectionCfg, assistantId, analysisId) {
+  const request = new GetAssistantAnalysisRequest();
+  request.setAssistantId(assistantId);
+  request.setId(analysisId);
+
+  try {
+    const response = await GetAssistantAnalysis(request);
+    console.log("Assistant Analysis Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAssistantAnalysis call:", error);
+  }
+}
+```
+
 </CodeGroup>
 ### Response
 <ParamField body="code" type="int32">

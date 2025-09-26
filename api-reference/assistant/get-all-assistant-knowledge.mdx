@@ -43,6 +43,7 @@ The logic operator for the criteria ("should" or "must").
 </ParamField>
 ### Usage
 <CodeGroup>
+
 ```go Go
 import (
 	"context"
@@ -81,6 +82,42 @@ func main() {
 
 	// Print the response
 	fmt.Printf("Rapida calling response: %+v\n", response)
+}
+```
+```typescript NodeJs
+
+import {
+  ConnectionConfig,
+  Paginate,
+  GetAllAssistantKnowledge,
+  GetAllAssistantKnowledgeRequest,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllAssistantKnowledge(connectionCfg, 56789678987890121, 0, 20);
+})();
+
+
+async function getAllAssistantKnowledge(connectionCfg, assistantId, page = 0, pageSize = 20) {
+  const pagination = new Paginate();
+  pagination.setPage(page);
+  pagination.setPageSize(pageSize);
+
+  const request = new GetAllAssistantKnowledgeRequest();
+  request.setAssistantId(assistantId);
+  request.setPaginate(pagination);
+
+  try {
+    const response = await GetAllAssistantKnowledge(connectionCfg, request);
+    console.log("All Assistant Knowledge Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAllAssistantKnowledge call:", error);
+  }
 }
 ```
 </CodeGroup>

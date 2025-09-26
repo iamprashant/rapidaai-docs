@@ -91,6 +91,41 @@ func main() {
 }
 ```
 
+```typescript NodeJs
+
+import {
+  ConnectionConfig,
+  Paginate,
+  GetAssistant,
+  GetAllAssistant,
+} from "@rapidaai/nodejs";
+
+(async () => {
+  const connectionCfg = ConnectionConfig.DefaultConnectionConfig(
+    ConnectionConfig.WithSDK({
+      ApiKey: process.env.RAPIDA_PROJECT_CREDENTIAL,
+    })
+  );
+  getAllAssistant(connectionCfg);
+})();
+
+async function getAllAssistant(connectionCfg, page = 0, pageSize = 20) {
+  const pagination = new Paginate();
+  pagination.setPage(page);
+  pagination.setPageSize(pageSize);
+
+  const request = new GetAllAssistantRequest();
+  request.setPaginate(pagination);
+
+  try {
+    const response = await GetAllAssistant(connectionCfg, request);
+    console.log("All Assistants Response:", response.toObject());
+  } catch (error) {
+    console.error("Error with GetAllAssistant call:", error);
+  }
+}
+```
+
 </CodeGroup>
 
 ### Response
