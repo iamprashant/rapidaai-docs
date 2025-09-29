@@ -42,6 +42,35 @@ Metadata associated with the request for tracking and analytics.
 
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    EndpointDefinition,
+    InvokeRequest,
+    invoke,
+    string_to_any,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{your-rapida-api-key}")
+)
+
+argument_value = string_to_any("Hello how are you doing")
+metadata_value = string_to_any("metadata_to_track")
+option_value = string_to_any("4567898656789")
+
+response = invoke(
+    client_cfg=connection_config,
+    request=InvokeRequest(
+        endpoint=EndpointDefinition(endpointId=2223006263292198912),
+        args={"can": argument_value},
+        metadata={"test": metadata_value},
+        options={"opts1": option_value},
+    ),
+)
+pprint(response)
+```
+
 ```go Go
 package main
 

@@ -29,6 +29,23 @@ An optional identifier for the provider model associated with the endpoint.
 
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetEndpointRequest,
+    get_endpoint
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{your-rapida-api-key}")
+)
+response = get_endpoint(
+    client_cfg=connection_config,
+    request=GetEndpointRequest(id=2223006263292198912),
+)
+pprint(response)
+```
+
 ```go Go
 package main
 

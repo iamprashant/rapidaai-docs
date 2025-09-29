@@ -47,6 +47,29 @@ Retrieves a list of webhooks associated with a specific assistant using the Rapi
 ### Usage
 <CodeGroup>
 
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAllAssistantWebhookRequest,
+    get_all_assistant_webhook,
+)
+from pprint import pprint
+
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{rapida-api-key}")
+)
+response = get_all_assistant_webhook(
+    client_cfg=connection_config,
+    request=GetAllAssistantWebhookRequest(
+        assistantId="{assistant_id}",
+        paginate=Paginate(page=0, pageSize=20),
+        # criterias=[Criteria(key="KEY", value="VALUE", logic="should")],
+    ),
+)
+pprint(response)
+```
+
 ```go Go
 package main
 

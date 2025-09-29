@@ -29,6 +29,26 @@ The unique identifier of the specific endpoint log entry to retrieve.
 
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetEndpointLogRequest,
+    get_endpoint_log
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{your-rapida-api-key}")
+)
+response = get_endpoint_log(
+    client_cfg=connection_config,
+    request=GetEndpointLogRequest(
+        id=2230958607199895552,
+        endpointId=2223006263292198912,
+    ),
+)
+pprint(response)
+```
+
 ```go Go
 package main
 

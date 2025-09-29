@@ -29,6 +29,26 @@ Optional identifier for the assistant provider model. Use utils.Ptr() to set thi
 
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAssistantRequest,
+    get_assistant,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(
+        "{rapida-api-key}"
+    )
+)
+response = get_assistant(
+    client_cfg=connection_config,
+    request=GetAssistantRequest(id=2227823180112723968),
+)
+pprint(response)
+
+```
+
 ```go Go
 package main
 

@@ -44,6 +44,29 @@ The logic operator for the criteria ("should" or "must").
 ### Usage
 <CodeGroup>
 
+
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAllAssistantKnowledgeRequest,
+    get_all_assistant_knowledge,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{rapida-api-key}")
+)
+response = get_all_assistant_knowledge(
+    client_cfg=connection_config,
+    request=GetAllAssistantKnowledgeRequest(
+        assistantId="{assistant_id}",
+        paginate=Paginate(page=0, pageSize=20),
+        # criterias=[Criteria(key="KEY", value="VALUE", logic="should")],
+    ),
+)
+pprint(response)
+```
+
 ```go Go
 import (
 	"context"

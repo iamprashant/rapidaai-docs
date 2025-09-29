@@ -25,6 +25,28 @@ Configuration for the client connection.
 ### Usage
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAssistantWebhookRequest,
+    get_assistant_webhook,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk(
+        "{rapida-api-key}"
+    )
+)
+response = get_assistant_webhook(
+    client_cfg=connection_config,
+    request=GetAssistantWebhookRequest(
+        id="{assistant_webhook_id}", assistantId="{assistant_id}"
+    ),
+)
+pprint(response)
+
+```
+
 ```go Go
 package main
 import (

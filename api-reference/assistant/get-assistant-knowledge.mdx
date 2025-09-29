@@ -22,6 +22,26 @@ The unique identifier of the assistant associated with the knowledge configurati
 ### Usage
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAssistantKnowledgeRequest,
+    get_assistant_knowledge,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{rapida-api-key}")
+)
+response = get_assistant_knowledge(
+    client_cfg=connection_config,
+    request=GetAssistantKnowledgeRequest(
+        id="{assistant_knowledge_id}", assistantId="{assistant_id}"
+    ),
+)
+pprint(response)
+
+```
+
 ```go Go
 
 import (

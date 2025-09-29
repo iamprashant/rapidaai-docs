@@ -48,6 +48,26 @@ Source filter for conversations.
 ### Usages
 <CodeGroup>
 
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAssistantConversationRequest,
+    get_assistant_conversation,
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{rapida-api-key}")
+)
+response = get_assistant_conversation(
+    client_cfg=connection_config,
+    request=GetAssistantConversationRequest(
+        id="{assistant_conversation_id}", assistantId="{assistant_id}"
+    ),
+)
+pprint(response)
+```
+
+
 ```go Go
 import (
 	"context"

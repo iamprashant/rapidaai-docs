@@ -138,7 +138,7 @@ from pprint import pprint
 
 connectionConfig = ConnectionConfig.default_connection_config(
     ConnectionConfig.with_sdk(os.getenv("RAPIDA_PROJECT_KEY"))
-).with_local()
+)
 call = CreatePhoneCallRequest(
     assistant=AssistantDefinition(assistantId={ASSISTANT_ID}),
     toNumber="{TO_PHONE}",

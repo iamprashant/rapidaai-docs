@@ -53,6 +53,29 @@ The logic operator for the criteria. Accepted values: "should" | "must"
 
 <CodeGroup>
 
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAllEndpointLogRequest,
+    get_all_endpoint_log
+)
+from pprint import pprint
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{your-rapida-api-key}")
+)
+response = get_all_endpoint_log(
+    client_cfg=connection_config,
+    request=GetAllEndpointLogRequest(
+        endpointId=2223006263292198912,
+        paginate=Paginate(page=0, pageSize=20),
+        # criterias=[Criteria(key="KEY", value="VALUE", logic="should")],
+    ),
+)
+pprint(response)
+```
+
+
 ```go Go
 package main
 

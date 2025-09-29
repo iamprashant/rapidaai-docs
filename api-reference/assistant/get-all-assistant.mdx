@@ -49,6 +49,28 @@ The logic operator for the criteria. Accepted values: "should" | "must"
 
 <CodeGroup>
 
+
+```python Python
+from rapida import (
+    ConnectionConfig,
+    GetAllAssistantRequest,
+    get_all_assistant,
+)
+from pprint import pprint
+
+connection_config = ConnectionConfig.default_connection_config(
+    ConnectionConfig.with_sdk("{rapida-api-key}")
+)
+response = get_all_assistant(
+    client_cfg=connection_config,
+    request=GetAllAssistantRequest(
+        paginate=Paginate(page=0, pageSize=20),
+        # criterias=[Criteria(key="KEY", value="VALUE", logic="should")],
+    ),
+)
+pprint(response)
+```
+
 ```go Go
 package main
 
