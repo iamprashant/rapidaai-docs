@@ -220,11 +220,16 @@
             "href": "https://rapida.ai/dashboard"
         }
     },
+    "integrations": {
+        "ga4": {
+            "measurementId": "G-C635KMN11R"
+        }
+    },
     "footer": {
         "socials": {
-            "twitter": "https://twitter.com/rapida",
-            "github": "https://github.com/rapida",
-            "linkedin": "https://www.linkedin.com/company/rapida"
+            "twitter": "https://x.com/rapidaai",
+            "github": "https://github.com/rapidaai",
+            "linkedin": "https://www.linkedin.com/company/rapida-ai/"
         }
     }
 }
