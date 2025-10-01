@@ -77,7 +77,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
 
 	clients "github.com/rapidaai/rapida-go/rapida/clients"
 	rapida_proto "github.com/rapidaai/rapida-go/rapida/clients/protos"
@@ -89,13 +88,13 @@ import (
 func main() {
 	// for more authentication check https://doc.rapida.ai/api-reference/authentication
 	connectionConfig := connections.
-		DefaultconnectionConfig(connections.WithSDK(os.Getenv("RAPIDA_PROJECT_CREDENTIAL"))).WithLocal()
+		DefaultconnectionConfig(connections.WithSDK("RAPIDA_PROJECT_CREDENTIAL")
 	argumentValue, _ := utils.StringToAny("Hello how are you doing")
 	metadataValue, _ := utils.StringToAny("metadata_to_track")
 	optionValue, _ := utils.Int64ToAny(4567898656789)
 	response, _ := clients.Invoke(context.Background(), connectionConfig, &rapida_proto.InvokeRequest{
 		Endpoint: &rapida_proto.EndpointDefinition{
-			EndpointId: 2223006263292198912,
+			EndpointId: RAPIDA_ENDPOINT_ID,
 		},
 		Args: map[string]*anypb.Any{
 			"can": argumentValue,
@@ -108,7 +107,14 @@ func main() {
 		},
 	})
 
-	fmt.Printf("rapida calling response %+v", response)
+  for _, content:= range response.GetMetrics() {
+    fmt.Println(string(content.Name), string(content.Value))
+  }
+
+  for _, content:= range response.GetData() {
+    fmt.Println(string(content.GetContent()))
+  }
+
 }
 ```
 ```typescript NodeJs 
