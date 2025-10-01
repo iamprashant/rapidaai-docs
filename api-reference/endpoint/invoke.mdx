@@ -88,7 +88,7 @@ import (
 func main() {
 	// for more authentication check https://doc.rapida.ai/api-reference/authentication
 	connectionConfig := connections.
-		DefaultconnectionConfig(connections.WithSDK("RAPIDA_PROJECT_CREDENTIAL")
+		DefaultconnectionConfig(connections.WithSDK("RAPIDA_PROJECT_CREDENTIAL"))
 	argumentValue, _ := utils.StringToAny("Hello how are you doing")
 	metadataValue, _ := utils.StringToAny("metadata_to_track")
 	optionValue, _ := utils.Int64ToAny(4567898656789)
