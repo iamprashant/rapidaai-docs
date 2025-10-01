@@ -141,7 +141,7 @@ import {
 async function invokeEndpoint(connectionCfg) {
   const request = new InvokeRequest();
   let endpointDef = new EndpointDefinition();
-  endpointDef.setEndpoint(RAPIDA_ENDPOINT_ID);
+  endpointDef.setEndpointid(RAPIDA_ENDPOINT_ID);
   endpointDef.setVersion("latest");
   request.setEndpoint(endpointDef);
   request.getArgsMap().set("can", StringToAny("Prompt_ARGUMENT"));
