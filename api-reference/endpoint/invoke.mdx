@@ -125,6 +125,7 @@ import {
   InvokeRequest,
   EndpointDefinition,
   StringToAny,
+  ToContentText
 } from "@rapidaai/nodejs";
 
 (async () => {
@@ -140,7 +141,7 @@ import {
 async function invokeEndpoint(connectionCfg) {
   const request = new InvokeRequest();
   let endpointDef = new EndpointDefinition();
-  endpointDef.setEndpoint(2223006263292198912);
+  endpointDef.setEndpoint(RAPIDA_ENDPOINT_ID);
   endpointDef.setVersion("latest");
   request.setEndpoint(endpointDef);
   request.getArgsMap().set("can", StringToAny("Prompt_ARGUMENT"));
@@ -158,7 +159,8 @@ async function invokeEndpoint(connectionCfg) {
       response.getError()?.getHumanmessage()
     );
   } else {
-    console.log("Endpoint invoked successfully:", response.getData());
+    console.log("Endpoint invoked successfully:", ToContentText(response.getDataList()));
+    response.getMetricsList().forEach(x => console.log(x.getName(), x.getValue()))
   }
 }
 ```
