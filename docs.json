@@ -1,7 +1,7 @@
 {
     "$schema": "https://mintlify.com/docs.json",
     "theme": "willow",
-    "name": "rapida.ai documentations",
+    "name": "rapida.ai documentation",
     "colors": {
         "primary": "#2463eb",
         "light": "#2463eb",
@@ -23,21 +23,20 @@
                     {
                         "group": "Introduction",
                         "icon": "book-open",
-                        "tag": "NEW",
                         "pages": [
-                            "introduction/overview",
-                            "introduction/phone",
-                            "introduction/web-widget",
-                            "introduction/web-app"
+                            "introduction/overview"
                         ]
                     },
                     {
-                        "group": "Get Started",
-                        "icon": "rocket",
+                        "group": "Deployments",
+                        "icon": "server",
+                        "tag": "NEW",
                         "pages": [
-                            "get-started/sdk"
+                            "deployments/deployment-options",
+                            "deployments/fully-managed",
+                            "deployments/self-hosted"
                         ]
-                    },
+                    },                    
                     {
                         "group": "Assistants",
                         "icon": "bot",
@@ -111,44 +110,12 @@
                         ]
                     },
                     {
-                        "group": "Model Providers",
-                        "icon": "cpu",
+                        "group": "Rapida SDK",
+                        "icon": "rocket",
                         "pages": [
-                            "integrations/openai",
-                            "integrations/anthropic",
-                            "integrations/cohere",
-                            "integrations/google-ai",
-                            "integrations/azure-openai",
-                            "integrations/voyageai"
+                            "get-started/sdk"
                         ]
-                    },
-                    {
-                        "group": "External Integrations",
-                        "icon": "plug",
-                        "pages": [
-                            "integrations/external/vonage",
-                            "integrations/external/twilio",
-                            "integrations/external/exotel"
-                        ]
-                    },
-                    {
-                        "group": "Rapida Credentials",
-                        "icon": "key",
-                        "pages": [
-                            "integrations/rapida-credentials"
-                        ]
-                    },
-                    {
-                        "group": "Workspace",
-                        "icon": "briefcase",
-                        "pages": [
-                            "workspace/overview",
-                            "workspace/project-management",
-                            "workspace/create-new-project",
-                            "workspace/user-management",
-                            "workspace/invite-a-user"
-                        ]
-                    }
+                    }                   
                 ]
             },
             {

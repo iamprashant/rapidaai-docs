@@ -1,0 +1,55 @@
+---
+title: "Self hosted Deployment"
+description: "How to deploy the Rapida Voice AI Platform on your own infrastructure"
+sidebarTitle: "Self hosted"
+icon: "person-standing"
+---
+
+## Deployment Methods
+
+Choose the deployment method that best suits your infrastructure and requirements:
+- [Local/VM (Docker Compose)](#localvm-docker-compose) - Quickest way to get started
+
+## Local/VM (Docker Compose)
+
+### Requirements
+
+- Git
+- Docker & Docker Compose → use [Docker Desktop](https://www.docker.com/products/docker-desktop/) on Mac or Windows
+- Minimum 4 CPU cores, 16GB RAM, and 30GB storage
+- Internet connection for initial container pulls
+
+
+### Deployment Steps
+1. **Clone the Rapida Voice AI Platform repository**
+   ```bash
+   git clone https://github.com/rapida/rapida-voice-ai.git
+   cd rapida-voice-ai
+    ```
+
+2. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+    ```
+   Edit .env file with your configuration settings
+
+3. **Start the application**
+   ```bash
+    docker compose up
+
+4. **Monitor Startup**
+   ```bash
+    docker compose logs -f
+    ```
+
+    Watch the containers being started and the logs flowing in. After about 2-3 minutes, the rapida-voice-ai container should log "Ready". At this point you can proceed to the next step.
+
+5. **Access the Platform
+    Open your browser and navigate to
+    http://localhost:3000
+
+### Common Issues
+- **Port Conflicts**: If you see errors about ports already in use, modify the port mappings in your .env file
+- **Resource Limitations**: Increase Docker's resource allocation if containers fail to start
+- **Network Issues**: Ensure Docker has proper internet access to pull container images
+
