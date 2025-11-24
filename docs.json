@@ -56,13 +56,6 @@
                                 ]
                             },
                             {
-                                "group": "Knowledge",
-                                "icon": "book",
-                                "pages": [
-                                    "assistants/knowledge/add-knowledge"
-                                ]
-                            },
-                            {
                                 "group": "Analysis",
                                 "icon": "chart-area",
                                 "pages": [
@@ -109,6 +102,45 @@
                             "activity/conversation-logs"
                         ]
                     },
+                    {
+                        "group": "Model Providers",
+                        "icon": "cpu",
+                        "pages": [
+                            "integrations/openai",
+                            "integrations/anthropic",
+                            "integrations/cohere",
+                            "integrations/google-ai",
+                            "integrations/azure-openai",
+                            "integrations/voyageai"
+                        ]
+                    },
+                    {
+                        "group": "External Integrations",
+                        "icon": "plug",
+                        "pages": [
+                            "integrations/external/vonage",
+                            "integrations/external/twilio",
+                            "integrations/external/exotel"
+                        ]
+                    },
+                    {
+                        "group": "Rapida Credentials",
+                        "icon": "key",
+                        "pages": [
+                            "integrations/rapida-credentials"
+                        ]
+                    },
+                    {
+                        "group": "Workspace",
+                        "icon": "briefcase",
+                        "pages": [
+                            "workspace/overview",
+                            "workspace/project-management",
+                            "workspace/create-new-project",
+                            "workspace/user-management",
+                            "workspace/invite-a-user"
+                        ]
+                    },                    
                     {
                         "group": "Rapida SDK",
                         "icon": "rocket",
