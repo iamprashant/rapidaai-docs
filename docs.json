@@ -56,13 +56,6 @@
                                 ]
                             },
                             {
-                                "group": "Knowledge",
-                                "icon": "book",
-                                "pages": [
-                                    "assistants/knowledge/add-knowledge"
-                                ]
-                            },
-                            {
                                 "group": "Analysis",
                                 "icon": "chart-area",
                                 "pages": [
