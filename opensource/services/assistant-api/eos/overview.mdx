@@ -27,8 +27,8 @@ The `Analyze` method receives multiple packet types:
 |-------------|----------------|
 | `SpeechToTextPacket` (interim) | Caller is still speaking — reset the silence timer |
 | `SpeechToTextPacket` (final) | A complete transcript segment — accumulate text, run model inference (if applicable) |
-| `VadSpeechActivityPacket` | VAD detected active speech — reset the silence timer |
-| `InterruptionPacket` | Speech onset detected — reset the silence timer |
+| `InterruptionPacket` (VAD start) | Speech onset detected — block EOS completion while VAD is active |
+| `InterruptionPacket` (VAD end) | Speech offset detected — flush pending EOS if transcript exists |
 | `UserTextPacket` | Text input from web/chat — fire immediately (no silence detection needed) |
 | `LLMResponseDonePacket` | Assistant finished responding — recorded in conversation history (LiveKit only) |
 

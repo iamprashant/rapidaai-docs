@@ -2669,7 +2669,7 @@ components:
           example: 0.5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
           description: Message sent when the assistant could not understand the user input.
           example: "I didn't catch that. Could you repeat that?"
         idealTimeout:
@@ -2731,7 +2731,7 @@ components:
           example: 0.5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
           description: Message sent when the assistant could not understand the user input.
           example: "I didn't catch that. Could you repeat that?"
         idealTimeout:
@@ -2801,7 +2801,7 @@ components:
           example: 0.5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
           description: Message sent when the assistant could not understand the user input.
           example: "I didn't catch that. Could you repeat that?"
         idealTimeout:
@@ -2862,7 +2862,7 @@ components:
           example: 0.5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
           description: Message sent when the assistant could not understand the user input.
           example: "I didn't catch that. Could you repeat that?"
         idealTimeout:
@@ -2932,7 +2932,7 @@ components:
           example: 0.5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
           description: Message sent when the assistant could not understand the user input.
           example: "I didn't catch that. Could you repeat that?"
         idealTimeout:
@@ -3381,7 +3381,7 @@ components:
           maximum: 5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
         inputAudio:
           $ref: "#/components/schemas/DeploymentAudioProvider"
         outputAudio:
@@ -3425,7 +3425,7 @@ components:
           maximum: 5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
         inputAudio:
           $ref: "#/components/schemas/DeploymentAudioProvider"
         outputAudio:
@@ -3475,7 +3475,7 @@ components:
           maximum: 5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
         inputAudio:
           $ref: "#/components/schemas/DeploymentAudioProvider"
         outputAudio:
@@ -3519,7 +3519,7 @@ components:
           maximum: 5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
         inputAudio:
           $ref: "#/components/schemas/DeploymentAudioProvider"
         outputAudio:
@@ -3567,7 +3567,7 @@ components:
           maximum: 5
         unclearInputMessage:
           type: string
-          maxLength: 250
+          maxLength: 500
         whatsappProviderName:
           type: string
         whatsappOptions:

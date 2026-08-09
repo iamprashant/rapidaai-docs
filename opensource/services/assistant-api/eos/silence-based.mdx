@@ -23,14 +23,16 @@ api/assistant-api/internal/end_of_speech/internal/silence_based/
 
 1. A single worker goroutine manages a timer
 2. When a final `SpeechToTextPacket` arrives, text is accumulated and the timer is set to `timeout`
-3. When a `VadSpeechActivityPacket` or interim `SpeechToTextPacket` arrives, the timer resets
-4. When the timer expires, `EndOfSpeechPacket` fires with the accumulated text
-5. State resets for the next turn
+3. When an interim `SpeechToTextPacket` arrives, the timer resets
+4. When VAD is active, the timer stores a pending final instead of completing immediately
+5. When VAD ends, pending EOS fires immediately; if VAD end is missing, the recovery timer fires it
+6. State resets for the next turn
 
 ```
 STT final → accumulate text → start timer (1000ms)
-VAD activity → reset timer
 STT interim → reset timer
+VAD start → block completion
+VAD end → flush pending final
 ...silence...
 Timer fires → EndOfSpeechPacket → LLM starts
 ```

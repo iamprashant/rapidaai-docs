@@ -4,7 +4,7 @@ description: "VAD interface, factory function, providers, and model setup in ass
 sidebarTitle: "Overview"
 ---
 
-Voice Activity Detection (VAD) runs on every audio frame before STT. It determines whether the caller is speaking, emits interruption signals for barge-in, and sends speech activity heartbeats that keep the End of Speech timer from firing during active speech.
+Voice Activity Detection (VAD) runs on every audio frame before STT. It determines whether the caller is speaking and emits interruption start/end signals for barge-in and turn lifecycle handling.
 
 All three VAD providers run locally using ONNX or native C libraries. No external API calls, no credentials, no added latency.
 

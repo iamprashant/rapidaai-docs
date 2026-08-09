@@ -37,7 +37,7 @@ Silence → Possible Speech → Speech → Possible Silence → Silence
 ```
 
 5. Speech onset is confirmed only after `MinSpeechFrame` consecutive frames above threshold — this filters out short noise bursts
-6. Same packet emission: `InterruptionPacket` on confirmed onset, `VadSpeechActivityPacket` heartbeats during confirmed speech
+6. Same packet emission: `InterruptionPacket` start/end events on confirmed speech onset and offset
 
 ---
 

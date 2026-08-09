@@ -27,18 +27,18 @@ api/assistant-api/internal/vad/internal/silero_vad/
 1. Incoming LINEAR16 bytes are converted to `float32` samples in the range `[-1.0, 1.0]`
 2. Samples are fed to the Silero ONNX detector which produces speech segments with start/end timestamps
 3. On speech onset, an `InterruptionPacket` is emitted (triggers barge-in)
-4. While speech is active, `VadSpeechActivityPacket` heartbeats keep the EOS timer from firing
+4. On speech offset, an `InterruptionPacket` end event is emitted so EOS can release any pending final transcript
 
 ```go
 // Simplified flow
 samples := linear16ToFloat32(pkt.Audio)
-segments, isSpeaking, _ := detector.Detect(samples)
+segments, _, _ := detector.Detect(samples)
 
 if hasSpeechStart(segments) {
     callback(InterruptionPacket{...})   // barge-in
 }
-if isSpeaking {
-    callback(VadSpeechActivityPacket{}) // EOS timer reset
+if hasSpeechEnd(segments) {
+    callback(InterruptionPacket{...})   // end of active VAD speech
 }
 ```
 

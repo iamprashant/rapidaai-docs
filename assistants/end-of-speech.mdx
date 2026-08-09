@@ -255,10 +255,10 @@ VAD and EOS work together but serve different purposes:
 |-------|-----|-----|
 | **What it detects** | "Is the caller making sound right now?" | "Has the caller finished their complete thought?" |
 | **Granularity** | Frame-by-frame (every 10–16 ms) | Per-utterance (after each STT transcript) |
-| **Output** | Speech onset/offset events, activity heartbeats | End-of-speech signal that triggers LLM response |
+| **Output** | Speech onset/offset events | End-of-speech signal that triggers LLM response |
 | **Affected by** | Audio signal quality, background noise | Pause patterns, speech content, conversation context |
 
-The VAD continuously sends **speech activity heartbeats** while the caller is speaking. These heartbeats reset the EOS silence timer, preventing the EOS from firing while the caller is actively speaking. When speech stops, the VAD stops sending heartbeats, and the EOS timer begins counting down.
+VAD sends speech start and end events. EOS uses VAD start to block premature completion while speech is active, and VAD end to flush a pending final transcript when one exists. Interim STT resets the EOS timer while more transcript text is still arriving.
 
 For the model-based EOS providers (Pipecat and LiveKit), the EOS also receives the final STT transcript. On receiving a final transcript, the model runs inference to decide whether to use the quick timeout (turn complete) or extended timeout (still speaking).
 
