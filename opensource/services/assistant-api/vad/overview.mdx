@@ -55,9 +55,11 @@ All three providers use the same configuration keys:
 | Option Key | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `microphone.vad.provider` | string | `silero_vad` | Provider selection |
-| `microphone.vad.threshold` | float | `0.5` | Speech probability threshold (0.3–1.0). Lower = more sensitive. |
-| `microphone.vad.min_silence_frame` | float | `20` | Consecutive silence frames before ending a speech segment. Each frame = 10 ms. Default 20 = 200 ms. |
-| `microphone.vad.min_speech_frame` | float | `8` | Consecutive speech frames before confirming speech onset. Each frame = 10 ms. Default 8 = 80 ms. |
+| `microphone.vad.confidence` | float | `0.7` | Speech probability threshold. Lower = more sensitive. |
+| `microphone.vad.start_secs` | float | `0.2` | Continuous speech duration before confirming speech start. |
+| `microphone.vad.stop_secs` | float | `0.2` | Continuous non-speech duration before confirming speech end. |
+
+`start_secs` and `stop_secs` are public duration values. Each provider converts them to its native VAD frame count internally.
 
 ---
 

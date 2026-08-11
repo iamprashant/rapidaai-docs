@@ -36,7 +36,7 @@ api/assistant-api/internal/vad/internal/firered_vad/
 Silence → Possible Speech → Speech → Possible Silence → Silence
 ```
 
-5. Speech onset is confirmed only after `MinSpeechFrame` consecutive frames above threshold — this filters out short noise bursts
+5. Speech onset is confirmed only after the configured `start_secs` duration above the confidence threshold — this filters out short noise bursts
 6. Same packet emission: `InterruptionPacket` start/end events on confirmed speech onset and offset
 
 ---
@@ -45,9 +45,11 @@ Silence → Possible Speech → Speech → Possible Silence → Silence
 
 | Option Key | Default | Range | Description |
 |-----------|---------|-------|-------------|
-| `microphone.vad.threshold` | `0.5` | 0.3–1.0 | Speech probability threshold (applied after smoothing) |
-| `microphone.vad.min_silence_frame` | `20` | 1–30 | Silence frames before segment end (each frame = 10 ms) |
-| `microphone.vad.min_speech_frame` | `8` | 1–20 | Speech frames before confirming onset (each frame = 10 ms) |
+| `microphone.vad.confidence` | `0.7` | 0–1 | Speech probability threshold applied after smoothing |
+| `microphone.vad.start_secs` | `0.2` | 0–2 | Continuous speech duration before confirming speech start |
+| `microphone.vad.stop_secs` | `0.2` | 0–2 | Continuous non-speech duration before confirming speech end |
+
+Internally, FireRed converts `start_secs` and `stop_secs` into its postprocessor frame counts. Each FireRed postprocessor frame represents 10 ms.
 
 ### Internal Postprocessor Defaults
 
@@ -56,7 +58,7 @@ These are not configurable via assistant options — they are hardcoded in `Defa
 | Setting | Value | Description |
 |---------|-------|-------------|
 | SmoothWindowSize | 5 | Moving average window for probability smoothing |
-| SpeechThreshold | 0.4 | Smoothed probability threshold (separate from the configurable threshold) |
+| SpeechThreshold | 0.7 | Default smoothed probability threshold used when `microphone.vad.confidence` is unset |
 | PadStartFrame | 5 | Frames padded at speech start to capture onset audio (50 ms) |
 | MaxSpeechFrame | 2000 | Max consecutive speech frames before forced reset (20 seconds) |
 

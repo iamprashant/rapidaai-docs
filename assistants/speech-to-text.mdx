@@ -103,7 +103,7 @@ Start with:
 |------|----------------|
 | Model | Real-time or telephony-friendly model. |
 | Noise cancellation | RNNoise enabled. |
-| VAD | Silero VAD with balanced threshold. |
+| VAD | Silero VAD with balanced confidence and 0.2s start/stop windows. |
 | EOS | Pipecat Smart Turn or Silence-Based at 700-1000 ms. |
 
 ### Web widget and web app
@@ -123,9 +123,9 @@ Start with:
 
 | Symptom | Likely cause | What to adjust |
 |---------|--------------|----------------|
-| Transcripts miss quiet speech | VAD threshold too high or wrong STT model | Lower VAD threshold and test another STT model. |
-| Transcripts include background noise | Noise cancellation off or VAD too sensitive | Enable RNNoise and raise VAD threshold. |
-| User words are cut off at the beginning | VAD speech confirmation too strict | Lower minimum speech frames or VAD threshold. |
+| Transcripts miss quiet speech | VAD confidence too high or wrong STT model | Lower VAD confidence and test another STT model. |
+| Transcripts include background noise | Noise cancellation off or VAD too sensitive | Enable RNNoise and raise VAD confidence. |
+| User words are cut off at the beginning | VAD speech confirmation too strict | Reduce VAD start seconds or lower VAD confidence. |
 | Assistant responds to incomplete transcript | EOS too aggressive | Tune [End of Speech Detection](/assistants/end-of-speech). |
 | Multilingual users are transcribed incorrectly | Language mismatch | Set the correct language or use a multilingual-capable provider. |
 

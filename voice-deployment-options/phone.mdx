@@ -74,7 +74,8 @@ The phone deployment wizard walks you through four steps:
 
     **Voice Activity Detection (VAD)**
     - **VAD Provider** — Silero VAD (default) for detecting when the caller starts and stops speaking
-    - **VAD Threshold** — Sensitivity threshold (0.0-1.0, default: 0.8). Higher values require more confident speech detection
+    - **VAD Confidence** — Speech probability required for detection (default: 0.7). Higher values require more confident speech detection
+    - **VAD Start/Stop Seconds** — Continuous speech/non-speech duration used to confirm speech boundaries (default: 0.2s each)
 
     **Background Noise Removal**
     - **Noise Cancellation Provider** — RNNoise (default). Removes background audio before transcription for improved accuracy

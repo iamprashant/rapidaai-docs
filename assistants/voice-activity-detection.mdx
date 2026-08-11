@@ -51,16 +51,16 @@ Rapida supports three VAD providers. Each shares the same three configuration pa
 
 | Parameter | Config Key | Default | Range | Description |
 |-----------|-----------|---------|-------|-------------|
-| VAD Threshold | `microphone.vad.threshold` | `0.5` | 0.3 – 1.0 | Speech probability threshold. Each audio frame produces a probability score between 0 and 1. Frames above this threshold are classified as speech. |
-| Min Silence Frames | `microphone.vad.min_silence_frame` | `20` | 1 – 30 | Minimum consecutive silence frames before ending a speech segment. Each frame is 10 ms, so the default of 20 = 200 ms of silence required to close a speech segment. |
-| Min Speech Frames | `microphone.vad.min_speech_frame` | `8` | 1 – 20 | Minimum consecutive speech frames before confirming speech onset. Each frame is 10 ms, so the default of 8 = 80 ms of speech required before triggering an interruption. |
+| Confidence | `microphone.vad.confidence` | `0.7` | 0.05 – 0.95 | Speech probability threshold. Each VAD frame produces a probability score between 0 and 1. Frames at or above this value are classified as speech. |
+| Start Seconds | `microphone.vad.start_secs` | `0.2` | 0 – 2 | Continuous speech duration before confirming speech onset and triggering an interruption. |
+| Stop Seconds | `microphone.vad.stop_secs` | `0.2` | 0 – 2 | Continuous non-speech duration before ending the active speech segment. |
 
 <Tip>
-**Threshold tuning guide:**
-- **0.3 – 0.4** — Very sensitive. Use only in extremely quiet, controlled environments (e.g., a recording studio). Will pick up breathing, lip smacks, and faint background sounds.
-- **0.5 – 0.6** — Balanced. Good for most phone and web deployments. The default of 0.5 works well for clean audio; raise to 0.6 for moderate background noise.
-- **0.7 – 0.8** — Strict. Use in noisy environments (call centres, cars, outdoor) to reduce false triggers. May miss very quiet or soft-spoken callers.
-- **0.9 – 1.0** — Very strict. Only loud, clear speech triggers detection. Risk of missing normal conversational speech.
+**Confidence tuning guide:**
+- **0.3 – 0.4** — Very sensitive. Use only in extremely quiet, controlled environments. Will pick up breathing, lip smacks, and faint background sounds.
+- **0.5 – 0.6** — Balanced for clean audio.
+- **0.7 – 0.8** — Strict. This is the default range and reduces false triggers in typical phone and web audio.
+- **0.9 – 0.95** — Very strict. Only loud, clear speech triggers detection. Risk of missing normal conversational speech.
 </Tip>
 
 ---
@@ -81,13 +81,9 @@ TEN VAD is part of the [TEN Framework](https://github.com/TEN-framework/ten-vad)
 
 | Parameter | Config Key | Default | Range | Description |
 |-----------|-----------|---------|-------|-------------|
-| VAD Threshold | `microphone.vad.threshold` | `0.5` | 0.3 – 1.0 | Speech probability threshold. Same semantics as Silero — frames above this value are classified as speech. |
-| Min Silence Frames | `microphone.vad.min_silence_frame` | `20` | 1 – 30 | Minimum consecutive silence frames (each ~10 ms) before ending a speech segment. Default 20 = 200 ms. |
-| Min Speech Frames | `microphone.vad.min_speech_frame` | `8` | 1 – 20 | Minimum consecutive speech frames (each ~10 ms) before confirming speech onset. Default 8 = 80 ms. |
-
-<Note>
-TEN VAD uses a hysteresis offset of 0.15 for speech offset detection — speech ends only when the probability drops below `threshold - 0.15`. This prevents rapid toggling at the threshold boundary during natural speech.
-</Note>
+| Confidence | `microphone.vad.confidence` | `0.7` | 0 – 1 | Speech probability threshold. Same semantics as Silero — frames at or above this value are classified as speech. |
+| Start Seconds | `microphone.vad.start_secs` | `0.2` | 0 – 2 | Continuous speech duration before confirming speech onset. |
+| Stop Seconds | `microphone.vad.stop_secs` | `0.2` | 0 – 2 | Continuous non-speech duration before ending a speech segment. |
 
 ---
 
@@ -107,12 +103,12 @@ TEN VAD uses a hysteresis offset of 0.15 for speech offset detection — speech 
 
 | Parameter | Config Key | Default | Range | Description |
 |-----------|-----------|---------|-------|-------------|
-| Speech Threshold | `microphone.vad.threshold` | `0.5` | 0.3 – 1.0 | Probability threshold for speech detection. Applied after smoothing — the postprocessor uses a moving average window (size 5) to smooth raw probabilities before comparing against this threshold. |
-| Min Silence Frames | `microphone.vad.min_silence_frame` | `20` | 1 – 30 | Minimum consecutive silence frames before ending a speech segment. Each frame is 10 ms. Directly controls the `MinSilenceFrame` in the postprocessor state machine. |
-| Min Speech Frames | `microphone.vad.min_speech_frame` | `8` | 1 – 20 | Minimum consecutive speech frames before confirming speech onset. Each frame is 10 ms. Controls how long the postprocessor stays in the "Possible Speech" state before transitioning to confirmed "Speech". |
+| Confidence | `microphone.vad.confidence` | `0.7` | 0 – 1 | Probability threshold for speech detection. Applied after smoothing — the postprocessor uses a moving average window (size 5) to smooth raw probabilities before comparing against this value. |
+| Start Seconds | `microphone.vad.start_secs` | `0.2` | 0 – 2 | Continuous speech duration before confirming speech onset. Internally converted to FireRed's 10 ms postprocessor frames. |
+| Stop Seconds | `microphone.vad.stop_secs` | `0.2` | 0 – 2 | Continuous non-speech duration before ending a speech segment. Internally converted to FireRed's 10 ms postprocessor frames. |
 
 <Info>
-FireRed VAD's postprocessor internally uses a smoothed speech threshold of `0.4` (after moving average) and pads speech start by 5 frames (50 ms) to capture the onset of the utterance that triggered detection. The max speech frame limit is 2000 frames (20 seconds) — after which a forced speech end is emitted.
+FireRed VAD's postprocessor pads speech start by 5 frames (50 ms) to capture the onset of the utterance that triggered detection. The max speech frame limit is 2000 frames (20 seconds) — after which a forced speech end is emitted.
 </Info>
 
 ---
@@ -136,24 +132,24 @@ FireRed VAD's postprocessor internally uses a smoothed speech threshold of `0.4`
 
 ## How VAD parameters affect the conversation
 
-### Min Speech Frames — barge-in sensitivity
+### Start Seconds — barge-in sensitivity
 
-The `min_speech_frame` parameter controls how quickly the assistant detects that a caller has started speaking and triggers a **barge-in** (interrupting assistant speech).
+The `start_secs` parameter controls how quickly the assistant detects that a caller has started speaking and triggers a **barge-in** (interrupting assistant speech).
 
-- **Lower values (1–4 frames, 10–40 ms):** The assistant stops speaking almost instantly when the caller makes any sound. Good for fast-paced IVR-style interactions. Risk: short sounds like coughs or "um" trigger interruption.
-- **Default (8 frames, 80 ms):** Balanced. Requires ~80 ms of sustained speech before interrupting the assistant. Filters out most accidental sounds.
-- **Higher values (12–20 frames, 120–200 ms):** The assistant only stops when the caller has clearly started a full utterance. Good for avoiding false interruptions during one-way information delivery (e.g., reading terms and conditions). Risk: the caller has to speak for longer before the assistant stops.
+- **Lower values (0.05–0.1 s):** The assistant stops speaking quickly when the caller makes sound. Good for fast-paced IVR-style interactions. Risk: short sounds like coughs or "um" trigger interruption.
+- **Default (0.2 s):** Requires about 200 ms of sustained speech before interrupting the assistant. Filters out most accidental sounds.
+- **Higher values (0.3–0.5 s):** The assistant only stops when the caller has clearly started a full utterance. Good for avoiding false interruptions during one-way information delivery. Risk: the caller has to speak longer before the assistant stops.
 
-### Min Silence Frames — speech segment boundary
+### Stop Seconds — speech segment boundary
 
-The `min_silence_frame` parameter controls how long the VAD waits in silence before considering a speech segment finished.
+The `stop_secs` parameter controls how long the VAD waits in silence before considering a speech segment finished.
 
-- **Lower values (5–10 frames, 50–100 ms):** Speech segments are split at short pauses. Words spoken with natural gaps between them may be split into multiple segments.
-- **Default (20 frames, 200 ms):** Covers typical intra-sentence pauses. Most natural speech is captured as a single continuous segment.
-- **Higher values (25–30 frames, 250–300 ms):** Only longer pauses end a segment. Good for speakers who pause frequently mid-sentence.
+- **Lower values (0.05–0.1 s):** Speech segments are split at short pauses. Words spoken with natural gaps between them may be split into multiple segments.
+- **Default (0.2 s):** Covers typical intra-sentence pauses. Most natural speech is captured as a single continuous segment.
+- **Higher values (0.3–0.5 s):** Only longer pauses end a segment. Good for speakers who pause frequently mid-sentence.
 
 <Warning>
-VAD silence frames are different from End of Speech timeout. VAD determines **speech segment boundaries** (is the caller actively making sound right now?). End of Speech determines **turn boundaries** (has the caller finished their complete thought?). Both work together — VAD feeds activity signals to the EOS detector.
+VAD stop seconds are different from End of Speech timeout. VAD determines **speech segment boundaries** (is the caller actively making sound right now?). End of Speech determines **turn boundaries** (has the caller finished their complete thought?). Both work together — VAD feeds activity signals to the EOS detector.
 </Warning>
 
 ---

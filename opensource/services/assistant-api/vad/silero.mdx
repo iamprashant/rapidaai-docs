@@ -48,11 +48,11 @@ if hasSpeechEnd(segments) {
 
 | Option Key | Default | Range | Description |
 |-----------|---------|-------|-------------|
-| `microphone.vad.threshold` | `0.5` | 0.3–1.0 | Speech probability threshold |
-| `microphone.vad.min_silence_frame` | `20` | 1–30 | Silence frames before segment end (× 10 ms) |
-| `microphone.vad.min_speech_frame` | `8` | 1–20 | Speech frames before segment start (× 10 ms) |
+| `microphone.vad.confidence` | `0.7` | 0.05–0.95 | Speech probability threshold |
+| `microphone.vad.start_secs` | `0.2` | 0–2 | Continuous speech duration before confirming speech start |
+| `microphone.vad.stop_secs` | `0.2` | 0–2 | Continuous non-speech duration before confirming speech end |
 
-Internally, frame counts are converted to milliseconds: `min_silence_frame × 10 = MinSilenceDurationMs`, `min_speech_frame × 10 = SpeechPadMs`.
+Internally, `start_secs` and `stop_secs` are rounded to Silero's native frame windows: 512 samples at 16 kHz or 256 samples at 8 kHz.
 
 ---
 

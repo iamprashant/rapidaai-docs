@@ -63,12 +63,12 @@ Noise cancellation and VAD should be tuned together.
 
 | Symptom | What to adjust |
 |---------|----------------|
-| Background noise interrupts assistant speech | Keep RNNoise enabled and raise VAD threshold. |
-| Quiet speakers are missed | Keep RNNoise enabled, then lower VAD threshold slightly. |
-| Words are clipped at the start | Lower VAD threshold or reduce minimum speech frames. |
-| Speech gets split into multiple chunks | Increase VAD minimum silence frames. |
+| Background noise interrupts assistant speech | Keep RNNoise enabled and raise VAD confidence. |
+| Quiet speakers are missed | Keep RNNoise enabled, then lower VAD confidence slightly. |
+| Words are clipped at the start | Lower VAD confidence or reduce VAD start seconds. |
+| Speech gets split into multiple chunks | Increase VAD stop seconds. |
 
-See [Voice Activity Detection](/assistants/voice-activity-detection) for VAD provider and threshold details.
+See [Voice Activity Detection](/assistants/voice-activity-detection) for VAD provider and confidence/start/stop tuning details.
 
 ## Channel guidance
 
@@ -82,9 +82,9 @@ See [Voice Activity Detection](/assistants/voice-activity-detection) for VAD pro
 
 | Symptom | Likely cause | What to do |
 |---------|--------------|------------|
-| Transcript includes background words or sounds | Noise cancellation off or VAD too sensitive | Enable RNNoise and raise VAD threshold. |
+| Transcript includes background words or sounds | Noise cancellation off or VAD too sensitive | Enable RNNoise and raise VAD confidence. |
 | User speech sounds processed or thin | Noise suppression too aggressive for the input | Test with RNNoise disabled for clean microphones. |
-| Assistant still interrupts on noise | VAD threshold too low | Raise VAD threshold after enabling RNNoise. |
+| Assistant still interrupts on noise | VAD confidence too low | Raise VAD confidence after enabling RNNoise. |
 | STT accuracy is still poor | Wrong language/model, bad input audio, or clipped speech | Check [Speech-to-Text](/assistants/speech-to-text) and VAD settings. |
 
 ## Related
